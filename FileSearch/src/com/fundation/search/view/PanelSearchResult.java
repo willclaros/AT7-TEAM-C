@@ -23,7 +23,8 @@ import javax.swing.JTable;
 /**
  * Panel that creates the display panel of search results.
  *
- * @author William Claros Revollo
+ * @author William Claros Revollo - AT - [07]
+ * @version 1.0.
  */
 public class PanelSearchResult extends JPanel {
 
@@ -42,17 +43,11 @@ public class PanelSearchResult extends JPanel {
         String column[] = {"NAME", "EXT", "SIZE", "DATE"};
         JTable table = new JTable(data, column);
         int borderSpace = 5;
-
         table.setSize(width, 700);
-
         this.add(table);
-
         JScrollPane scroll = new JScrollPane(table);
         scroll.setSize(width - (borderSpace * 2), height);
         scroll.setLocation(0, borderSpace);
-        ;
         add(scroll);
-
     }
 }
-

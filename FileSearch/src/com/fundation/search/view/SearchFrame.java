@@ -20,8 +20,8 @@ import javax.swing.JPanel;
 /**
  * Class that determines the size of the Frame.
  *
- * @author William Claros Revollo
- *
+ * @author William Claros Revollo - AT - [07]
+ * @version 1.0.
  */
 public class SearchFrame extends JFrame {
 

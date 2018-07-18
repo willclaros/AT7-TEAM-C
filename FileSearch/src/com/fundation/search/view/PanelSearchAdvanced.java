@@ -27,8 +27,8 @@ import javax.swing.JTextField;
 /**
  * Class that creates the advanced search panel.
  *
- * @author William Claros Revollo.
- *
+ * @author William Claros Revollo - AT - [07]
+ * @version 1.0.
  */
 public class PanelSearchAdvanced extends JPanel {
 
@@ -190,4 +190,3 @@ public class PanelSearchAdvanced extends JPanel {
         add(intervalDateEnd);
     }
 }
-

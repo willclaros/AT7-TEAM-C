@@ -28,8 +28,8 @@ import javax.swing.JTextField;
 /**
  * Class that creates the basic search panel.
  *
- * @author William Claros Revollo
- *
+ * @author William Claros Revollo - AT - [07]
+ * @version 1.0.
  */
 public class PanelSearchBasic extends JPanel implements ActionListener {
 
@@ -122,4 +122,3 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         }
     }
 }
-
