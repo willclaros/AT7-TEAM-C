@@ -1,4 +1,4 @@
-/.gradle
+/.gradle/
 /.idea/
 /build/
 /out/
@@ -12,3 +12,4 @@
 *.md
 *txt
 *.bat
+
