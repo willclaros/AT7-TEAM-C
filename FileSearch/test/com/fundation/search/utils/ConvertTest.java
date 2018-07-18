@@ -30,6 +30,7 @@ public class ConvertTest {
      * this is method ini.
      */
     public void before(){
+
         test = new Convert();
     }
 

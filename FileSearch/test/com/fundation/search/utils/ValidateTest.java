@@ -32,6 +32,7 @@ public class ValidateTest {
      */
     @Before
     public void before(){
+
         test = new Validate();
     }
 

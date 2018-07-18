@@ -1,13 +1,14 @@
 /.gradle/
-     /.idea/
-     /build/
-     /out/
-     *.iml
-     *.xml
-     *.iml
-     *.log
-     *.class
-     *.lck
-     *.md
-     *txt
-     *.bat
+/.idea/
+/build/
+/out/
+/classes/
+*.iml
+*.xml
+*.iml
+*.log
+*.class
+*.lck
+*.md
+*txt
+*.bat

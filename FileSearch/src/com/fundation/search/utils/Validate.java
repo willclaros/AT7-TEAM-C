@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
  * @version 1.0.
  */
 public class Validate {
+
 	/**
 	 * This is method validate a path.
 	 * 

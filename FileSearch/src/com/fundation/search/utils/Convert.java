@@ -22,6 +22,7 @@ public class Convert {
 	 * This is a date constant.
 	 */
 	private static final int SIZE = 1024;
+
 	/**
 	 * This is a convert of units.
 	 * @param num is a size of a file.
