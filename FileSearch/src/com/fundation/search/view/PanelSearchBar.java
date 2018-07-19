@@ -27,15 +27,10 @@ public class PanelSearchBar extends JPanel {
 
     /**
      * Constructor that creates the primary panels that will contain the search panels.
-     *
-     * @param width  Parameters that we use to initialize the widths of the principal panels.
-     * @param height Parameters that we use to initialize the highs of the principal panels.
      */
-    public PanelSearchBar(int width, int height) {
-        this.setBackground(Color.cyan);
+    public PanelSearchBar() {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        int middleWidth = width / 2;
-        this.add(new PanelSearchBasic(middleWidth, height));
-        this.add(new PanelSearchAdvanced(middleWidth, height));
+        this.add(new PanelSearchBasic());
+        this.add(new PanelSearchAdvanced());
     }
 }

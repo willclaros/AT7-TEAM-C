@@ -16,6 +16,8 @@ package com.fundation.search.view;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.Color;
 
 /**
  * Class that determines the size of the Frame.
@@ -25,25 +27,25 @@ import javax.swing.JPanel;
  */
 public class SearchFrame extends JFrame {
 
+    private final Dimension dim = getToolkit().getScreenSize();
     private JPanel panelGeneral;
 
     /**
      * Constructor to create the main Frame.
      */
     public SearchFrame() {
-        super("File Search");
         settingMainFrame();
         initComponent();
-
     }
 
     /**
      * General settings of the Frame.
      */
     private void settingMainFrame() {
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setTitle("File Search");
+        setSize(dim);
+        setUndecorated(false);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(null);
         setVisible(true);
     }
 
@@ -51,8 +53,10 @@ public class SearchFrame extends JFrame {
      * General configurations of the main panel that will contain the other panels.
      */
     private void initComponent() {
-        panelGeneral = new MainPanel(1400, 700);
-        this.setContentPane(panelGeneral);
+        panelGeneral = new MainPanel(dim);
+        panelGeneral.setBackground(Color.GREEN);
+        panelGeneral.setSize(dim);
+        add(panelGeneral);
     }
 
     /**

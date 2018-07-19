@@ -44,12 +44,8 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Constructor that creates the basic search panel.
-     *
-     * @param width  parameter that receives the width of the panel.
-     * @param height parameter that receives the height of the panel.
      */
-    public PanelSearchBasic(int width, int height) {
-        this.setSize(new Dimension(width, height));
+    public PanelSearchBasic() {
         settingPanel();
         initComponent();
     }
@@ -102,7 +98,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     }
 
     /**
-     * Override the method of the ActionListener interface to search for a document by PATH.
+     * Override the method of the ActionListener interface to search for a  document by PATH.
      */
     @Override
     public void actionPerformed(ActionEvent e) {

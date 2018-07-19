@@ -66,12 +66,8 @@ public class PanelSearchAdvanced extends JPanel {
 
     /**
      * Method that creates the advanced search panel.
-     *
-     * @param width  parameter that defines the width of the panel.
-     * @param height parameter that defines the height of the panel.
      */
-    public PanelSearchAdvanced(int width, int height) {
-        this.setSize(new Dimension(width, height));
+    public PanelSearchAdvanced() {
         settingPanelAdvanced();
         initComponent();
     }
