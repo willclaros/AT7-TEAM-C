@@ -31,8 +31,8 @@ public class PanelSearchResult extends JPanel {
     /**
      * Constructor that creates the display panel of search results.
      *
-     * @param width  Parameters to create the results panel, the width.
-     * @param height Parameters to create the results panel, the height.
+     * @param width  Parameters to create the results panel the width.
+     * @param height Parameters to create the results panel the height.
      */
     public PanelSearchResult(int width, int height) {
         this.setLayout(null);

@@ -37,14 +37,20 @@ public class SearchFrame extends JFrame {
 
     }
 
-    private void settingMainFrame(){
+    /**
+     * General settings of the Frame.
+     */
+    private void settingMainFrame() {
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
         setVisible(true);
     }
 
-    private void initComponent(){
+    /**
+     * General configurations of the main panel that will contain the other panels.
+     */
+    private void initComponent() {
         panelGeneral = new MainPanel(1400, 700);
         this.setContentPane(panelGeneral);
     }
@@ -52,11 +58,9 @@ public class SearchFrame extends JFrame {
     /**
      * Main method to initialize the View.
      *
-     * @param args
-     *            argument.
+     * @param args argument that we use by default when we use a main method.
      */
     public static void main(String[] args) {
         new SearchFrame();
     }
-
 }

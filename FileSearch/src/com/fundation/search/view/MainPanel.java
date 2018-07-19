@@ -28,10 +28,8 @@ public class MainPanel extends JPanel {
      * Constructor that creates the primary panels that will contain the search
      * panels.
      *
-     * @param width  Parameters that we use to initialize the widths of the
-     *               secondary panels.
-     * @param height Parameters that we use to initialize the highs of the
-     *               secondary panels.
+     * @param width  Parameters that we use to initialize the widths of the secondary panels.
+     * @param height Parameters that we use to initialize the highs of the secondary panels.
      */
     public MainPanel(int width, int height) {
         setBounds(0, 0, width, height);

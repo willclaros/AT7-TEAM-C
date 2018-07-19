@@ -67,10 +67,8 @@ public class PanelSearchAdvanced extends JPanel {
     /**
      * Method that creates the advanced search panel.
      *
-     * @param width
-     *            parameter that defines the width of the panel.
-     * @param height
-     *            parameter that defines the height of the panel.
+     * @param width  parameter that defines the width of the panel.
+     * @param height parameter that defines the height of the panel.
      */
     public PanelSearchAdvanced(int width, int height) {
         this.setSize(new Dimension(width, height));
@@ -81,7 +79,7 @@ public class PanelSearchAdvanced extends JPanel {
     /**
      * Method that contains the Advanced Panel settings.
      */
-    public void settingPanelAdvanced(){
+    public void settingPanelAdvanced() {
         setLayout(null);
         setBorder(BorderFactory.createRaisedBevelBorder());
     }
@@ -89,12 +87,11 @@ public class PanelSearchAdvanced extends JPanel {
     /**
      * Method that contains the components of the Advanced Panel.
      */
-    public void initComponent(){
+    public void initComponent() {
         labelPanelAdvanced = new JLabel();
         labelPanelAdvanced.setText("SEARCH ADVANCED");
         labelPanelAdvanced.setBounds(30, 10, 130, 30);
         add(labelPanelAdvanced);
-
         labelTypeFormat = new JLabel();
         labelTypeFormat.setText("File Format");
         labelTypeFormat.setBounds(110, 50, 80, 30);
@@ -120,7 +117,6 @@ public class PanelSearchAdvanced extends JPanel {
         file = new JComboBox<String>(typeFile);
         file.setBounds(150, 80, 90, 30);
         add(file);
-
         typeCount = new Vector<String>();
         typeCount.add(" < ");
         typeCount.add(" > ");
@@ -139,7 +135,6 @@ public class PanelSearchAdvanced extends JPanel {
         size = new JComboBox<String>(typeSize);
         size.setBounds(420, 80, 70, 30);
         add(size);
-
         labelHiddenFile = new JLabel();
         labelHiddenFile.setText("Hidden");
         labelHiddenFile.setBounds(520, 50, 50, 30);
@@ -147,7 +142,6 @@ public class PanelSearchAdvanced extends JPanel {
         hiddenFile = new JCheckBox();
         hiddenFile.setBounds(530, 80, 30, 30);
         add(hiddenFile);
-
         labelOwner = new JLabel();
         labelOwner.setText("Owner");
         labelOwner.setBounds(608, 50, 80, 30);
@@ -155,7 +149,6 @@ public class PanelSearchAdvanced extends JPanel {
         owner = new JTextField();
         owner.setBounds(580, 80, 100, 30);
         add(owner);
-
         labelDateCreated = new JLabel();
         labelDateCreated.setText("Date Created");
         labelDateCreated.setBounds(80, 150, 110, 30);
@@ -163,7 +156,6 @@ public class PanelSearchAdvanced extends JPanel {
         dateCreated = new JTextField();
         dateCreated.setBounds(60, 190, 110, 30);
         add(dateCreated);
-
         labelDateModificated = new JLabel();
         labelDateModificated.setText("Date Modificated");
         labelDateModificated.setBounds(227, 150, 100, 30);
@@ -171,7 +163,6 @@ public class PanelSearchAdvanced extends JPanel {
         dateModificated = new JTextField();
         dateModificated.setBounds(220, 190, 110, 30);
         add(dateModificated);
-
         labelIntervalDate = new JLabel();
         labelIntervalDate.setText("Interval Date");
         labelIntervalDate.setBounds(480, 150, 100, 30);
@@ -179,12 +170,10 @@ public class PanelSearchAdvanced extends JPanel {
         intervalDateInicio = new JTextField();
         intervalDateInicio.setBounds(400, 190, 110, 30);
         add(intervalDateInicio);
-
         labelIntervalSymbol = new JLabel();
         labelIntervalSymbol.setText(" - ");
         labelIntervalSymbol.setBounds(514, 196, 10, 10);
         add(labelIntervalSymbol);
-
         intervalDateEnd = new JTextField();
         intervalDateEnd.setBounds(530, 190, 110, 30);
         add(intervalDateEnd);
