@@ -31,22 +31,16 @@ public class PanelSearchResult extends JPanel {
     /**
      * Constructor that creates the display panel of search results.
      *
-     * @param width  Parameters to create the results panel the width.
-     * @param height Parameters to create the results panel the height.
      */
-    public PanelSearchResult(int width, int height) {
+    public PanelSearchResult() {
         this.setLayout(null);
-        this.setPreferredSize(new Dimension(width, height));
-        this.setSize(new Dimension(width, height));
-        this.setBackground(new Color(0, 0, 81, 90));
-        String data[][] = {};
+        setBackground(Color.BLACK);
         String column[] = {"NAME", "EXT", "SIZE", "DATE"};
+        String data[][] = {{"yerel", ".exe", "636", "28282"}, {"micho", ".exe", "636", "28282"}};
         JTable table = new JTable(data, column);
-        int borderSpace = 5;
-        table.setSize(width, 700);
-        this.add(table);
+        int borderSpace = 8;
         JScrollPane scroll = new JScrollPane(table);
-        scroll.setSize(width - (borderSpace * 2), height);
+        scroll.setSize(1360, 330);
         scroll.setLocation(0, borderSpace);
         add(scroll);
     }

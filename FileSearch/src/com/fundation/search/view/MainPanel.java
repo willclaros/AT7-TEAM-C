@@ -13,6 +13,7 @@
  */
 package com.fundation.search.view;
 
+import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
@@ -28,16 +29,12 @@ public class MainPanel extends JPanel {
      * Constructor that creates the primary panels that will contain the search
      * panels.
      *
-     * @param width  Parameters that we use to initialize the widths of the secondary panels.
-     * @param height Parameters that we use to initialize the highs of the secondary panels.
+     * @param dim Parameters that we use to initialize the highs of the secondary panels.
      */
-    public MainPanel(int width, int height) {
-        setBounds(0, 0, width, height);
-        int searchHeight = 490;
-        int contentHeight = height - searchHeight;
+    public MainPanel(Dimension dim) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        JPanel searchPanel = new PanelSearchBar(width, 500);
-        JPanel contentPanel = new PanelSearchResult(width, contentHeight);
+        JPanel searchPanel = new PanelSearchBar();
+        JPanel contentPanel = new PanelSearchResult();
         add(searchPanel);
         add(contentPanel);
     }
