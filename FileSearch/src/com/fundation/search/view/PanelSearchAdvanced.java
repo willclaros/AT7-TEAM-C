@@ -174,4 +174,25 @@ public class PanelSearchAdvanced extends JPanel {
         intervalDateEnd.setBounds(530, 190, 110, 30);
         add(intervalDateEnd);
     }
+
+    /**
+     * @return Size file of file will search.
+     */
+    public JSpinner getSizeFile() {
+        return sizeFile;
+    }
+
+    /**
+     * @return a hidden file if true of file will search.
+     */
+    public JCheckBox getHiddenFile() {
+        return hiddenFile;
+    }
+
+    /**
+     * @return a owner file will search.
+     */
+    public JTextField getOwner() {
+        return owner;
+    }
 }
