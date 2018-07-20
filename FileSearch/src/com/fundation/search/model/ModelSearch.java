@@ -35,85 +35,46 @@ public class ModelSearch {
     /**
      * this Array storage files find with specific arguments.
      */
-    private List<String> pathList = new ArrayList<>();
+    private List<AssetFile> pathList = new ArrayList<>();
 
     /**
      * @param directory patch to search files.
-     * @param nameFile is file to search.
-     * @param type extension to file.
-     * @param size file to search.
-     * @param hidden if file hidden true.
-     * @param owner of file create.
+     * @param nameFile  is file to search.
+     * @param type      extension to file.
+     * @param size      file to search.
+     * @param hidden    if file hidden true.
+     * @param owner     of file create.
      * @return List String name file.
      * @throws IOException file.
      * @throws IOException file.
      */
-    public List<String> searchPathName(String directory, String nameFile, String type, long size, boolean hidden, String owner) throws IOException {
+    public List<AssetFile> searchPathName(String directory, String nameFile, String type, long size, boolean hidden, String owner) throws IOException {
 
         File files = new File(directory);
         File[] ficheros = files.listFiles();
-
-        FilenameFilter filter = (dir1, name) -> name.contains(nameFile);
-        File[] childrenFiles = files.listFiles(filter);
-
-        for (File fileIterate : Objects.requireNonNull(childrenFiles)) {
-            if (fileIterate.isHidden() == hidden) {
-                if (type != null) {
-                    if (fileIterate.getName().toLowerCase().endsWith(type)) {
-                        if (size != 0) {
-                            if (fileIterate.length() == size) {
-                                if (owner != null) {
-                                    Path filePath = Paths.get(fileIterate.getPath());
-                                    FileOwnerAttributeView ownerInfo = Files.getFileAttributeView(filePath, FileOwnerAttributeView.class);
-                                    UserPrincipal fileOwner = ownerInfo.getOwner();
-                                    if (fileOwner.getName().equalsIgnoreCase(owner)) {
-                                        pathList.add(fileIterate.getName());
-                                    }
-                                } else {
-                                    pathList.add(fileIterate.getName());
-                                }
-                            }
-                        } else {
-                            if (owner != null) {
-                                Path filePath = Paths.get(fileIterate.getPath());
-                                FileOwnerAttributeView ownerInfo = Files.getFileAttributeView(filePath, FileOwnerAttributeView.class);
-                                UserPrincipal fileOwner = ownerInfo.getOwner();
-                                if (fileOwner.getName().equalsIgnoreCase(owner)) {
-                                    pathList.add(fileIterate.getName());
-                                }
-                            } else {
-                                pathList.add(fileIterate.getName());
-                            }
-                        }
-                    }
-                } else {
-                    if (size != 0) {
-                        if (fileIterate.length() == size) {
-                            if (owner != null) {
-                                Path filePath = Paths.get(fileIterate.getPath());
-                                FileOwnerAttributeView ownerInfo = Files.getFileAttributeView(filePath, FileOwnerAttributeView.class);
-                                UserPrincipal fileOwner = ownerInfo.getOwner();
-                                if (fileOwner.getName().equalsIgnoreCase(owner)) {
-                                    pathList.add(fileIterate.getName());
-                                }
-                            } else {
-                                pathList.add(fileIterate.getName());
-                            }
-                        }
-                    } else {
-                        if (owner != null) {
-                            Path filePath = Paths.get(fileIterate.getPath());
-                            FileOwnerAttributeView ownerInfo = Files.getFileAttributeView(filePath, FileOwnerAttributeView.class);
-                            UserPrincipal fileOwner = ownerInfo.getOwner();
-                            if (fileOwner.getName().equalsIgnoreCase(owner)) {
-                                pathList.add(fileIterate.getName());
-                            }
-                        } else {
-                            pathList.add(fileIterate.getName());
-                        }
-                    }
-                }
+        //File[] childrenFiles = files.listFiles(filter);
+        for (File fileIterate : ficheros) {
+            //FilenameFilter filter = (dir1, name) -> name.contains(nameFile);
+            Path filePath = Paths.get(fileIterate.getPath());
+            FileOwnerAttributeView ownerInfo = Files.getFileAttributeView(filePath, FileOwnerAttributeView.class);
+            UserPrincipal fileOwner = ownerInfo.getOwner();
+            if (fileIterate.isHidden() != hidden) {
+                break;
             }
+            if (type != null && !fileIterate.getName().toLowerCase().endsWith(type)) {
+                break;
+            }
+            if (size >= 0 && fileIterate.length() != size) {
+                break;
+            }
+            if (nameFile != null && !fileIterate.getName().contains(nameFile)) {
+                break;
+            }
+            if (owner != null && !fileOwner.getName().equalsIgnoreCase(owner)) {
+                break;
+            }
+
+            pathList.add(new AssetFile(fileIterate.getAbsolutePath(), fileIterate.getName(), fileIterate.length(), type, fileOwner.getName()));
         }
         assert ficheros != null;
         for (File fichero : ficheros) {
@@ -124,4 +85,3 @@ public class ModelSearch {
         return pathList;
     }
 }
-
