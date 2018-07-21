@@ -97,6 +97,27 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     }
 
     /**
+     * @return nameFile of file will search.
+     */
+    public JTextField getNameFile() {
+        return nameFile;
+    }
+
+    /**
+     * @return textPath of file will search.
+     */
+    public JTextField getTextPath() {
+        return textPath;
+    }
+
+    /**
+     * @return action search with all fields fill in view.
+     */
+    public JButton getSearchButton() {
+        return searchButton;
+    }
+
+    /**
      * Override the method of the ActionListener interface to search for a  document by PATH.
      */
     @Override
