@@ -36,10 +36,9 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     private JLabel labelNameFile;
     private JTextField nameFile;
     private JLabel labelSearchPath;
-    private JTextField textPath;
+    private JTextField path;
     private JButton buttonPath;
     private JButton searchButton;
-
     private JLabel labelPanelBasic;
 
     /**
@@ -82,9 +81,9 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         labelSearchPath.setBounds(40, 120, 120, 30);
         add(labelSearchPath);
 
-        textPath = new JTextField();
-        textPath.setBounds(150, 120, 340, 30);
-        add(textPath);
+        path = new JTextField();
+        path.setBounds(150, 120, 340, 30);
+        add(path);
 
         buttonPath = new JButton("Path");
         buttonPath.addActionListener(this);
@@ -108,10 +107,55 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         if (result != JFileChooser.CANCEL_OPTION) {
             File fileName = fileChooser.getSelectedFile();
             if ((fileName == null) || (fileName.getName().equals(""))) {
-                textPath.setText("...");
+                path.setText("...");
             } else {
-                textPath.setText(fileName.getAbsolutePath());
+                path.setText(fileName.getAbsolutePath());
             }
         }
+    }
+
+    /**
+     * Method that returns an object of the JButton class.
+     *
+     * @return searchButton an object of the JButton class.
+     */
+    public JButton getSearchButton() {
+        return searchButton;
+    }
+
+    /**
+     * Method that returns an object of the JTextField class.
+     *
+     * @return nameFile an object of the JTextField class.
+     */
+    public JTextField getNameFile() {
+        return nameFile;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JTextField class.
+     *
+     * @param newNameFile new object of the JTextField class.
+     */
+    public void setNameFile(JTextField newNameFile) {
+        nameFile = newNameFile;
+    }
+
+    /**
+     * Method that returns an object of the JTextField class.
+     *
+     * @return path an object of the JTextField class.
+     */
+    public JTextField getPath() {
+        return path;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JTextField class.
+     *
+     * @param newPath new object of the JTextField class.
+     */
+    public void setPath(JTextField newPath) {
+        path = newPath;
     }
 }

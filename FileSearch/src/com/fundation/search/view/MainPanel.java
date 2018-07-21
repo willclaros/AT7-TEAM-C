@@ -21,9 +21,12 @@ import javax.swing.JPanel;
  * Class that creates intermediate panels.
  *
  * @author William Claros Revollo - AT - [07]
- * @version 1.0
+ * @version 1.0.
  */
 public class MainPanel extends JPanel {
+
+    public PanelUpSearch searchPanel;
+    public PanelSearchResult resultPanel;
 
     /**
      * Constructor that creates the primary panels that will contain the search
@@ -33,9 +36,27 @@ public class MainPanel extends JPanel {
      */
     public MainPanel(Dimension dim) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        JPanel searchPanel = new PanelSearchBar();
-        JPanel contentPanel = new PanelSearchResult();
+        searchPanel = new PanelUpSearch();
+        resultPanel = new PanelSearchResult();
         add(searchPanel);
-        add(contentPanel);
+        add(resultPanel);
+    }
+
+    /**
+     * Method that returns an object of the PanelSearchResult class.
+     *
+     * @return resultPanel an object of the PanelSearchResult class.
+     */
+    public PanelSearchResult getResultPanel() {
+        return resultPanel;
+    }
+
+    /**
+     * Method that returns an object of the PanelUpSearch class.
+     *
+     * @return searchPanel an object of the PanelUpSearch class.
+     */
+    public PanelUpSearch getSearchPanel() {
+        return searchPanel;
     }
 }
