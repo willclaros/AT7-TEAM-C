@@ -23,7 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 
-
 /**
  * Class that creates the advanced search panel.
  *
@@ -37,30 +36,23 @@ public class PanelSearchAdvanced extends JPanel {
     private JComboBox<String> type;
     private Vector<String> typeFile;
     private JComboBox<String> file;
-
     private JLabel labelFileSize;
     private Vector<String> typeCount;
     private JComboBox<String> count;
     private JSpinner sizeFile;
     private Vector<String> typeSize;
-    private JComboBox<String> size;
-
+    private JComboBox sizeType;
     private JLabel labelHiddenFile;
     private JCheckBox hiddenFile;
-
     private JLabel labelOwner;
     private JTextField owner;
-
     private JLabel labelDateCreated;
     private JTextField dateCreated;
-
     private JLabel labelDateModificated;
     private JTextField dateModificated;
-
     private JLabel labelIntervalDate;
     private JTextField intervalDateInicio;
     private JTextField intervalDateEnd;
-
     private JLabel labelIntervalSymbol;
     private JLabel labelPanelAdvanced;
 
@@ -120,6 +112,7 @@ public class PanelSearchAdvanced extends JPanel {
         count = new JComboBox<String>(typeCount);
         count.setBounds(280, 80, 50, 30);
         add(count);
+
         sizeFile = new JSpinner();
         sizeFile.setBounds(340, 80, 70, 30);
         add(sizeFile);
@@ -128,9 +121,10 @@ public class PanelSearchAdvanced extends JPanel {
         typeSize.add("KByte");
         typeSize.add("MByte");
         typeSize.add("GByte");
-        size = new JComboBox<String>(typeSize);
-        size.setBounds(420, 80, 70, 30);
-        add(size);
+        sizeType = new JComboBox<String>(typeSize);
+        sizeType.setBounds(420, 80, 70, 30);
+        add(sizeType);
+
         labelHiddenFile = new JLabel();
         labelHiddenFile.setText("Hidden");
         labelHiddenFile.setBounds(520, 50, 50, 30);
@@ -138,6 +132,7 @@ public class PanelSearchAdvanced extends JPanel {
         hiddenFile = new JCheckBox();
         hiddenFile.setBounds(530, 80, 30, 30);
         add(hiddenFile);
+
         labelOwner = new JLabel();
         labelOwner.setText("Owner");
         labelOwner.setBounds(608, 50, 80, 30);
@@ -145,6 +140,7 @@ public class PanelSearchAdvanced extends JPanel {
         owner = new JTextField();
         owner.setBounds(580, 80, 100, 30);
         add(owner);
+
         labelDateCreated = new JLabel();
         labelDateCreated.setText("Date Created");
         labelDateCreated.setBounds(80, 150, 110, 30);
@@ -176,23 +172,56 @@ public class PanelSearchAdvanced extends JPanel {
     }
 
     /**
-     * @return Size file of file will search.
+     * Method that returns an object of the JSpinner class.
+     *
+     * @return sizeFile an object of the JSpinner class.
      */
     public JSpinner getSizeFile() {
         return sizeFile;
     }
 
     /**
-     * @return a hidden file if true of file will search.
+     * Method that is responsible for modifying the value of the object of the JSpinner class.
+     *
+     * @param newSizeFile new object of the JSpinner class.
+     */
+    public void setSizeFile(JSpinner newSizeFile) {
+        sizeFile = newSizeFile;
+    }
+
+    /**
+     * Method that returns an object of the JCheckBox class.
+     *
+     * @return hiddenFile an object of the JCheckBox class.
      */
     public JCheckBox getHiddenFile() {
         return hiddenFile;
     }
 
     /**
-     * @return a owner file will search.
+     * Method that is responsible for modifying the value of the object of the JCheckBox class.
+     *
+     * @param newHiddenFile new object of the JCheckBox class.
      */
-    public JTextField getOwner() {
-        return owner;
+    public void getHiddenFile(JCheckBox newHiddenFile) {
+        hiddenFile = newHiddenFile;
+    }
+
+    /**
+     * Method that returns an object of the JComboBox class.
+     *
+     * @return sizeType an object of the JComboBox class.
+     */
+    public JComboBox getSizeType() {
+        return sizeType;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JComboBox class.
+     *
+     * @param newSizeType new object of the JComboBox class.
+     */
+    public void getSizeType(JComboBox newSizeType) {
+        sizeType = newSizeType;
     }
 }

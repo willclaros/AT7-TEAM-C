@@ -1,5 +1,5 @@
 /*
- * @(#)SearchFrame.java
+ * @(#)View.java
  *
  * Copyright (c) 2018 Jala Foundation.
  * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
@@ -25,17 +25,17 @@ import java.awt.Color;
  * @author William Claros Revollo - AT - [07]
  * @version 1.0.
  */
-public class SearchFrame extends JFrame {
+public class View extends JFrame {
 
     private final Dimension dim = getToolkit().getScreenSize();
-    private JPanel panelGeneral;
+    public MainPanel panelGeneral;
 
     /**
      * Constructor to create the main Frame.
      */
-    public SearchFrame() {
-        settingMainFrame();
+    public View() {
         initComponent();
+        settingMainFrame();
     }
 
     /**
@@ -52,19 +52,18 @@ public class SearchFrame extends JFrame {
     /**
      * General configurations of the main panel that will contain the other panels.
      */
-    private void initComponent() {
+    public void initComponent() {
         panelGeneral = new MainPanel(dim);
-        panelGeneral.setBackground(Color.GREEN);
         panelGeneral.setSize(dim);
         add(panelGeneral);
     }
 
     /**
-     * Main method to initialize the View.
+     * Method that returns an object of the MainPanel class.
      *
-     * @param args argument that we use by default when we use a main method.
+     * @return panelGeneral that is an object of the MainPanel class.
      */
-    public static void main(String[] args) {
-        new SearchFrame();
+    public MainPanel getPanelGeneral() {
+        return panelGeneral;
     }
 }
