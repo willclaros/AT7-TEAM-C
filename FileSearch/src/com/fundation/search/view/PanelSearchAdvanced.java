@@ -13,7 +13,8 @@
  */
 package com.fundation.search.view;
 
-import java.awt.Dimension;
+import com.toedter.calendar.JDateChooser;
+
 import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
@@ -56,10 +57,18 @@ public class PanelSearchAdvanced extends JPanel {
     private JLabel labelIntervalSymbol;
     private JLabel labelPanelAdvanced;
 
+    private JDateChooser dateChoserCreateIni;
+    private JDateChooser dateChooserCreateEnd;
+    private JDateChooser dateChooserModifyIni;
+    private JDateChooser dateChooserModifyEnd;
+    private JDateChooser dateChooserAccessedIni;
+    private JDateChooser dateChooserAccessedEnd;
+
     /**
      * Method that creates the advanced search panel.
      */
     public PanelSearchAdvanced() {
+
         settingPanelAdvanced();
         initComponent();
     }
@@ -143,32 +152,38 @@ public class PanelSearchAdvanced extends JPanel {
 
         labelDateCreated = new JLabel();
         labelDateCreated.setText("Date Created");
-        labelDateCreated.setBounds(80, 150, 110, 30);
+        labelDateCreated.setBounds(120, 150, 110, 30);
         add(labelDateCreated);
-        dateCreated = new JTextField();
-        dateCreated.setBounds(60, 190, 110, 30);
-        add(dateCreated);
+        dateChoserCreateIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
+        dateChoserCreateIni.setBounds(60,190,90,30);
+        add(dateChoserCreateIni);
+        dateChooserCreateEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
+        dateChooserCreateEnd.setBounds(160,190,90,30);
+        add(dateChooserCreateEnd);
         labelDateModificated = new JLabel();
         labelDateModificated.setText("Date Modificated");
-        labelDateModificated.setBounds(227, 150, 100, 30);
+        labelDateModificated.setBounds(300, 150, 100, 30);
         add(labelDateModificated);
-        dateModificated = new JTextField();
-        dateModificated.setBounds(220, 190, 110, 30);
-        add(dateModificated);
+        dateChooserModifyIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
+        dateChooserModifyIni.setBounds(270,190,90,30);
+        add(dateChooserModifyIni);
+        dateChooserModifyEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
+        dateChooserModifyEnd.setBounds(370,190,90,30);
+        add(dateChooserModifyEnd);
         labelIntervalDate = new JLabel();
-        labelIntervalDate.setText("Interval Date");
-        labelIntervalDate.setBounds(480, 150, 100, 30);
+        labelIntervalDate.setText("Accessed Date");
+        labelIntervalDate.setBounds(540, 150, 100, 30);
         add(labelIntervalDate);
-        intervalDateInicio = new JTextField();
-        intervalDateInicio.setBounds(400, 190, 110, 30);
-        add(intervalDateInicio);
+        dateChooserAccessedIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
+        dateChooserAccessedIni.setBounds(480,190,90,30);
+        add(dateChooserAccessedIni);
         labelIntervalSymbol = new JLabel();
         labelIntervalSymbol.setText(" - ");
         labelIntervalSymbol.setBounds(514, 196, 10, 10);
         add(labelIntervalSymbol);
-        intervalDateEnd = new JTextField();
-        intervalDateEnd.setBounds(530, 190, 110, 30);
-        add(intervalDateEnd);
+        dateChooserAccessedEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
+        dateChooserAccessedEnd.setBounds(580,190,90,30);
+        add(dateChooserAccessedEnd);
     }
 
     /**
