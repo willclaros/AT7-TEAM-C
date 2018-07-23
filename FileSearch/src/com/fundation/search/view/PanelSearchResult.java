@@ -28,20 +28,73 @@ import javax.swing.JTable;
  */
 public class PanelSearchResult extends JPanel {
 
+    private JTable table;
+    private JScrollPane scroll;
+
     /**
      * Constructor that creates the display panel of search results.
-     *
      */
     public PanelSearchResult() {
-        this.setLayout(null);
+        initComponent();
+        settingPanelSearchResult();
+    }
+
+    /**
+     * General settings of the Panel.
+     */
+    private void settingPanelSearchResult() {
+        setLayout(null);
         setBackground(Color.BLACK);
-        String column[] = {"NAME", "EXT", "SIZE", "DATE"};
-        String data[][] = {{"yerel", ".exe", "636", "28282"}, {"micho", ".exe", "636", "28282"}};
-        JTable table = new JTable(data, column);
+    }
+
+    /**
+     * Method that contains the components of the PanelSearchResult.
+     */
+    public void initComponent() {
+        String column[] = {"NAME", "EXT", "SIZE", "PATH"};
+        String data[][] = {{"yerel", ".exe", "636", "https:\\"}, {"micho", ".exe", "636", "https:\\"}};
+        table = new JTable(data, column);
+        add(table);
         int borderSpace = 8;
-        JScrollPane scroll = new JScrollPane(table);
+        scroll = new JScrollPane(table);
         scroll.setSize(1360, 330);
         scroll.setLocation(0, borderSpace);
         add(scroll);
+    }
+
+    /**
+     * Method that returns an object of the JTable class.
+     *
+     * @return table an object of the JTable class.
+     */
+    public JTable getTable() {
+        return table;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JTable class.
+     *
+     * @param newTable new object of the JTable class.
+     */
+    public void setTable(JTable newTable) {
+        table = newTable;
+    }
+
+    /**
+     * Method that returns an object of the JScrollPane class.
+     *
+     * @return scroll an object of the JScrollPane class.
+     */
+    public JScrollPane getScroll() {
+        return scroll;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JScrollPane class.
+     *
+     * @param newScroll new object of the JScrollPane class.
+     */
+    public void setScroll(JScrollPane newScroll) {
+        scroll = newScroll;
     }
 }

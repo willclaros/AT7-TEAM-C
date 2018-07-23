@@ -48,8 +48,6 @@ public class ModelSearch {
      */
     public List<AssetFile> searchPathName(String directory, String nameFile, String type,
                                           long size, boolean hidden, String owner) throws IOException {
-
-
         File files = new File(directory);
         File[] ficheros = files.listFiles();
 
@@ -76,7 +74,7 @@ public class ModelSearch {
                     continue;
                 }
 
-                pathList.add(new AssetFile(fileIterate.getAbsolutePath(), fileIterate.getName(), fileIterate.length(), type, ownerFile.getName()));
+                pathList.add(new AssetFile(fileIterate.getAbsolutePath(), fileIterate.getName(), fileIterate.length(), type, ownerFile.getName()));    
             }
         }
         return pathList;
