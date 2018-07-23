@@ -18,6 +18,14 @@ package com.fundation.search.model;
  * @version 1.0.
  */
 public class AssetFile {
+
+    public AssetFile(String path, String filename, long size, String type, String extension) {
+        this.path = path;
+        this.filename = filename;
+        this.size = size;
+        this.extension = extension;
+    }
+
     /**
      * this is variable contains the path.
      */

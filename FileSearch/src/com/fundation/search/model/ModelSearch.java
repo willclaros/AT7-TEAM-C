@@ -14,16 +14,14 @@
 package com.fundation.search.model;
 
 import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.FileOwnerAttributeView;
 import java.nio.file.attribute.UserPrincipal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * This class ModelSearch can be FileResult, MultimediaResult and maybe SearchFolder.
@@ -48,38 +46,37 @@ public class ModelSearch {
      * @throws IOException file.
      * @throws IOException file.
      */
-    public List<AssetFile> searchPathName(String directory, String nameFile, String type, long size, boolean hidden, String owner) throws IOException {
+    public List<AssetFile> searchPathName(String directory, String nameFile, String type,
+                                          long size, boolean hidden, String owner) throws IOException {
+
 
         File files = new File(directory);
         File[] ficheros = files.listFiles();
-        //File[] childrenFiles = files.listFiles(filter);
-        for (File fileIterate : ficheros) {
-            //FilenameFilter filter = (dir1, name) -> name.contains(nameFile);
-            Path filePath = Paths.get(fileIterate.getPath());
-            FileOwnerAttributeView ownerInfo = Files.getFileAttributeView(filePath, FileOwnerAttributeView.class);
-            UserPrincipal fileOwner = ownerInfo.getOwner();
-            if (fileIterate.isHidden() != hidden) {
-                break;
-            }
-            if (type != null && !fileIterate.getName().toLowerCase().endsWith(type)) {
-                break;
-            }
-            if (size >= 0 && fileIterate.length() != size) {
-                break;
-            }
-            if (nameFile != null && !fileIterate.getName().contains(nameFile)) {
-                break;
-            }
-            if (owner != null && !fileOwner.getName().equalsIgnoreCase(owner)) {
-                break;
-            }
 
-            pathList.add(new AssetFile(fileIterate.getAbsolutePath(), fileIterate.getName(), fileIterate.length(), type, fileOwner.getName()));
-        }
-        assert ficheros != null;
-        for (File fichero : ficheros) {
-            if (fichero.isDirectory()) {
-                searchPathName(fichero.getPath(), nameFile, type, size, hidden, owner);
+        for (File fileIterate : ficheros) {
+
+            if (fileIterate.isDirectory()) {
+                searchPathName(fileIterate.getPath(), nameFile, type, size, hidden, owner);
+            } else {
+                Path filePath = Paths.get(fileIterate.getPath());
+                UserPrincipal ownerFile = Files.getOwner(filePath, LinkOption.NOFOLLOW_LINKS);
+                if (fileIterate.isHidden() != hidden) {
+                    continue;
+                }
+                if (type != null && !fileIterate.getName().toLowerCase().endsWith(type)) {
+                    continue;
+                }
+                if (size > 0 && fileIterate.length() != size) {
+                    continue;
+                }
+                if (nameFile != null && !fileIterate.getName().contains(nameFile)) {
+                    continue;
+                }
+                if (owner != null && !ownerFile.getName().equals(owner)) {
+                    continue;
+                }
+
+                pathList.add(new AssetFile(fileIterate.getAbsolutePath(), fileIterate.getName(), fileIterate.length(), type, ownerFile.getName()));
             }
         }
         return pathList;
