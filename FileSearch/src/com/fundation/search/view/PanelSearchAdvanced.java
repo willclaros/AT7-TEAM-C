@@ -76,7 +76,7 @@ public class PanelSearchAdvanced extends JPanel {
      * Method that creates the advanced search panel.
      */
     public PanelSearchAdvanced() {
-        
+
         settingPanelAdvanced();
         initComponent();
     }
