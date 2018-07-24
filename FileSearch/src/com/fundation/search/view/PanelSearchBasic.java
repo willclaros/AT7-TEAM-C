@@ -14,16 +14,14 @@
 
 package com.fundation.search.view;
 
-import java.awt.Dimension;
+import com.fundation.search.model.AssetFile;
+import com.fundation.search.model.ModelSearch;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.util.List;
 
 /**
  * Class that creates the basic search panel.
@@ -40,10 +38,20 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     private JButton buttonPath;
     private JButton searchButton;
     private JLabel labelPanelBasic;
+    private PanelSearchResult panelResult;
+
+    private ModelSearch modelSearch;
 
     /**
      * Constructor that creates the basic search panel.
      */
+    public PanelSearchBasic(PanelSearchResult panelResult) {
+        settingPanel();
+        initComponent();
+        this.panelResult = panelResult;
+        modelSearch = new ModelSearch();
+    }
+
     public PanelSearchBasic() {
         settingPanel();
         initComponent();
@@ -93,28 +101,17 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         searchButton = new JButton();
         searchButton.setText("Search");
         searchButton.setBounds(520, 190, 120, 30);
+        searchButton.setAction(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    List<AssetFile> listPaths = modelSearch.searchPathName(path.getText(), nameFile.getText(), null, 0L, false, null);
+                    panelResult.updageFilesList(listPaths);
+                } catch (Exception ez) {
+                }
+                }
+        });
         add(searchButton);
-    }
-
-    /**
-     * @return nameFile of file will search.
-     */
-    public JTextField getNameFile() {
-        return nameFile;
-    }
-
-    /**
-     * @return textPath of file will search.
-     */
-    public JTextField getTextPath() {
-        return textPath;
-    }
-
-    /**
-     * @return action search with all fields fill in view.
-     */
-    public JButton getSearchButton() {
-        return searchButton;
     }
 
     /**

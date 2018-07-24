@@ -14,12 +14,21 @@
 
 package com.fundation.search.controller;
 
-import com.fundation.search.model.Model;
-import com.fundation.search.view.View;
+import com.fundation.search.model.ModelSearch;
+import com.fundation.search.model.AssetFile;
+import com.fundation.search.view.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.*;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable.DropLocation;
+
+import com.fundation.search.model.AssetFile;
 
 /**
  * Controller class where the communication will be made with the view.
@@ -30,7 +39,7 @@ import java.util.List;
 public class Controller {
 
     private View view;
-    private Model model;
+    private ModelSearch model;
 
     /**
      * A constructor of the Controller class that receives 2 parameters that are a ModelSearch object and an object
@@ -42,7 +51,7 @@ public class Controller {
 
     public void init() {
         this.view = new View();
-        this.model = new Model();
+        this.model = new ModelSearch();
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSearchButton().addActionListener(e -> getData());
     }
 
@@ -50,12 +59,24 @@ public class Controller {
      * Method that is in charge of making the data capture and the setting of the View. And also the communication
      * with the Model.
      */
-    private void getData() {
-        String nameFile = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getNameFile().getText();
-        String namePath = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getPath().getText();
-        long fileSize = Long.parseLong(view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getSizeFile().getValue().toString());
-        String sizeFormat = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getSizeType().getSelectedItem().toString();
-        boolean fileHidden = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getHiddenFile().isSelected();
 
+    private void getData() {
+        String fileName = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getNameFile().getText();
+        String pathName = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getPath().getText();
+        long fileSize = Long.parseLong(view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getSizeFile().getValue().toString());
+        boolean fileHidden = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getHiddenFile().isSelected();
+        String fileType = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getFileType().getSelectedItem().toString();
+        String owner = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getHiddenFile().getText();
+
+        ModelSearch model = new ModelSearch();
+
+        try {
+            List<AssetFile> fileList = model.searchPathName(pathName, fileName, fileType, fileSize, fileHidden, owner);
+            for (AssetFile a : fileList) {
+                System.out.println(a.getFilename());
+                view.getPanelGeneral().getResultPanel().addRowTable(a.getPath(), a.getFilename(), a.getExtension(), a.getSize(),null, null);
+            }
+        } catch (Exception e) {
+        }
     }
 }

@@ -1,10 +1,8 @@
 /**
- * @(#)AssetFile.java
- *
- * Copyright (c) 2018 Jala Foundation.
+ * @(#)AssetFile.java Copyright (c) 2018 Jala Foundation.
  * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
  * All rights reserved.
- *
+ * <p>
  * This software is the confidential and proprietary information of
  * Jala Foundation, ("Confidential Information").  You shall not
  * disclose such Confidential Information and shall use it only in
@@ -12,6 +10,7 @@
  * with Jala Foundation.
  */
 package com.fundation.search.model;
+
 /**
  * This class AssetFile can be FileResult, MultimediaResult and maybe SearchFolder.
  * @author Erik Vargas - AT-[07].
@@ -38,6 +37,38 @@ public class AssetFile {
      * this is variable contains extension file.
      */
     private String extension;
+
+
+    /**
+     * this is variable contains extension owner.
+     */
+    private String owner;
+
+    private boolean hidden;
+
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public boolean isHidden() {
+        return hidden;
+    }
+
+    public void setHidden(boolean hidden) {
+        this.hidden = hidden;
+    }
+
+    public AssetFile(String path, String filename, long size, String extension, String owner) {
+        this.path = path;
+        this.filename = filename;
+        this.size = size;
+        this.extension = extension;
+        this.owner = owner;
+    }
 
     /**
      * this is method getPath.

@@ -14,11 +14,13 @@
 
 package com.fundation.search.view;
 
+import com.fundation.search.model.AssetFile;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
 import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+
 
 /**
  * Panel that creates the display panel of search results.
@@ -29,7 +31,10 @@ import javax.swing.JTable;
 public class PanelSearchResult extends JPanel {
 
     private JTable table;
+    private DefaultTableModel modelTable;
+
     private JScrollPane scroll;
+    private PanelUpSearch panelUpSearch;
 
     /**
      * Constructor that creates the display panel of search results.
@@ -37,6 +42,27 @@ public class PanelSearchResult extends JPanel {
     public PanelSearchResult() {
         initComponent();
         settingPanelSearchResult();
+    }
+
+    public PanelSearchResult(PanelUpSearch panelUpSearch) {
+        initComponent();
+        settingPanelSearchResult();
+        this.panelUpSearch = panelUpSearch;
+    }
+
+    public void updageFilesList(List<AssetFile> files) {
+        String column[] = {"NAME", "EXT", "SIZE", "PATH", "HIDDEN", "OWNER"};
+        DefaultTableModel dtm = new DefaultTableModel(column, 0);
+        //table = new JTable(dtm);
+        //String[] item = {"A", "B", "C", "D"};
+        table.setModel(dtm);
+        for (AssetFile file : files) {
+            String[] item = {file.getFilename(), file.getExtension(), "" + file.getSize(),file.getPath(),  "" + file.isHidden(), file.getOwner()};
+            dtm.addRow(item);
+        }
+        table.updateUI();
+
+
     }
 
     /**
@@ -51,10 +77,12 @@ public class PanelSearchResult extends JPanel {
      * Method that contains the components of the PanelSearchResult.
      */
     public void initComponent() {
-        String column[] = {"NAME", "EXT", "SIZE", "PATH"};
-        String data[][] = {{"yerel", ".exe", "636", "https:\\"}, {"micho", ".exe", "636", "https:\\"}};
+        String column[] = {"NAME", "EXT", "SIZE", "PATH", "HIDDEN", "OWNER" };
+        String data[][] = {};
+        //String data[][] = {{"yerel", ".exe", "636", "https:\\"}, {"micho", ".exe", "636", "https:\\"}};
+        //modelTable.addTableModelListener(table);
+        //add(table);*/
         table = new JTable(data, column);
-        add(table);
         int borderSpace = 8;
         scroll = new JScrollPane(table);
         scroll.setSize(1360, 330);
@@ -96,5 +124,20 @@ public class PanelSearchResult extends JPanel {
      */
     public void setScroll(JScrollPane newScroll) {
         scroll = newScroll;
+    }
+
+
+    public void addRowTable(String path, String fileName, String fileType, long fileSize, String fileHidden, String owner) {
+        modelTable.addRow(new Object[]{path, fileName, fileType, String.valueOf(fileSize), fileHidden, owner});
+    }
+
+
+
+    public DefaultTableModel getModelTable() {
+        return modelTable;
+    }
+
+    public void setModelTable(DefaultTableModel modelTable) {
+        this.modelTable = modelTable;
     }
 }
