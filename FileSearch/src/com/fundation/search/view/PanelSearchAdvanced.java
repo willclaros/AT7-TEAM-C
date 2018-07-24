@@ -13,6 +13,8 @@
  */
 package com.fundation.search.view;
 
+import com.toedter.calendar.JDateChooser;
+
 import java.awt.Dimension;
 import java.util.Vector;
 import javax.swing.BorderFactory;
@@ -35,7 +37,7 @@ public class PanelSearchAdvanced extends JPanel {
     private Vector<String> typeFormat;
     private JComboBox<String> type;
     private Vector<String> typeFile;
-    private JComboBox<String> file;
+    private JComboBox<String> fileType;
     private JLabel labelFileSize;
     private Vector<String> typeCount;
     private JComboBox<String> count;
@@ -55,6 +57,13 @@ public class PanelSearchAdvanced extends JPanel {
     private JTextField intervalDateEnd;
     private JLabel labelIntervalSymbol;
     private JLabel labelPanelAdvanced;
+
+    private JDateChooser dateChoserCreateIni;
+    private JDateChooser dateChooserCreateEnd;
+    private JDateChooser dateChooserModifyIni;
+    private JDateChooser dateChooserModifyEnd;
+    private JDateChooser dateChooserAccessedIni;
+    private JDateChooser dateChooserAccessedEnd;
 
     /**
      * Method that creates the advanced search panel.
@@ -85,6 +94,7 @@ public class PanelSearchAdvanced extends JPanel {
         labelTypeFormat.setBounds(110, 50, 80, 30);
         add(labelTypeFormat);
         typeFormat = new Vector<String>();
+        typeFormat.add("--------------------");
         typeFormat.add("Multimedia");
         typeFormat.add("Images");
         typeFormat.add("Documents");
@@ -92,19 +102,21 @@ public class PanelSearchAdvanced extends JPanel {
         type = new JComboBox<String>(typeFormat);
         type.setBounds(50, 80, 90, 30);
         add(type);
+
         labelFileSize = new JLabel();
         labelFileSize.setText("File Size");
         labelFileSize.setBounds(355, 50, 80, 30);
         add(labelFileSize);
         typeFile = new Vector<String>();
-        typeFile.add("All");
-        typeFile.add(".mp3");
-        typeFile.add(".m4a");
-        typeFile.add(".wma");
-        typeFile.add("acc");
-        file = new JComboBox<String>(typeFile);
-        file.setBounds(150, 80, 90, 30);
-        add(file);
+        typeFile.add("");
+        typeFile.add("txt");
+        typeFile.add("doc");
+        typeFile.add("pdf");
+        typeFile.add("xml");
+        fileType = new JComboBox<String>(typeFile);
+        fileType.setBounds(150, 80, 90, 30);
+        add(fileType);
+
         typeCount = new Vector<String>();
         typeCount.add(" < ");
         typeCount.add(" > ");
@@ -143,32 +155,38 @@ public class PanelSearchAdvanced extends JPanel {
 
         labelDateCreated = new JLabel();
         labelDateCreated.setText("Date Created");
-        labelDateCreated.setBounds(80, 150, 110, 30);
+        labelDateCreated.setBounds(120, 150, 110, 30);
         add(labelDateCreated);
-        dateCreated = new JTextField();
-        dateCreated.setBounds(60, 190, 110, 30);
-        add(dateCreated);
+        dateChoserCreateIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
+        dateChoserCreateIni.setBounds(60,190,90,30);
+        add(dateChoserCreateIni);
+        dateChooserCreateEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
+        dateChooserCreateEnd.setBounds(160,190,90,30);
+        add(dateChooserCreateEnd);
         labelDateModificated = new JLabel();
         labelDateModificated.setText("Date Modificated");
-        labelDateModificated.setBounds(227, 150, 100, 30);
+        labelDateModificated.setBounds(300, 150, 100, 30);
         add(labelDateModificated);
-        dateModificated = new JTextField();
-        dateModificated.setBounds(220, 190, 110, 30);
-        add(dateModificated);
+        dateChooserModifyIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
+        dateChooserModifyIni.setBounds(270,190,90,30);
+        add(dateChooserModifyIni);
+        dateChooserModifyEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
+        dateChooserModifyEnd.setBounds(370,190,90,30);
+        add(dateChooserModifyEnd);
         labelIntervalDate = new JLabel();
-        labelIntervalDate.setText("Interval Date");
-        labelIntervalDate.setBounds(480, 150, 100, 30);
+        labelIntervalDate.setText("Accessed Date");
+        labelIntervalDate.setBounds(540, 150, 100, 30);
         add(labelIntervalDate);
-        intervalDateInicio = new JTextField();
-        intervalDateInicio.setBounds(400, 190, 110, 30);
-        add(intervalDateInicio);
+        dateChooserAccessedIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
+        dateChooserAccessedIni.setBounds(480,190,90,30);
+        add(dateChooserAccessedIni);
         labelIntervalSymbol = new JLabel();
         labelIntervalSymbol.setText(" - ");
         labelIntervalSymbol.setBounds(514, 196, 10, 10);
         add(labelIntervalSymbol);
-        intervalDateEnd = new JTextField();
-        intervalDateEnd.setBounds(530, 190, 110, 30);
-        add(intervalDateEnd);
+        dateChooserAccessedEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
+        dateChooserAccessedEnd.setBounds(580,190,90,30);
+        add(dateChooserAccessedEnd);
     }
 
     /**
@@ -203,7 +221,7 @@ public class PanelSearchAdvanced extends JPanel {
      *
      * @param newHiddenFile new object of the JCheckBox class.
      */
-    public void getHiddenFile(JCheckBox newHiddenFile) {
+    public void setHiddenFile(JCheckBox newHiddenFile) {
         hiddenFile = newHiddenFile;
     }
 
@@ -221,7 +239,25 @@ public class PanelSearchAdvanced extends JPanel {
      *
      * @param newSizeType new object of the JComboBox class.
      */
-    public void getSizeType(JComboBox newSizeType) {
+    public void setSizeType(JComboBox newSizeType) {
         sizeType = newSizeType;
+    }
+
+    /**
+     * Method that returns an object of the JComboBox class.
+     *
+     * @return sizeType an object of the JComboBox class.
+     */
+    public JComboBox getFileType() {
+        return fileType;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JComboBox class.
+     *
+     * @param newFile new object of the JComboBox class.
+     */
+    public void setFileType(JComboBox newFile) {
+        fileType = newFile;
     }
 }

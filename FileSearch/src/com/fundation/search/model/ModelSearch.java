@@ -25,8 +25,8 @@ import java.util.List;
 
 /**
  * This class ModelSearch can be FileResult, MultimediaResult and maybe SearchFolder.
+ *
  * @author Yerel Hurtado - AT-[07].
- * @author Erik Vargas - AT-[07].
  * @version 1.0.
  */
 public class ModelSearch {
@@ -48,6 +48,8 @@ public class ModelSearch {
      */
     public List<AssetFile> searchPathName(String directory, String nameFile, String type,
                                           long size, boolean hidden, String owner) throws IOException {
+
+
         File files = new File(directory);
         File[] ficheros = files.listFiles();
 
@@ -74,7 +76,7 @@ public class ModelSearch {
                     continue;
                 }
 
-                pathList.add(new AssetFile(fileIterate.getAbsolutePath(), fileIterate.getName(), fileIterate.length(), type, ownerFile.getName()));    
+                pathList.add(new AssetFile(fileIterate.getAbsolutePath(), fileIterate.getName(), fileIterate.length(), type, ownerFile.getName()));
             }
         }
         return pathList;

@@ -36,8 +36,8 @@ public class MainPanel extends JPanel {
      */
     public MainPanel(Dimension dim) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        searchPanel = new PanelUpSearch();
         resultPanel = new PanelSearchResult();
+        searchPanel = new PanelUpSearch(resultPanel);
         add(searchPanel);
         add(resultPanel);
     }
