@@ -17,13 +17,7 @@ import com.toedter.calendar.JDateChooser;
 
 import java.awt.Dimension;
 import java.util.Vector;
-import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 /**
  * Class that creates the advanced search panel.
@@ -33,9 +27,14 @@ import javax.swing.JTextField;
  */
 public class PanelSearchAdvanced extends JPanel {
 
-    private JLabel labelTypeFormat;
+    private JLabel labelTypeMultimedia;
+    private JCheckBox multimedia;
+    private JTextField writeExtensionMult;
+
     private Vector<String> typeFormat;
     private JComboBox<String> type;
+
+
     private Vector<String> typeFile;
     private JComboBox<String> fileType;
     private JLabel labelFileSize;
@@ -44,17 +43,13 @@ public class PanelSearchAdvanced extends JPanel {
     private JSpinner sizeFile;
     private Vector<String> typeSize;
     private JComboBox sizeType;
-    private JLabel labelHiddenFile;
-    private JCheckBox hiddenFile;
     private JLabel labelOwner;
     private JTextField owner;
     private JLabel labelDateCreated;
-    private JTextField dateCreated;
     private JLabel labelDateModificated;
-    private JTextField dateModificated;
+
     private JLabel labelIntervalDate;
-    private JTextField intervalDateInicio;
-    private JTextField intervalDateEnd;
+
     private JLabel labelIntervalSymbol;
     private JLabel labelPanelAdvanced;
 
@@ -64,6 +59,10 @@ public class PanelSearchAdvanced extends JPanel {
     private JDateChooser dateChooserModifyEnd;
     private JDateChooser dateChooserAccessedIni;
     private JDateChooser dateChooserAccessedEnd;
+
+    private JCheckBox datecreated;
+    private JCheckBox datemodificate;
+    private JCheckBox accessDate;
 
     /**
      * Method that creates the advanced search panel.
@@ -89,103 +88,109 @@ public class PanelSearchAdvanced extends JPanel {
         labelPanelAdvanced.setText("SEARCH ADVANCED");
         labelPanelAdvanced.setBounds(30, 10, 130, 30);
         add(labelPanelAdvanced);
-        labelTypeFormat = new JLabel();
-        labelTypeFormat.setText("File Format");
-        labelTypeFormat.setBounds(110, 50, 80, 30);
-        add(labelTypeFormat);
+
+        labelTypeMultimedia = new JLabel();
+        labelTypeMultimedia.setText("Multimedia");
+        labelTypeMultimedia.setBounds(50, 50, 80, 30);
+        add(labelTypeMultimedia);
+
+        multimedia = new JCheckBox();
+        multimedia.setBounds(120, 50, 30, 30);
+        add(multimedia);
+        writeExtensionMult = new JTextField();
+        writeExtensionMult.setBounds(20, 80, 70, 30);
+        add(writeExtensionMult);
         typeFormat = new Vector<String>();
-        typeFormat.add("--------------------");
-        typeFormat.add("Multimedia");
-        typeFormat.add("Images");
-        typeFormat.add("Documents");
-        typeFormat.add("Executable");
+        typeFormat.add("Mp3");
+        typeFormat.add("Mp4");
+        typeFormat.add("Mpeg");
         type = new JComboBox<String>(typeFormat);
-        type.setBounds(50, 80, 90, 30);
+        type.setBounds(100, 80, 60, 30);
         add(type);
 
+
         labelFileSize = new JLabel();
-        labelFileSize.setText("File Size");
-        labelFileSize.setBounds(355, 50, 80, 30);
+        labelFileSize.setText("Duration");
+        labelFileSize.setBounds(270, 50, 80, 30);
         add(labelFileSize);
-        typeFile = new Vector<String>();
-        typeFile.add("");
-        typeFile.add("txt");
-        typeFile.add("doc");
-        typeFile.add("pdf");
-        typeFile.add("xml");
-        fileType = new JComboBox<String>(typeFile);
-        fileType.setBounds(150, 80, 90, 30);
-        add(fileType);
 
         typeCount = new Vector<String>();
         typeCount.add(" < ");
         typeCount.add(" > ");
         typeCount.add(" = ");
         count = new JComboBox<String>(typeCount);
-        count.setBounds(280, 80, 50, 30);
+        count.setBounds(200, 80, 50, 30);
         add(count);
 
         sizeFile = new JSpinner();
-        sizeFile.setBounds(340, 80, 70, 30);
+        sizeFile.setBounds(260, 80, 70, 30);
         add(sizeFile);
         typeSize = new Vector<String>();
-        typeSize.add("Byte");
-        typeSize.add("KByte");
-        typeSize.add("MByte");
-        typeSize.add("GByte");
+        typeSize.add("Hora");
+        typeSize.add("Minutes");
+        typeSize.add("Seconds");
         sizeType = new JComboBox<String>(typeSize);
-        sizeType.setBounds(420, 80, 70, 30);
+        sizeType.setBounds(340, 80, 70, 30);
         add(sizeType);
-
-        labelHiddenFile = new JLabel();
-        labelHiddenFile.setText("Hidden");
-        labelHiddenFile.setBounds(520, 50, 50, 30);
-        add(labelHiddenFile);
-        hiddenFile = new JCheckBox();
-        hiddenFile.setBounds(530, 80, 30, 30);
-        add(hiddenFile);
 
         labelOwner = new JLabel();
         labelOwner.setText("Owner");
-        labelOwner.setBounds(608, 50, 80, 30);
+        labelOwner.setBounds(540, 50, 80, 30);
         add(labelOwner);
         owner = new JTextField();
-        owner.setBounds(580, 80, 100, 30);
+        owner.setBounds(510, 80, 100, 30);
         add(owner);
 
         labelDateCreated = new JLabel();
         labelDateCreated.setText("Date Created");
-        labelDateCreated.setBounds(120, 150, 110, 30);
+        labelDateCreated.setBounds(100, 250, 110, 30);
         add(labelDateCreated);
+
+        datecreated = new JCheckBox();
+        datecreated.setBounds(180, 250, 30, 30);
+        add(datecreated);
+
         dateChoserCreateIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
-        dateChoserCreateIni.setBounds(60,190,90,30);
+        dateChoserCreateIni.setBounds(60,290,90,30);
         add(dateChoserCreateIni);
         dateChooserCreateEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
-        dateChooserCreateEnd.setBounds(160,190,90,30);
+        dateChooserCreateEnd.setBounds(160,290,90,30);
         add(dateChooserCreateEnd);
+
+
         labelDateModificated = new JLabel();
         labelDateModificated.setText("Date Modificated");
-        labelDateModificated.setBounds(300, 150, 100, 30);
+        labelDateModificated.setBounds(290, 250, 100, 30);
         add(labelDateModificated);
+
+        datemodificate = new JCheckBox();
+        datemodificate.setBounds(390, 250, 30, 30);
+        add(datemodificate);
+
         dateChooserModifyIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
-        dateChooserModifyIni.setBounds(270,190,90,30);
+        dateChooserModifyIni.setBounds(270,290,90,30);
         add(dateChooserModifyIni);
         dateChooserModifyEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
-        dateChooserModifyEnd.setBounds(370,190,90,30);
+        dateChooserModifyEnd.setBounds(370,290,90,30);
         add(dateChooserModifyEnd);
         labelIntervalDate = new JLabel();
         labelIntervalDate.setText("Accessed Date");
-        labelIntervalDate.setBounds(540, 150, 100, 30);
+        labelIntervalDate.setBounds(520, 250, 100, 30);
+
+        accessDate = new JCheckBox();
+        accessDate.setBounds(610, 250, 30, 30);
+        add(accessDate);
+
         add(labelIntervalDate);
         dateChooserAccessedIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
-        dateChooserAccessedIni.setBounds(480,190,90,30);
+        dateChooserAccessedIni.setBounds(480,290,90,30);
         add(dateChooserAccessedIni);
         labelIntervalSymbol = new JLabel();
         labelIntervalSymbol.setText(" - ");
-        labelIntervalSymbol.setBounds(514, 196, 10, 10);
+        labelIntervalSymbol.setBounds(514, 290, 10, 10);
         add(labelIntervalSymbol);
         dateChooserAccessedEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
-        dateChooserAccessedEnd.setBounds(580,190,90,30);
+        dateChooserAccessedEnd.setBounds(580,290,90,30);
         add(dateChooserAccessedEnd);
     }
 
@@ -207,23 +212,7 @@ public class PanelSearchAdvanced extends JPanel {
         sizeFile = newSizeFile;
     }
 
-    /**
-     * Method that returns an object of the JCheckBox class.
-     *
-     * @return hiddenFile an object of the JCheckBox class.
-     */
-    public JCheckBox getHiddenFile() {
-        return hiddenFile;
-    }
 
-    /**
-     * Method that is responsible for modifying the value of the object of the JCheckBox class.
-     *
-     * @param newHiddenFile new object of the JCheckBox class.
-     */
-    public void setHiddenFile(JCheckBox newHiddenFile) {
-        hiddenFile = newHiddenFile;
-    }
 
     /**
      * Method that returns an object of the JComboBox class.
@@ -259,5 +248,93 @@ public class PanelSearchAdvanced extends JPanel {
      */
     public void setFileType(JComboBox newFile) {
         fileType = newFile;
+    }
+
+    public JDateChooser getDateChoserCreateIni() {
+        return dateChoserCreateIni;
+    }
+
+    public void setDateChoserCreateIni(JDateChooser dateChoserCreateIni) {
+        this.dateChoserCreateIni = dateChoserCreateIni;
+    }
+
+    public JDateChooser getDateChooserCreateEnd() {
+        return dateChooserCreateEnd;
+    }
+
+    public void setDateChooserCreateEnd(JDateChooser dateChooserCreateEnd) {
+        this.dateChooserCreateEnd = dateChooserCreateEnd;
+    }
+
+    public JDateChooser getDateChooserModifyIni() {
+        return dateChooserModifyIni;
+    }
+
+    public void setDateChooserModifyIni(JDateChooser dateChooserModifyIni) {
+        this.dateChooserModifyIni = dateChooserModifyIni;
+    }
+
+    public JDateChooser getDateChooserModifyEnd() {
+        return dateChooserModifyEnd;
+    }
+
+    public void setDateChooserModifyEnd(JDateChooser dateChooserModifyEnd) {
+        this.dateChooserModifyEnd = dateChooserModifyEnd;
+    }
+
+    public JDateChooser getDateChooserAccessedIni() {
+        return dateChooserAccessedIni;
+    }
+
+    public void setDateChooserAccessedIni(JDateChooser dateChooserAccessedIni) {
+        this.dateChooserAccessedIni = dateChooserAccessedIni;
+    }
+
+    public JDateChooser getDateChooserAccessedEnd() {
+        return dateChooserAccessedEnd;
+    }
+
+    public void setDateChooserAccessedEnd(JDateChooser dateChooserAccessedEnd) {
+        this.dateChooserAccessedEnd = dateChooserAccessedEnd;
+    }
+
+    public JCheckBox getDatecreated() {
+        return datecreated;
+    }
+
+    public void setDatecreated(JCheckBox datecreated) {
+        this.datecreated = datecreated;
+    }
+
+    public JCheckBox getDatemodificate() {
+        return datemodificate;
+    }
+
+    public void setDatemodificate(JCheckBox datemodificate) {
+        this.datemodificate = datemodificate;
+    }
+
+    public JCheckBox getAccessDate() {
+        return accessDate;
+    }
+
+    public void setAccessDate(JCheckBox accessDate) {
+        this.accessDate = accessDate;
+    }
+
+    public JCheckBox getMultimedia() {
+        return multimedia;
+    }
+
+    public void setMultimedia(JCheckBox multimedia) {
+        this.multimedia = multimedia;
+    }
+
+    public JTextField getOwner() {
+        return owner;
+    }
+
+    public void setOwner(JTextField owner) {
+        this.owner = owner;
     }
 }

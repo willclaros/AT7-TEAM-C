@@ -22,6 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Class that creates the basic search panel.
@@ -35,6 +36,42 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     private JTextField nameFile;
     private JLabel labelSearchPath;
     private JTextField path;
+
+    private JLabel labelReadOnly;
+    private JCheckBox readOnly;
+
+    private JLabel labelKeyEnsitive;
+    private JCheckBox keySensitive;
+
+    private JLabel labelHiddenFile;
+    private JCheckBox hiddenFile;
+
+    private ButtonGroup group;
+    private JLabel labelAll;
+    private JRadioButton all;
+    private JLabel labelFile;
+    private JRadioButton file;
+    private JLabel labelfolder;
+    private JRadioButton folder;
+
+
+    private JLabel labelTypeDocument;
+    private JCheckBox document;
+    private JTextField writeExtension;
+    private Vector<String> typeFile;
+    private JComboBox<String> fileType;
+
+    private JLabel labelContent;
+    private JTextField content;
+
+    private JLabel labelFileSize;
+    private Vector<String> typeCount;
+    private JComboBox<String> count;
+    private JSpinner sizeFile;
+    private Vector<String> typeSize;
+    private JComboBox sizeType;
+
+
     private JButton buttonPath;
     private JButton searchButton;
     private JLabel labelPanelBasic;
@@ -77,30 +114,140 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
         labelNameFile = new JLabel();
         labelNameFile.setText("Name file: ");
-        labelNameFile.setBounds(40, 60, 100, 30);
+        labelNameFile.setBounds(40, 120, 120, 30);
         add(labelNameFile);
 
         nameFile = new JTextField();
-        nameFile.setBounds(150, 60, 340, 30);
+        nameFile.setBounds(150, 120, 340, 30);
         add(nameFile);
 
         labelSearchPath = new JLabel();
         labelSearchPath.setText("Document Path: ");
-        labelSearchPath.setBounds(40, 120, 120, 30);
+        labelSearchPath.setBounds(40, 60, 100, 30); // 40, 60, 100, 30
         add(labelSearchPath);
 
         path = new JTextField();
-        path.setBounds(150, 120, 340, 30);
+        path.setBounds(150, 60, 340, 30); // 150, 60, 340, 30
         add(path);
+
+
+
+        labelAll = new JLabel();
+        labelAll.setText("All");
+        labelAll.setBounds(150, 90, 80, 30);
+        add(labelAll);
+        all = new JRadioButton();
+        all.setBounds(170, 90, 30, 30);
+        add(all);
+
+        labelFile = new JLabel();
+        labelFile.setText("File");
+        labelFile.setBounds(200, 90, 80, 30);
+        add(labelFile);
+        file = new JRadioButton();
+        file.setBounds(220, 90, 30, 30);
+        add(file);
+
+        labelfolder = new JLabel();
+        labelfolder.setText("Folder");
+        labelfolder.setBounds(250, 90, 80, 30);
+        add(labelfolder);
+        folder = new JRadioButton();
+        folder.setBounds(290, 90, 30, 30);
+        add(folder);
+
+        group = new ButtonGroup();
+        group.add(all);
+        group.add(file);
+        group.add(folder);
+
+
+        labelReadOnly = new JLabel();
+        labelReadOnly.setText("Read Only");
+        labelReadOnly.setBounds(150, 150, 80, 30);
+        add(labelReadOnly);
+        readOnly = new JCheckBox();
+        readOnly.setBounds(210, 150, 30, 30);
+        add(readOnly);
+
+        labelHiddenFile = new JLabel();
+        labelHiddenFile.setText("Hidden");
+        labelHiddenFile.setBounds(250, 150, 50, 30);
+        add(labelHiddenFile);
+        hiddenFile = new JCheckBox();
+        hiddenFile.setBounds(290, 150, 30, 30);
+        add(hiddenFile);
+
+        labelKeyEnsitive = new JLabel();
+        labelKeyEnsitive.setText("Key Sensitive");
+        labelKeyEnsitive.setBounds(330, 150, 90, 30);
+        add(labelKeyEnsitive);
+        keySensitive = new JCheckBox();
+        keySensitive.setBounds(410, 150, 30, 30);
+        add(keySensitive);
+
+        labelTypeDocument = new JLabel();
+        labelTypeDocument.setText("Documents");
+        labelTypeDocument.setBounds(60, 180, 80, 30);
+        add(labelTypeDocument);
+        document = new JCheckBox();
+        document.setBounds(130, 180, 30, 30);
+        add(document);
+
+        writeExtension = new JTextField();
+        writeExtension.setBounds(30, 210, 60, 30);
+        add(writeExtension);
+
+        typeFile = new Vector<String>();
+        typeFile.add("txt");
+        typeFile.add("doc");
+        typeFile.add("pdf");
+        typeFile.add("xml");
+        fileType = new JComboBox<String>(typeFile);
+        fileType.setBounds(100, 210, 60, 30);
+        add(fileType);
+
+        labelContent = new JLabel();
+        labelContent.setText("Content Search");
+        labelContent.setBounds(175, 180, 100, 30);
+        add(labelContent);
+        content = new JTextField();
+        content.setBounds(175, 210, 90, 30);
+        add(content);
+
+        labelFileSize = new JLabel();
+        labelFileSize.setText("File Size");
+        labelFileSize.setBounds(355, 180, 80, 30);
+        add(labelFileSize);
+        typeCount = new Vector<String>();
+        typeCount.add(" < ");
+        typeCount.add(" > ");
+        typeCount.add(" = ");
+        count = new JComboBox<String>(typeCount);
+        count.setBounds(280, 210, 50, 30);
+        add(count);
+
+        sizeFile = new JSpinner();
+        sizeFile.setBounds(340, 210, 70, 30);
+        add(sizeFile);
+        typeSize = new Vector<String>();
+        typeSize.add("Byte");
+        typeSize.add("KByte");
+        typeSize.add("MByte");
+        typeSize.add("GByte");
+        sizeType = new JComboBox<String>(typeSize);
+        sizeType.setBounds(420, 210, 70, 30);
+        add(sizeType);
+
 
         buttonPath = new JButton("Path");
         buttonPath.addActionListener(this);
-        buttonPath.setBounds(520, 120, 120, 30);
+        buttonPath.setBounds(520, 60, 120, 30);
         add(buttonPath);
 
-        searchButton = new JButton();
+        searchButton = new JButton("Search");
         searchButton.setText("Search");
-        searchButton.setBounds(520, 190, 120, 30);
+        searchButton.setBounds(520, 300, 120, 30);
         searchButton.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -176,4 +323,111 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     public void setPath(JTextField newPath) {
         path = newPath;
     }
+
+    /**
+     * Method that returns an object of the JCheckBox class.
+     *
+     * @return hiddenFile an object of the JCheckBox class.
+     */
+    public JCheckBox getHiddenFile() {
+        return hiddenFile;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JCheckBox class.
+     *
+     * @param newHiddenFile new object of the JCheckBox class.
+     */
+    public void setHiddenFile(JCheckBox newHiddenFile) {
+        hiddenFile = newHiddenFile;
+    }
+
+    public JCheckBox getReadOnly() {
+        return readOnly;
+    }
+
+    public void setReadOnly(JCheckBox readOnly) {
+        this.readOnly = readOnly;
+    }
+
+    public JCheckBox getKeySensitive() {
+        return keySensitive;
+    }
+
+    public void setKeySensitive(JCheckBox keySensitive) {
+        this.keySensitive = keySensitive;
+    }
+
+    public JCheckBox getDocument() {
+        return document;
+    }
+
+    public void setDocument(JCheckBox document) {
+        this.document = document;
+    }
+
+    public JTextField getWriteExtension() {
+        return writeExtension;
+    }
+
+    public void setWriteExtension(JTextField writeExtension) {
+        this.writeExtension = writeExtension;
+    }
+
+    public JComboBox<String> getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(JComboBox<String> fileType) {
+        this.fileType = fileType;
+    }
+
+    public JTextField getContent() {
+        return content;
+    }
+
+    public void setContent(JTextField content) {
+        this.content = content;
+    }
+
+    public Vector<String> getTypeCount() {
+        return typeCount;
+    }
+
+    public void setTypeCount(Vector<String> typeCount) {
+        this.typeCount = typeCount;
+    }
+
+    public JComboBox<String> getCount() {
+        return count;
+    }
+
+    public void setCount(JComboBox<String> count) {
+        this.count = count;
+    }
+
+    public JSpinner getSizeFile() {
+        return sizeFile;
+    }
+
+    public void setSizeFile(JSpinner sizeFile) {
+        this.sizeFile = sizeFile;
+    }
+
+    public Vector<String> getTypeSize() {
+        return typeSize;
+    }
+
+    public void setTypeSize(Vector<String> typeSize) {
+        this.typeSize = typeSize;
+    }
+
+    public JComboBox getSizeType() {
+        return sizeType;
+    }
+
+    public void setSizeType(JComboBox sizeType) {
+        this.sizeType = sizeType;
+    }
+
 }
