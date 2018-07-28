@@ -8,9 +8,12 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
+
     mavenCentral()
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile 'junit:junit:4.12'
+    compile group: 'com.jgoodies', name: 'jgoodies-looks', version: '2.5.2'
+    compile group: 'com.toedter', name: 'jcalendar', version: '1.4'
 }
