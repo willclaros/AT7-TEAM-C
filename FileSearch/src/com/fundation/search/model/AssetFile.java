@@ -57,7 +57,7 @@ public class AssetFile {
         this.contentWord = contentWord;
         this.endWord = endWord;
         this.otherExtension = otherExtension;
-                
+
     }
 
     /**
