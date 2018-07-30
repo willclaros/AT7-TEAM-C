@@ -27,6 +27,7 @@ import java.util.List;
  * This class ModelSearch can be FileResult, MultimediaResult and maybe SearchFolder.
  *
  * @author Yerel Hurtado - AT-[07].
+ *
  * @version 1.0.
  */
 public class ModelSearch {
@@ -46,33 +47,34 @@ public class ModelSearch {
      * @throws IOException file.
      * @throws IOException file.
      */
-    public List<AssetFile> searchPathName(String directory, String nameFile, String type,
-                                          long size, boolean hidden, String owner) throws IOException {
+    public List<AssetFile> searchPathName(CriterialSearch criteria) throws IOException {
 
-
-        File files = new File(directory);
+        File files = new File(criteria.getDirectory());
         File[] ficheros = files.listFiles();
 
         for (File fileIterate : ficheros) {
 
             if (fileIterate.isDirectory()) {
-                searchPathName(fileIterate.getPath(), nameFile, type, size, hidden, owner);
+                searchPathName(fileIterate.getPath(), criteria.getNameFile(), criteria.getType(), criteria.getSize(), criteria.isHidden(), criteria.getOwner());
             } else {
                 Path filePath = Paths.get(fileIterate.getPath());
                 UserPrincipal ownerFile = Files.getOwner(filePath, LinkOption.NOFOLLOW_LINKS);
-                if (fileIterate.isHidden() != hidden) {
+                if (fileIterate.isHidden() != criteria.isHidden()) {
                     continue;
                 }
-                if (type != null && !fileIterate.getName().toLowerCase().endsWith(type)) {
+                if (criteria.getType() != null && !fileIterate.getName().toLowerCase().endsWith(criteria.getType())) {
                     continue;
                 }
-                if (size > 0 && fileIterate.length() != size) {
+                if (criteria.getSize() > 0 && fileIterate.length() != criteria.getSize()) {
                     continue;
                 }
-                if (nameFile != null && !fileIterate.getName().contains(nameFile)) {
+                if (criteria.getNameFile() != null && !fileIterate.getName().contains(criteria.getNameFile())) {
                     continue;
                 }
-                if (owner != null && !ownerFile.getName().equals(owner)) {
+                if (criteria.getOwner() != null && !ownerFile.getName().equals(criteria.getOwner())) {
+                    continue;
+                }
+                if (fileIterate.canWrite() == criteria.isReadOnly()) {
                     continue;
                 }
 
