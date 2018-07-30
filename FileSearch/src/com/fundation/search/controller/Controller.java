@@ -54,18 +54,18 @@ public class Controller {
         String pathName = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getPath().getText();
         String fileName = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getNameFile().getText();
         boolean fileHidden = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getHiddenFile().isSelected();
-        String fileType = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getFileType().getSelectedItem().toString();
+        String fileType = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFileType().getSelectedItem().toString();
         String owner = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getOwner().getText();
-        long fileSize = Long.parseLong(view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getSizeFile().getValue().toString());
+        long fileSize = Long.parseLong(view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSizeFile().getValue().toString());
         String countSearch = Objects.requireNonNull(view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getCount().getSelectedItem()).toString();
         String sizeType = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSizeType().getSelectedItem().toString();
         boolean readOnly = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getReadOnly().isSelected();
         boolean keySensiteve = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getKeySensitive().isSelected();
         boolean selectAll = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getAll().isSelected();
         boolean selectFolder = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().isSelected();
-        boolean selectfiles = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().isSelected();
+        boolean selectfiles = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFile().isSelected();
         boolean starWord = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getStartWord().isSelected();
-        boolean contentWord = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getContetWord().isSelected();
+        boolean contentWord = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getContentWord().isSelected();
         boolean endWord = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getEndWord().isSelected();
         String otherExtension = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getWriteExtension().getText();
 
