@@ -329,6 +329,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that is responsible for modifying the value of the object of the JCheckBox class.
+     *
      * @param newHiddenFile new object of the JCheckBox class.
      */
     public void setHiddenFile(JCheckBox newHiddenFile) {
@@ -337,6 +338,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that returns an object of the JTextField class.
+     *
      * @return owner.
      */
     public JTextField getOwner() {
@@ -345,6 +347,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that is responsible for modifying the value of the object of the JTextField class.
+     *
      * @param owner new object of the JTextField class.
      */
     public void setOwner(JTextField owner) {
@@ -353,6 +356,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that returns an object of the JTextField class.
+     *
      * @return content.
      */
     public JTextField getContent() {
@@ -361,6 +365,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that is responsible for modifying the value of the object of the JTextField class.
+     *
      * @param content new object of the JTextField class.
      */
     public void setContent(JTextField content) {
@@ -369,6 +374,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that returns an object of the JCheckBox class.
+     *
      * @return read only.
      */
     public JCheckBox getReadOnly() {
@@ -377,6 +383,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that is responsible for modifying the value of the object of the JCheckBox class.
+     *
      * @param readOnly new object of the JTextField class.
      */
     public void setReadOnly(JCheckBox readOnly) {
@@ -385,6 +392,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that returns an object of the JCheckBox class.
+     *
      * @return key sensitive.
      */
     public JCheckBox getKeySensitive() {
@@ -393,6 +401,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that is responsible for modifying the value of the object of the JCheckBox class.
+     *
      * @param keySensitive new object of the JTextField class.
      */
     public void setKeySensitive(JCheckBox keySensitive) {
@@ -400,39 +409,89 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     }
 
     /**
-     * Method that returns an object of the ButtonGroup class.
-     * @return
+     * Method that returns an object of the JRadioButton class.
+     *
+     * @return all.
      */
-    public ButtonGroup getGroup1() {
-        return group1;
+    public JRadioButton getAll() {
+        return all;
     }
 
     /**
-     * Method that is responsible for modifying the value of the object of the ButtonGroup class.
-     * @param group1 new object of the ButtonGroup class.
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     *
+     * @param all new object of the JTextField class.
      */
-    public void setGroup1(ButtonGroup group1) {
-        this.group1 = group1;
+    public void setAll(JRadioButton all) {
+        this.all = all;
     }
 
     /**
-     * Method that returns an object of the ButtonGroup class.
-     * @return
+     * Method that returns an object of the JRadioButton class.
+     *
+     * @return file.
      */
-    public ButtonGroup getGroup2() {
-        return group2;
+    public JRadioButton getFile() {
+        return file;
     }
 
     /**
-     * Method that is responsible for modifying the value of the object of the ButtonGroup class.
-     * @param group2 new object of the ButtonGroup class.
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     *
+     * @param file new object of the JTextField class.
      */
-    public void setGroup2(ButtonGroup group2) {
-        this.group2 = group2;
+    public void setFile(JRadioButton file) {
+        this.file = file;
+    }
+
+    /**
+     * Method that returns an object of the JRadioButton class.
+     *
+     * @return folder.
+     */
+    public JRadioButton getFolder() {
+        return folder;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     *
+     * @param folder new object of the JTextField class.
+     */
+    public void setFolder(JRadioButton folder) {
+        this.folder = folder;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     *
+     * @param contetWord new object of the JTextField class.
+     */
+    public void setContetWord(JRadioButton contetWord) {
+        this.contetWord = contetWord;
+    }
+
+    /**
+     * Method that returns an object of the JRadioButton class.
+     *
+     * @return end word.
+     */
+    public JRadioButton getEndWord() {
+        return endWord;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     *
+     * @param endWord new object of the JTextField class.
+     */
+    public void setEndWord(JRadioButton endWord) {
+        this.endWord = endWord;
     }
 
     /**
      * Method that returns an object of the JTextField class.
+     *
      * @return write extension.
      */
     public JTextField getWriteExtension() {
@@ -441,6 +500,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that is responsible for modifying the value of the object of the JTextField class.
+     *
      * @param writeExtension new object of the JTextField class.
      */
     public void setWriteExtension(JTextField writeExtension) {
@@ -449,6 +509,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that returns an object of the vector.
+     *
      * @return type file.
      */
     public Vector<String> getTypeFile() {
@@ -457,6 +518,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that is responsible for modifying the value of the object of the Vector.
+     *
      * @param typeFile new object of the JTextField class.
      */
     public void setTypeFile(Vector<String> typeFile) {
@@ -465,6 +527,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that returns an object of the JComboBox class.
+     *
      * @return file type.
      */
     public JComboBox<String> getFileType() {
@@ -473,6 +536,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that is responsible for modifying the value of the object of the JComboBox class.
+     *
      * @param fileType new object of the JTextField class.
      */
     public void setFileType(JComboBox<String> fileType) {
@@ -481,6 +545,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that returns an object of the Vector.
+     *
      * @return type count.
      */
     public Vector<String> getTypeCount() {
@@ -489,6 +554,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that is responsible for modifying the value of the object of the vector.
+     *
      * @param typeCount new object of the JTextField class.
      */
     public void setTypeCount(Vector<String> typeCount) {
@@ -497,6 +563,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that returns an object of the JComboBox class.
+     *
      * @return count.
      */
     public JComboBox<String> getCount() {
@@ -505,6 +572,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that is responsible for modifying the value of the object of the JComboBox class.
+     *
      * @param count new object of the JTextField class.
      */
     public void setCount(JComboBox<String> count) {
@@ -513,6 +581,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that returns an object of the Vector type size.
+     *
      * @return type size.
      */
     public Vector<String> getTypeSize() {
@@ -521,6 +590,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that is responsible for modifying the value of the object of the vector type size.
+     *
      * @param typeSize new object of the JTextField class.
      */
     public void setTypeSize(Vector<String> typeSize) {
@@ -529,6 +599,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that returns an object of the JComboBox class.
+     *
      * @return size type.
      */
     public JComboBox getSizeType() {
@@ -537,6 +608,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that is responsible for modifying the value of the object of the JComboBox class.
+     *
      * @param sizeType new object of the JTextField class.
      */
     public void setSizeType(JComboBox sizeType) {
