@@ -75,8 +75,8 @@ public class Controller {
         ModelSearch model = new ModelSearch();
 
         try {
-            //List<AssetFile> fileList = model.searchPathName(criterialSearch);
-            List<AssetFile> fileList = model.searchPathName(pathName, fileName, fileType, fileSize, fileHidden, owner);
+            List<AssetFile> fileList = model.searchPathName(criterialSearch);
+            //List<AssetFile> fileList = model.searchPathName(pathName, fileName, fileType, fileSize, fileHidden, owner);
             for (AssetFile a : fileList) {
                 System.out.println(a.getFilename());
                 view.getPanelGeneral().getResultPanel().addRowTable(a.getPath(), a.getFilename(), a.getExtension(), a.getSize(), null, null);
