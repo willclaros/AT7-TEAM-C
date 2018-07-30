@@ -400,36 +400,102 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     }
 
     /**
-     * Method that returns an object of the ButtonGroup class.
-     * @return
+     * Method that returns an object of the JRadioButton class.
+     * @return all
      */
-    public ButtonGroup getGroup1() {
-        return group1;
+    public JRadioButton getAll() {
+        return all;
     }
 
     /**
-     * Method that is responsible for modifying the value of the object of the ButtonGroup class.
-     * @param group1 new object of the ButtonGroup class.
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     * @param all new object of the JRadioButton class.
      */
-    public void setGroup1(ButtonGroup group1) {
-        this.group1 = group1;
+    public void setAll(JRadioButton all) {
+        this.all = all;
     }
 
     /**
-     * Method that returns an object of the ButtonGroup class.
-     * @return
+     * Method that returns an object of the JRadioButton class.
+     * @return file
      */
-    public ButtonGroup getGroup2() {
-        return group2;
+    public JRadioButton getFile() {
+        return file;
     }
 
     /**
-     * Method that is responsible for modifying the value of the object of the ButtonGroup class.
-     * @param group2 new object of the ButtonGroup class.
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     * @param file new object of the JRadioButton class.
      */
-    public void setGroup2(ButtonGroup group2) {
-        this.group2 = group2;
+    public void setFile(JRadioButton file) {
+        this.file = file;
     }
+
+    /**
+     * Method that returns an object of the JRadioButton class.
+     * @return folder
+     */
+    public JRadioButton getFolder() {
+        return folder;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     * @param folder new object of the JRadioButton class.
+     */
+    public void setFolder(JRadioButton folder) {
+        this.folder = folder;
+    }
+
+    /**
+     * Method that returns an object of the JRadioButton class.
+     * @return startWord
+     */
+    public JRadioButton getStartWord() {
+        return startWord;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     * @param startWord new object of the JRadioButton class.
+     */
+    public void setStartWord(JRadioButton startWord) {
+        this.startWord = startWord;
+    }
+
+    /**
+     * Method that returns an object of the JRadioButton class.
+     * @return contentWord
+     */
+    public JRadioButton getContentWord() {
+        return contentWord;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     * @param contentWord new object of the JRadioButton class.
+     */
+    public void setContentWord(JRadioButton contentWord) {
+        this.contentWord = contentWord;
+    }
+
+    /**
+     * Method that returns an object of the JRadioButton class.
+     * @return endWord
+     */
+    public JRadioButton getEndWord() {
+        return endWord;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     * @param endWord new object of the JRadioButton class.
+     */
+    public void setEndWord(JRadioButton endWord) {
+        this.endWord = endWord;
+    }
+
+
 
     /**
      * Method that returns an object of the JTextField class.
@@ -558,4 +624,5 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     public void setSizeFile(JSpinner sizeFile) {
         this.sizeFile = sizeFile;
     }
+
 }
