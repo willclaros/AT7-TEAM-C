@@ -16,30 +16,58 @@ package com.fundation.search.view;
 
 import com.fundation.search.model.AssetFile;
 import com.fundation.search.model.ModelSearch;
-
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * Class that creates the basic search panel.
  *
  * @author William Claros Revollo - AT - [07]
+ * @author Erik Vargas - AT - [07]
  * @version 1.0.
  */
 public class PanelSearchBasic extends JPanel implements ActionListener {
 
-    private JLabel labelNameFile;
     private JTextField nameFile;
-    private JLabel labelSearchPath;
+    private JTextField owner;
     private JTextField path;
-    private JButton buttonPath;
+    private JCheckBox readOnly;
+    private JCheckBox keySensitive;
+    private JCheckBox hiddenFile;
+    private JRadioButton all;
+    private JRadioButton file;
+    private JRadioButton folder;
+    private ButtonGroup group1;
+    private ButtonGroup group2;
+    private JRadioButton startWord;
+    private JRadioButton contentWord;
+    private JRadioButton endWord;
+    private JTextField writeExtension;
+    private Vector<String> typeFile;
+    private JComboBox<String> fileType;
+    private JTextField content;
+    private Vector<String> typeCount;
+    private JComboBox<String> count;
+    private Vector<String> typeSize;
+    private JComboBox sizeType;
+    private JSpinner sizeFile;
     private JButton searchButton;
-    private JLabel labelPanelBasic;
     private PanelSearchResult panelResult;
-
     private ModelSearch modelSearch;
 
     /**
@@ -67,40 +95,154 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     }
 
     /**
-     * Method that contains the components of the Advanced Basic.
+     * Method that contains the components of the search Basic.
      */
     public void initComponent() {
-        labelPanelBasic = new JLabel();
-        labelPanelBasic.setText("SEARCH BASIC");
-        labelPanelBasic.setBounds(30, 10, 130, 30);
+        JLabel labelPanelBasic = new JLabel("SEARCH");
+        labelPanelBasic.setBounds(320, 10, 130, 30);
         add(labelPanelBasic);
 
-        labelNameFile = new JLabel();
-        labelNameFile.setText("Name file: ");
-        labelNameFile.setBounds(40, 60, 100, 30);
-        add(labelNameFile);
-
-        nameFile = new JTextField();
-        nameFile.setBounds(150, 60, 340, 30);
-        add(nameFile);
-
-        labelSearchPath = new JLabel();
+        JLabel labelSearchPath = new JLabel();
         labelSearchPath.setText("Document Path: ");
-        labelSearchPath.setBounds(40, 120, 120, 30);
+        labelSearchPath.setBounds(20, 60, 100, 30);
         add(labelSearchPath);
 
         path = new JTextField();
-        path.setBounds(150, 120, 340, 30);
+        path.setBounds(130, 60, 380, 30);
         add(path);
 
-        buttonPath = new JButton("Path");
+        JLabel labelNameFile = new JLabel();
+        labelNameFile.setText("File Name: ");
+        labelNameFile.setBounds(20, 120, 120, 30);
+        add(labelNameFile);
+
+        nameFile = new JTextField();
+        nameFile.setBounds(130, 120, 170, 30);
+        add(nameFile);
+
+        JLabel labelOwner = new JLabel();
+        labelOwner.setText("Owner");
+        labelOwner.setBounds(320, 120, 80, 30);
+        add(labelOwner);
+        owner = new JTextField();
+        owner.setBounds(370, 120, 100, 30);
+        add(owner);
+
+        JLabel labelContent = new JLabel();
+        labelContent.setText("Contains");
+        labelContent.setBounds(490, 120, 100, 30);
+        add(labelContent);
+
+        content = new JTextField();
+        content.setBounds(550, 120, 100, 30);
+        add(content);
+
+        all = new JRadioButton("All");
+        all.setBounds(150, 170, 80, 20);
+        add(all);
+
+        file = new JRadioButton("File");
+        file.setBounds(150, 190, 80, 20);
+        add(file);
+
+        folder = new JRadioButton("Folder");
+        folder.setBounds(150, 210, 80, 20);
+        add(folder);
+
+        group1 = new ButtonGroup();
+        group1.add(all);
+        group1.add(file);
+        group1.add(folder);
+
+        startWord = new JRadioButton("Start Word");
+        startWord.setBounds(250, 170, 100, 20);
+        add(startWord);
+
+        contentWord = new JRadioButton("Content Word");
+        contentWord.setBounds(250, 190, 120, 20);
+        add(contentWord);
+
+        endWord = new JRadioButton("End Word");
+        endWord.setBounds(250, 210, 100, 20);
+        add(endWord);
+
+        group2 = new ButtonGroup();
+        group2.add(startWord);
+        group2.add(contentWord);
+        group2.add(endWord);
+
+        readOnly = new JCheckBox("Read Only");
+        readOnly.setBounds(400, 172, 100, 20);
+        add(readOnly);
+
+        hiddenFile = new JCheckBox("Hidden");
+        hiddenFile.setBounds(400, 193, 100, 20);
+        add(hiddenFile);
+
+        keySensitive = new JCheckBox("Key Sensitive");
+        keySensitive.setBounds(400, 214, 120, 20);
+        add(keySensitive);
+
+        JLabel labelTypeDocument = new JLabel();
+        labelTypeDocument.setText("Documents");
+        labelTypeDocument.setBounds(60, 240, 80, 30);
+        add(labelTypeDocument);
+
+        JLabel labelOtherExtension = new JLabel();
+        labelOtherExtension.setText("Other extension");
+        labelOtherExtension.setBounds(10, 270, 100, 30);
+        add(labelOtherExtension);
+
+        writeExtension = new JTextField();
+        writeExtension.setBounds(120, 270, 100, 30);
+        add(writeExtension);
+
+        JLabel labelExtension = new JLabel("extension");
+        labelExtension.setBounds(10, 300, 80, 30);
+        add(labelExtension);
+
+        typeFile = new Vector();
+        typeFile.add("txt");
+        typeFile.add("doc");
+        typeFile.add("pdf");
+        typeFile.add("xlsx");
+        fileType = new JComboBox(typeFile);
+        fileType.setBounds(120, 300, 100, 30);
+        add(fileType);
+
+        JLabel labelFileSize = new JLabel("File Size");
+        labelFileSize.setBounds(355, 270, 80, 30);
+        add(labelFileSize);
+
+        typeCount = new Vector();
+        typeCount.add(" < ");
+        typeCount.add(" > ");
+        typeCount.add(" = ");
+        count = new JComboBox(typeCount);
+        count.setBounds(280, 300, 50, 30);
+        add(count);
+
+        sizeFile = new JSpinner();
+        sizeFile.setBounds(340, 300, 70, 30);
+        add(sizeFile);
+
+        typeSize = new Vector();
+        typeSize.add("Byte");
+        typeSize.add("KByte");
+        typeSize.add("MByte");
+        typeSize.add("GByte");
+        sizeType = new JComboBox(typeSize);
+        sizeType.setBounds(420, 300, 70, 30);
+        add(sizeType);
+
+        JButton buttonPath = new JButton("Path");
         buttonPath.addActionListener(this);
-        buttonPath.setBounds(520, 120, 120, 30);
+        buttonPath.setBounds(540, 60, 120, 30);
         add(buttonPath);
 
-        searchButton = new JButton();
-        searchButton.setText("Search");
-        searchButton.setBounds(520, 190, 120, 30);
+        searchButton = new JButton("Search");
+        searchButton.setBounds(540, 270, 100, 50);
+
         searchButton.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -109,7 +251,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
                     panelResult.updageFilesList(listPaths);
                 } catch (Exception ez) {
                 }
-                }
+            }
         });
         add(searchButton);
     }
@@ -134,7 +276,6 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
     /**
      * Method that returns an object of the JButton class.
-     *
      * @return searchButton an object of the JButton class.
      */
     public JButton getSearchButton() {
@@ -176,4 +317,312 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     public void setPath(JTextField newPath) {
         path = newPath;
     }
+
+    /**
+     * Method that returns an object of the JCheckBox class.
+     *
+     * @return hiddenFile an object of the JCheckBox class.
+     */
+    public JCheckBox getHiddenFile() {
+        return hiddenFile;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JCheckBox class.
+     * @param newHiddenFile new object of the JCheckBox class.
+     */
+    public void setHiddenFile(JCheckBox newHiddenFile) {
+        hiddenFile = newHiddenFile;
+    }
+
+    /**
+     * Method that returns an object of the JTextField class.
+     * @return owner.
+     */
+    public JTextField getOwner() {
+        return owner;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JTextField class.
+     * @param owner new object of the JTextField class.
+     */
+    public void setOwner(JTextField owner) {
+        this.owner = owner;
+    }
+
+    /**
+     * Method that returns an object of the JTextField class.
+     * @return content.
+     */
+    public JTextField getContent() {
+        return content;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JTextField class.
+     * @param content new object of the JTextField class.
+     */
+    public void setContent(JTextField content) {
+        this.content = content;
+    }
+
+    /**
+     * Method that returns an object of the JCheckBox class.
+     * @return read only.
+     */
+    public JCheckBox getReadOnly() {
+        return readOnly;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JCheckBox class.
+     * @param readOnly new object of the JTextField class.
+     */
+    public void setReadOnly(JCheckBox readOnly) {
+        this.readOnly = readOnly;
+    }
+
+    /**
+     * Method that returns an object of the JCheckBox class.
+     * @return key sensitive.
+     */
+    public JCheckBox getKeySensitive() {
+        return keySensitive;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JCheckBox class.
+     * @param keySensitive new object of the JTextField class.
+     */
+    public void setKeySensitive(JCheckBox keySensitive) {
+        this.keySensitive = keySensitive;
+    }
+
+    /**
+     * Method that returns an object of the JRadioButton class.
+     * @return all
+     */
+    public JRadioButton getAll() {
+        return all;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     * @param all new object of the JRadioButton class.
+     */
+    public void setAll(JRadioButton all) {
+        this.all = all;
+    }
+
+    /**
+     * Method that returns an object of the JRadioButton class.
+     * @return file
+     */
+    public JRadioButton getFile() {
+        return file;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     * @param file new object of the JRadioButton class.
+     */
+    public void setFile(JRadioButton file) {
+        this.file = file;
+    }
+
+    /**
+     * Method that returns an object of the JRadioButton class.
+     * @return folder
+     */
+    public JRadioButton getFolder() {
+        return folder;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     * @param folder new object of the JRadioButton class.
+     */
+    public void setFolder(JRadioButton folder) {
+        this.folder = folder;
+    }
+
+    /**
+     * Method that returns an object of the JRadioButton class.
+     * @return startWord
+     */
+    public JRadioButton getStartWord() {
+        return startWord;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     * @param startWord new object of the JRadioButton class.
+     */
+    public void setStartWord(JRadioButton startWord) {
+        this.startWord = startWord;
+    }
+
+    /**
+     * Method that returns an object of the JRadioButton class.
+     * @return contentWord
+     */
+    public JRadioButton getContentWord() {
+        return contentWord;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     * @param contentWord new object of the JRadioButton class.
+     */
+    public void setContentWord(JRadioButton contentWord) {
+        this.contentWord = contentWord;
+    }
+
+    /**
+     * Method that returns an object of the JRadioButton class.
+     * @return endWord
+     */
+    public JRadioButton getEndWord() {
+        return endWord;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JRadioButton class.
+     * @param endWord new object of the JRadioButton class.
+     */
+    public void setEndWord(JRadioButton endWord) {
+        this.endWord = endWord;
+    }
+
+
+
+    /**
+     * Method that returns an object of the JTextField class.
+     * @return write extension.
+     */
+    public JTextField getWriteExtension() {
+        return writeExtension;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JTextField class.
+     * @param writeExtension new object of the JTextField class.
+     */
+    public void setWriteExtension(JTextField writeExtension) {
+        this.writeExtension = writeExtension;
+    }
+
+    /**
+     * Method that returns an object of the vector.
+     * @return type file.
+     */
+    public Vector<String> getTypeFile() {
+        return typeFile;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the Vector.
+     * @param typeFile new object of the JTextField class.
+     */
+    public void setTypeFile(Vector<String> typeFile) {
+        this.typeFile = typeFile;
+    }
+
+    /**
+     * Method that returns an object of the JComboBox class.
+     * @return file type.
+     */
+    public JComboBox<String> getFileType() {
+        return fileType;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JComboBox class.
+     * @param fileType new object of the JTextField class.
+     */
+    public void setFileType(JComboBox<String> fileType) {
+        this.fileType = fileType;
+    }
+
+    /**
+     * Method that returns an object of the Vector.
+     * @return type count.
+     */
+    public Vector<String> getTypeCount() {
+        return typeCount;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the vector.
+     * @param typeCount new object of the JTextField class.
+     */
+    public void setTypeCount(Vector<String> typeCount) {
+        this.typeCount = typeCount;
+    }
+
+    /**
+     * Method that returns an object of the JComboBox class.
+     * @return count.
+     */
+    public JComboBox<String> getCount() {
+        return count;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JComboBox class.
+     * @param count new object of the JTextField class.
+     */
+    public void setCount(JComboBox<String> count) {
+        this.count = count;
+    }
+
+    /**
+     * Method that returns an object of the Vector type size.
+     * @return type size.
+     */
+    public Vector<String> getTypeSize() {
+        return typeSize;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the vector type size.
+     * @param typeSize new object of the JTextField class.
+     */
+    public void setTypeSize(Vector<String> typeSize) {
+        this.typeSize = typeSize;
+    }
+
+    /**
+     * Method that returns an object of the JComboBox class.
+     * @return size type.
+     */
+    public JComboBox getSizeType() {
+        return sizeType;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JComboBox class.
+     * @param sizeType new object of the JTextField class.
+     */
+    public void setSizeType(JComboBox sizeType) {
+        this.sizeType = sizeType;
+    }
+
+    /**
+     * Method that returns an object of the JSpinner class.
+     * @return sizeFile.
+     */
+    public JSpinner getSizeFile() {
+        return sizeFile;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JSpinner class.
+     * @param sizeFile new object of the JTextField class.
+     */
+    public void setSizeFile(JSpinner sizeFile) {
+        this.sizeFile = sizeFile;
+    }
+
 }
