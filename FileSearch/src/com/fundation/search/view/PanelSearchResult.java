@@ -16,9 +16,11 @@ package com.fundation.search.view;
 
 import com.fundation.search.model.AssetFile;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 
 
@@ -51,18 +53,14 @@ public class PanelSearchResult extends JPanel {
     }
 
     public void updageFilesList(List<AssetFile> files) {
-        String column[] = {"NAME", "EXT", "SIZE", "PATH", "HIDDEN", "OWNER"};
+        String column[] = {"NAME", "EXT", "SIZE", "PATH", "HIDDEN", "OWNER", "TYPE", "DATE CREATED", "DATE MODIFICATED", "ACCESS DATE", "READ ONLY", "KEY SENSITIVE"};
         DefaultTableModel dtm = new DefaultTableModel(column, 0);
-        //table = new JTable(dtm);
-        //String[] item = {"A", "B", "C", "D"};
         table.setModel(dtm);
         for (AssetFile file : files) {
             String[] item = {file.getFilename(), file.getExtension(), "" + file.getSize(),file.getPath(),  "" + file.isHidden(), file.getOwner()};
             dtm.addRow(item);
         }
         table.updateUI();
-
-
     }
 
     /**
@@ -77,11 +75,8 @@ public class PanelSearchResult extends JPanel {
      * Method that contains the components of the PanelSearchResult.
      */
     public void initComponent() {
-        String column[] = {"NAME", "EXT", "SIZE", "PATH", "HIDDEN", "OWNER" };
+        String column[] = {"NAME", "EXT", "SIZE", "PATH", "HIDDEN", "OWNER", "TYPE", "DATE CREATED", "DATE MODIFICATED", "ACCESS DATE", "READ ONLY", "KEY SENSITIVE"};
         String data[][] = {};
-        //String data[][] = {{"yerel", ".exe", "636", "https:\\"}, {"micho", ".exe", "636", "https:\\"}};
-        //modelTable.addTableModelListener(table);
-        //add(table);*/
         table = new JTable(data, column);
         int borderSpace = 8;
         scroll = new JScrollPane(table);

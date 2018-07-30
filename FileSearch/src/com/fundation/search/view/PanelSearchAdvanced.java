@@ -15,8 +15,6 @@ package com.fundation.search.view;
 
 import com.toedter.calendar.JDateChooser;
 
-import java.awt.Dimension;
-import java.util.Vector;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -24,6 +22,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.List;
+import java.util.Vector;
 
 /**
  * Class that creates the advanced search panel.
@@ -33,29 +41,21 @@ import javax.swing.JTextField;
  */
 public class PanelSearchAdvanced extends JPanel {
 
-    private JLabel labelTypeFormat;
     private Vector<String> typeFormat;
     private JComboBox<String> type;
+
+
     private Vector<String> typeFile;
     private JComboBox<String> fileType;
-    private JLabel labelFileSize;
-    private Vector<String> typeCount;
-    private JComboBox<String> count;
-    private JSpinner sizeFile;
-    private Vector<String> typeSize;
-    private JComboBox sizeType;
-    private JLabel labelHiddenFile;
-    private JCheckBox hiddenFile;
-    private JLabel labelOwner;
-    private JTextField owner;
-    private JLabel labelDateCreated;
-    private JTextField dateCreated;
-    private JLabel labelDateModificated;
-    private JTextField dateModificated;
-    private JLabel labelIntervalDate;
-    private JTextField intervalDateInicio;
-    private JTextField intervalDateEnd;
-    private JLabel labelIntervalSymbol;
+
+    private JLabel labelMultimediaSize;
+    private Vector<String> typeCountMultimedia;
+    private JComboBox<String> countMultimedia;
+
+    private JSpinner sizeMutimedia;
+    private Vector<String> typeSizeMultimeia;
+    private JComboBox sizeTypeMultimedia;
+
     private JLabel labelPanelAdvanced;
 
     private JDateChooser dateChoserCreateIni;
@@ -64,6 +64,10 @@ public class PanelSearchAdvanced extends JPanel {
     private JDateChooser dateChooserModifyEnd;
     private JDateChooser dateChooserAccessedIni;
     private JDateChooser dateChooserAccessedEnd;
+
+    private JCheckBox datecreated;
+    private JCheckBox datemodificate;
+    private JCheckBox accessDate;
 
     /**
      * Method that creates the advanced search panel.
@@ -85,179 +89,325 @@ public class PanelSearchAdvanced extends JPanel {
      * Method that contains the components of the Advanced Panel.
      */
     public void initComponent() {
-        labelPanelAdvanced = new JLabel();
-        labelPanelAdvanced.setText("SEARCH ADVANCED");
-        labelPanelAdvanced.setBounds(30, 10, 130, 30);
+        labelPanelAdvanced = new JLabel("SEARCH MULTIMEDIA");
+        labelPanelAdvanced.setBounds(270, 10, 130, 30);
         add(labelPanelAdvanced);
-        labelTypeFormat = new JLabel();
-        labelTypeFormat.setText("File Format");
-        labelTypeFormat.setBounds(110, 50, 80, 30);
-        add(labelTypeFormat);
-        typeFormat = new Vector<String>();
-        typeFormat.add("--------------------");
-        typeFormat.add("Multimedia");
-        typeFormat.add("Images");
-        typeFormat.add("Documents");
-        typeFormat.add("Executable");
-        type = new JComboBox<String>(typeFormat);
-        type.setBounds(50, 80, 90, 30);
+
+        JLabel labelTypeMultimedia = new JLabel();
+        labelTypeMultimedia.setText("Other Extension");
+        labelTypeMultimedia.setBounds(20, 50, 100, 30);
+        add(labelTypeMultimedia);
+
+        JTextField writeExtensionMult = new JTextField();
+        writeExtensionMult.setBounds(120, 50, 70, 30);
+        add(writeExtensionMult);
+
+        JLabel labelExtension = new JLabel("Extension");
+        labelExtension.setBounds(20, 80, 80, 30);
+        add(labelExtension);
+
+        typeFormat = new Vector();
+        typeFormat.add("Mp3");
+        typeFormat.add("Mp4");
+        typeFormat.add("Mpeg");
+        type = new JComboBox(typeFormat);
+        type.setBounds(120, 80, 70, 30);
         add(type);
 
-        labelFileSize = new JLabel();
-        labelFileSize.setText("File Size");
-        labelFileSize.setBounds(355, 50, 80, 30);
-        add(labelFileSize);
-        typeFile = new Vector<String>();
-        typeFile.add("");
-        typeFile.add("txt");
-        typeFile.add("doc");
-        typeFile.add("pdf");
-        typeFile.add("xml");
-        fileType = new JComboBox<String>(typeFile);
-        fileType.setBounds(150, 80, 90, 30);
-        add(fileType);
 
-        typeCount = new Vector<String>();
-        typeCount.add(" < ");
-        typeCount.add(" > ");
-        typeCount.add(" = ");
-        count = new JComboBox<String>(typeCount);
-        count.setBounds(280, 80, 50, 30);
-        add(count);
+        labelMultimediaSize = new JLabel();
+        labelMultimediaSize.setText("Duration");
+        labelMultimediaSize.setBounds(290, 50, 80, 30);
+        add(labelMultimediaSize);
 
-        sizeFile = new JSpinner();
-        sizeFile.setBounds(340, 80, 70, 30);
-        add(sizeFile);
-        typeSize = new Vector<String>();
-        typeSize.add("Byte");
-        typeSize.add("KByte");
-        typeSize.add("MByte");
-        typeSize.add("GByte");
-        sizeType = new JComboBox<String>(typeSize);
-        sizeType.setBounds(420, 80, 70, 30);
-        add(sizeType);
+        typeCountMultimedia = new Vector();
+        typeCountMultimedia.add(" < ");
+        typeCountMultimedia.add(" > ");
+        typeCountMultimedia.add(" = ");
+        countMultimedia = new JComboBox(typeCountMultimedia);
+        countMultimedia.setBounds(220, 80, 50, 30);
+        add(countMultimedia);
 
-        labelHiddenFile = new JLabel();
-        labelHiddenFile.setText("Hidden");
-        labelHiddenFile.setBounds(520, 50, 50, 30);
-        add(labelHiddenFile);
-        hiddenFile = new JCheckBox();
-        hiddenFile.setBounds(530, 80, 30, 30);
-        add(hiddenFile);
+        sizeMutimedia = new JSpinner();
+        sizeMutimedia.setBounds(280, 80, 70, 30);
+        add(sizeMutimedia);
 
-        labelOwner = new JLabel();
-        labelOwner.setText("Owner");
-        labelOwner.setBounds(608, 50, 80, 30);
-        add(labelOwner);
-        owner = new JTextField();
-        owner.setBounds(580, 80, 100, 30);
-        add(owner);
+        typeSizeMultimeia = new Vector();
+        typeSizeMultimeia.add("Hora");
+        typeSizeMultimeia.add("Minutes");
+        typeSizeMultimeia.add("Seconds");
+        sizeTypeMultimedia = new JComboBox(typeSizeMultimeia);
+        sizeTypeMultimedia.setBounds(360, 80, 70, 30);
+        add(sizeTypeMultimedia);
 
-        labelDateCreated = new JLabel();
-        labelDateCreated.setText("Date Created");
-        labelDateCreated.setBounds(120, 150, 110, 30);
+
+        JLabel labelDateCreated = new JLabel("Date Created");
+        labelDateCreated.setBounds(70, 250, 110, 30);
         add(labelDateCreated);
+
+        datecreated = new JCheckBox();
+        datecreated.setBounds(150, 250, 30, 30);
+        add(datecreated);
+
         dateChoserCreateIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
-        dateChoserCreateIni.setBounds(60,190,90,30);
+        dateChoserCreateIni.setBounds(20,290,90,30);
         add(dateChoserCreateIni);
         dateChooserCreateEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
-        dateChooserCreateEnd.setBounds(160,190,90,30);
+        dateChooserCreateEnd.setBounds(120,290,90,30);
         add(dateChooserCreateEnd);
-        labelDateModificated = new JLabel();
-        labelDateModificated.setText("Date Modificated");
-        labelDateModificated.setBounds(300, 150, 100, 30);
+
+
+        JLabel labelDateModificated = new JLabel("Date Modificated");
+        labelDateModificated.setBounds(270, 250, 100, 30);
         add(labelDateModificated);
+
+        datemodificate = new JCheckBox();
+        datemodificate.setBounds(370, 250, 30, 30);
+        add(datemodificate);
+
         dateChooserModifyIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
-        dateChooserModifyIni.setBounds(270,190,90,30);
+        dateChooserModifyIni.setBounds(240,290,90,30);
         add(dateChooserModifyIni);
         dateChooserModifyEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
-        dateChooserModifyEnd.setBounds(370,190,90,30);
+        dateChooserModifyEnd.setBounds(340,290,90,30);
         add(dateChooserModifyEnd);
-        labelIntervalDate = new JLabel();
-        labelIntervalDate.setText("Accessed Date");
-        labelIntervalDate.setBounds(540, 150, 100, 30);
+
+        JLabel labelIntervalDate = new JLabel("Accessed Date");
+        labelIntervalDate.setBounds(480, 250, 100, 30);
+
+        accessDate = new JCheckBox();
+        accessDate.setBounds(580, 250, 30, 30);
+        add(accessDate);
+
         add(labelIntervalDate);
         dateChooserAccessedIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
-        dateChooserAccessedIni.setBounds(480,190,90,30);
+        dateChooserAccessedIni.setBounds(450,290,90,30);
         add(dateChooserAccessedIni);
-        labelIntervalSymbol = new JLabel();
+        JLabel labelIntervalSymbol = new JLabel();
         labelIntervalSymbol.setText(" - ");
-        labelIntervalSymbol.setBounds(514, 196, 10, 10);
+        labelIntervalSymbol.setBounds(514, 290, 10, 10);
         add(labelIntervalSymbol);
         dateChooserAccessedEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
-        dateChooserAccessedEnd.setBounds(580,190,90,30);
+        dateChooserAccessedEnd.setBounds(550,290,90,30);
         add(dateChooserAccessedEnd);
+
+
+        JLabel labelVideoCodec = new JLabel("Video Codec");
+        labelVideoCodec.setBounds(40, 160, 100, 10);
+        add(labelVideoCodec);
+
+        Vector<String> videoCodec = new Vector();
+        videoCodec.add("H264");
+        videoCodec.add("H263");
+        videoCodec.add("MPEG4");
+        videoCodec.add("WMV1");
+        videoCodec.add("AVC");
+        JComboBox<String> video = new JComboBox(videoCodec);
+        video.setBounds(120, 150, 90, 30);
+        add(video);
+
+        JLabel labelAudioCodec = new JLabel("Audio Codec");
+        labelAudioCodec.setBounds(40, 200,100,10);
+        add(labelAudioCodec);
+
+        Vector<String> audioCodec = new Vector();
+        audioCodec.add("DoD CELP");
+        audioCodec.add("LPC10");
+        audioCodec.add("Speex");
+        audioCodec.add("ITU G.729");
+        audioCodec.add("GSM ");
+        JComboBox<String> audio = new JComboBox(audioCodec);
+        audio.setBounds(120, 190, 90, 30);
+        add(audio);
+
+        JLabel labelFrameRate = new JLabel("Frame Rate");
+        labelFrameRate.setBounds(250, 160,100,10);
+        add(labelFrameRate);
+
+        Vector<String> frameRate = new Vector();
+        frameRate.add("24 fps");
+        frameRate.add("25 fps");
+        frameRate.add("27 fps");
+        frameRate.add("30 fps");
+        frameRate.add("64 fps ");
+        JComboBox<String> rate = new JComboBox(frameRate);
+        rate.setBounds(320, 150, 90, 30);
+        add(rate);
+
+
+        JLabel labelResolution = new JLabel("Resolution");
+        labelResolution.setBounds(250, 200,100,10);
+        add(labelResolution);
+
+        Vector<String> resolution = new Vector();
+        resolution.add("320 x 240");
+        resolution.add("512 x 384");
+        resolution.add("640 x 480");
+        resolution.add("1280 x 768");
+        JComboBox<String> resol = new JComboBox(resolution);
+        resol.setBounds(320, 190, 90, 30);
+        add(resol);
+
+    }
+
+    public Vector<String> getTypeFormat() {
+        return typeFormat;
+    }
+
+    public void setTypeFormat(Vector<String> typeFormat) {
+        this.typeFormat = typeFormat;
+    }
+
+    public JComboBox<String> getType() {
+        return type;
+    }
+
+    public void setType(JComboBox<String> type) {
+        this.type = type;
+    }
+
+    public Vector<String> getTypeFile() {
+        return typeFile;
+    }
+
+    public void setTypeFile(Vector<String> typeFile) {
+        this.typeFile = typeFile;
+    }
+
+    public JComboBox<String> getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(JComboBox<String> fileType) {
+        this.fileType = fileType;
+    }
+
+    public Vector<String> getTypeCountMultimedia() {
+        return typeCountMultimedia;
+    }
+
+    public void setTypeCountMultimedia(Vector<String> typeCountMultimedia) {
+        this.typeCountMultimedia = typeCountMultimedia;
+    }
+
+    /**
+     * Method that returns an object of the JComboBox class.
+     * @return
+     */
+    public JComboBox<String> getCountMultimedia() {
+        return countMultimedia;
+    }
+
+    public void setCountMultimedia(JComboBox<String> countMultimedia) {
+        this.countMultimedia = countMultimedia;
     }
 
     /**
      * Method that returns an object of the JSpinner class.
-     *
-     * @return sizeFile an object of the JSpinner class.
+     * @return size multimedia an object of the JSpinner class.
      */
-    public JSpinner getSizeFile() {
-        return sizeFile;
+    public JSpinner getSizeMutimedia() {
+        return sizeMutimedia;
     }
 
     /**
      * Method that is responsible for modifying the value of the object of the JSpinner class.
-     *
-     * @param newSizeFile new object of the JSpinner class.
+     * @param sizeMutimedia new object of the JSpinner class.
      */
-    public void setSizeFile(JSpinner newSizeFile) {
-        sizeFile = newSizeFile;
+    public void setSizeMutimedia(JSpinner sizeMutimedia) {
+        this.sizeMutimedia = sizeMutimedia;
     }
 
     /**
-     * Method that returns an object of the JCheckBox class.
-     *
-     * @return hiddenFile an object of the JCheckBox class.
+     * Method that returns an object of the vector.
+     * @return typeSizeMultimeia
      */
-    public JCheckBox getHiddenFile() {
-        return hiddenFile;
+    public Vector<String> getTypeSizeMultimeia() {
+        return typeSizeMultimeia;
     }
 
-    /**
-     * Method that is responsible for modifying the value of the object of the JCheckBox class.
-     *
-     * @param newHiddenFile new object of the JCheckBox class.
-     */
-    public void setHiddenFile(JCheckBox newHiddenFile) {
-        hiddenFile = newHiddenFile;
+    public void setTypeSizeMultimeia(Vector<String> typeSizeMultimeia) {
+        this.typeSizeMultimeia = typeSizeMultimeia;
     }
 
-    /**
-     * Method that returns an object of the JComboBox class.
-     *
-     * @return sizeType an object of the JComboBox class.
-     */
-    public JComboBox getSizeType() {
-        return sizeType;
+    public JComboBox getSizeTypeMultimedia() {
+        return sizeTypeMultimedia;
     }
 
-    /**
-     * Method that is responsible for modifying the value of the object of the JComboBox class.
-     *
-     * @param newSizeType new object of the JComboBox class.
-     */
-    public void setSizeType(JComboBox newSizeType) {
-        sizeType = newSizeType;
+    public void setSizeTypeMultimedia(JComboBox sizeTypeMultimedia) {
+        this.sizeTypeMultimedia = sizeTypeMultimedia;
     }
 
-    /**
-     * Method that returns an object of the JComboBox class.
-     *
-     * @return sizeType an object of the JComboBox class.
-     */
-    public JComboBox getFileType() {
-        return fileType;
+    public JDateChooser getDateChoserCreateIni() {
+        return dateChoserCreateIni;
     }
 
-    /**
-     * Method that is responsible for modifying the value of the object of the JComboBox class.
-     *
-     * @param newFile new object of the JComboBox class.
-     */
-    public void setFileType(JComboBox newFile) {
-        fileType = newFile;
+    public void setDateChoserCreateIni(JDateChooser dateChoserCreateIni) {
+        this.dateChoserCreateIni = dateChoserCreateIni;
     }
+
+    public JDateChooser getDateChooserCreateEnd() {
+        return dateChooserCreateEnd;
+    }
+
+    public void setDateChooserCreateEnd(JDateChooser dateChooserCreateEnd) {
+        this.dateChooserCreateEnd = dateChooserCreateEnd;
+    }
+
+    public JDateChooser getDateChooserModifyIni() {
+        return dateChooserModifyIni;
+    }
+
+    public void setDateChooserModifyIni(JDateChooser dateChooserModifyIni) {
+        this.dateChooserModifyIni = dateChooserModifyIni;
+    }
+
+    public JDateChooser getDateChooserModifyEnd() {
+        return dateChooserModifyEnd;
+    }
+
+    public void setDateChooserModifyEnd(JDateChooser dateChooserModifyEnd) {
+        this.dateChooserModifyEnd = dateChooserModifyEnd;
+    }
+
+    public JDateChooser getDateChooserAccessedIni() {
+        return dateChooserAccessedIni;
+    }
+
+    public void setDateChooserAccessedIni(JDateChooser dateChooserAccessedIni) {
+        this.dateChooserAccessedIni = dateChooserAccessedIni;
+    }
+
+    public JDateChooser getDateChooserAccessedEnd() {
+        return dateChooserAccessedEnd;
+    }
+
+    public void setDateChooserAccessedEnd(JDateChooser dateChooserAccessedEnd) {
+        this.dateChooserAccessedEnd = dateChooserAccessedEnd;
+    }
+
+    public JCheckBox getDatecreated() {
+        return datecreated;
+    }
+
+    public void setDatecreated(JCheckBox datecreated) {
+        this.datecreated = datecreated;
+    }
+
+    public JCheckBox getDatemodificate() {
+        return datemodificate;
+    }
+
+    public void setDatemodificate(JCheckBox datemodificate) {
+        this.datemodificate = datemodificate;
+    }
+
+    public JCheckBox getAccessDate() {
+        return accessDate;
+    }
+
+    public void setAccessDate(JCheckBox accessDate) {
+        this.accessDate = accessDate;
+    }
+
 }
