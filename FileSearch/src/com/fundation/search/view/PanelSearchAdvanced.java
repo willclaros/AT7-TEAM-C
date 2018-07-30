@@ -15,8 +15,23 @@ package com.fundation.search.view;
 
 import com.toedter.calendar.JDateChooser;
 
+import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.AbstractAction;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.List;
 import java.util.Vector;
-import javax.swing.*;
 
 /**
  * Class that creates the advanced search panel.
@@ -25,8 +40,6 @@ import javax.swing.*;
  * @version 1.0.
  */
 public class PanelSearchAdvanced extends JPanel {
-
-    private JCheckBox multimedia;
 
     private Vector<String> typeFormat;
     private JComboBox<String> type;
@@ -76,15 +89,9 @@ public class PanelSearchAdvanced extends JPanel {
      * Method that contains the components of the Advanced Panel.
      */
     public void initComponent() {
-        labelPanelAdvanced = new JLabel();
-        labelPanelAdvanced.setText("SEARCH MULTIMEDIA");
-        labelPanelAdvanced.setBounds(30, 10, 130, 30);
+        labelPanelAdvanced = new JLabel("SEARCH MULTIMEDIA");
+        labelPanelAdvanced.setBounds(270, 10, 130, 30);
         add(labelPanelAdvanced);
-
-        multimedia = new JCheckBox();
-        multimedia.setBounds(160, 10, 30, 30);
-        add(multimedia);
-
 
         JLabel labelTypeMultimedia = new JLabel();
         labelTypeMultimedia.setText("Other Extension");
@@ -403,11 +410,4 @@ public class PanelSearchAdvanced extends JPanel {
         this.accessDate = accessDate;
     }
 
-    public JCheckBox getMultimedia() {
-        return multimedia;
-    }
-
-    public void setMultimedia(JCheckBox multimedia) {
-        this.multimedia = multimedia;
-    }
 }

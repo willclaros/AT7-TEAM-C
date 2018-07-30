@@ -16,9 +16,18 @@ package com.fundation.search.view;
 
 import com.fundation.search.model.AssetFile;
 import com.fundation.search.model.ModelSearch;
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -35,45 +44,31 @@ import java.util.Vector;
 public class PanelSearchBasic extends JPanel implements ActionListener {
 
     private JTextField nameFile;
-
     private JTextField owner;
-
     private JTextField path;
-
     private JCheckBox readOnly;
-
     private JCheckBox keySensitive;
-
     private JCheckBox hiddenFile;
-
     private JRadioButton all;
     private JRadioButton file;
     private JRadioButton folder;
-
     private ButtonGroup group1;
     private ButtonGroup group2;
-
     private JRadioButton startWord;
     private JRadioButton contentWord;
     private JRadioButton endWord;
-
     private JTextField writeExtension;
     private Vector<String> typeFile;
     private JComboBox<String> fileType;
-
     private JTextField content;
-
     private Vector<String> typeCount;
     private JComboBox<String> count;
     private Vector<String> typeSize;
     private JComboBox sizeType;
-
+    private JSpinner sizeFile;
     private JButton searchButton;
     private PanelSearchResult panelResult;
     private ModelSearch modelSearch;
-
-    private ImageIcon imagen;
-    private Icon icon;
 
     /**
      * Constructor that creates the basic search panel.
@@ -103,9 +98,8 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
      * Method that contains the components of the search Basic.
      */
     public void initComponent() {
-        JLabel labelPanelBasic = new JLabel();
-        labelPanelBasic.setText("SEARCH");
-        labelPanelBasic.setBounds(30, 10, 130, 30);
+        JLabel labelPanelBasic = new JLabel("SEARCH");
+        labelPanelBasic.setBounds(320, 10, 130, 30);
         add(labelPanelBasic);
 
         JLabel labelSearchPath = new JLabel();
@@ -114,7 +108,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         add(labelSearchPath);
 
         path = new JTextField();
-        path.setBounds(130, 60, 340, 30);
+        path.setBounds(130, 60, 380, 30);
         add(path);
 
         JLabel labelNameFile = new JLabel();
@@ -216,10 +210,10 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         fileType.setBounds(120, 300, 100, 30);
         add(fileType);
 
-        JLabel labelFileSize = new JLabel();
-        labelFileSize.setText("File Size");
+        JLabel labelFileSize = new JLabel("File Size");
         labelFileSize.setBounds(355, 270, 80, 30);
         add(labelFileSize);
+
         typeCount = new Vector();
         typeCount.add(" < ");
         typeCount.add(" > ");
@@ -228,9 +222,10 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         count.setBounds(280, 300, 50, 30);
         add(count);
 
-        JSpinner sizeFile = new JSpinner();
+        sizeFile = new JSpinner();
         sizeFile.setBounds(340, 300, 70, 30);
         add(sizeFile);
+
         typeSize = new Vector();
         typeSize.add("Byte");
         typeSize.add("KByte");
@@ -242,16 +237,12 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
         JButton buttonPath = new JButton("Path");
         buttonPath.addActionListener(this);
-        buttonPath.setBounds(520, 60, 120, 30);
+        buttonPath.setBounds(540, 60, 120, 30);
         add(buttonPath);
 
-        searchButton = new JButton();
-        imagen = new ImageIcon("64.png");
-        searchButton.setIcon(imagen);
-        searchButton.setBounds(540, 270, 100, 70);
+        searchButton = new JButton("Search");
+        searchButton.setBounds(540, 270, 100, 50);
 
-        /*icon = new ImageIcon(imagen.getImage().getScaledInstance(searchButton.getWidth(), searchButton.getHeight(), Image.SCALE_DEFAULT));
-        searchButton.setIcon(icon);*/
         searchButton.setAction(new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -552,5 +543,19 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         this.sizeType = sizeType;
     }
 
+    /**
+     * Method that returns an object of the JSpinner class.
+     * @return sizeFile.
+     */
+    public JSpinner getSizeFile() {
+        return sizeFile;
+    }
 
+    /**
+     * Method that is responsible for modifying the value of the object of the JSpinner class.
+     * @param sizeFile new object of the JTextField class.
+     */
+    public void setSizeFile(JSpinner sizeFile) {
+        this.sizeFile = sizeFile;
+    }
 }
