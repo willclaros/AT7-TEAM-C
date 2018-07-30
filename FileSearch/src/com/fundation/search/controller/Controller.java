@@ -17,6 +17,7 @@
 package com.fundation.search.controller;
 
 import com.fundation.search.model.AssetFile;
+import com.fundation.search.model.CriterialSearch;
 import com.fundation.search.model.ModelSearch;
 import com.fundation.search.view.View;
 
@@ -33,6 +34,7 @@ public class Controller {
 
     private View view;
     private ModelSearch model;
+    private CriterialSearch criterialSearch;
 
     /**
      * A constructor of the Controller class that receives 2 parameters that are a ModelSearch object and an object
@@ -55,17 +57,25 @@ public class Controller {
         String fileType = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getFileType().getSelectedItem().toString();
         String owner = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getOwner().getText();
         long fileSize = Long.parseLong(view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getSizeFile().getValue().toString());
+        String countSearch = Objects.requireNonNull(view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getCount().getSelectedItem()).toString();
+        String sizeType = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSizeType().getSelectedItem().toString();
         boolean readOnly = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getReadOnly().isSelected();
         boolean keySensiteve = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getKeySensitive().isSelected();
+        boolean selectAll = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getAll().isSelected();
+        boolean selectFolder = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().isSelected();
+        boolean selectfiles = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().isSelected();
+        boolean starWord = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getStartWord().isSelected();
+        boolean contentWord = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getContetWord().isSelected();
+        boolean endWord = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getEndWord().isSelected();
+        String otherExtension = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getWriteExtension().getText();
 
-        String writeExtencion = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getWriteExtension().getText();
-        String contentInFile = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getContent().getText();
-        String countSearch = Objects.requireNonNull(view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getCount().getSelectedItem()).toString();
-
+        criterialSearch = new CriterialSearch(pathName,fileName,fileHidden,fileType,owner,fileSize,countSearch,sizeType,
+                readOnly,keySensiteve,selectAll,selectFolder,selectfiles,starWord,contentWord,endWord,otherExtension);
 
         ModelSearch model = new ModelSearch();
 
         try {
+            //List<AssetFile> fileList = model.searchPathName(criterialSearch);
             List<AssetFile> fileList = model.searchPathName(pathName, fileName, fileType, fileSize, fileHidden, owner);
             for (AssetFile a : fileList) {
                 System.out.println(a.getFilename());

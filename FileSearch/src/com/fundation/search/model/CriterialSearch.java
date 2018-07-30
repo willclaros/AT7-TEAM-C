@@ -31,9 +31,10 @@ public class CriterialSearch {
      */
     private String nameFile;
     /**
-     * content into to file.
+     * search if true file with hidden o folder hidden.
      */
-    private String content;
+
+    private boolean hidden;
     /**
      * type of file e.g. mp3, xml, pdf.
      */
@@ -44,6 +45,10 @@ public class CriterialSearch {
     private String owner;
 
     /**
+     * this is a size to file in bytes.
+     */
+    private long size;
+    /**
      * this is a delimiter search for size minor to <, major to >, equal to =.
      */
     private String delimitSizeSearch;
@@ -52,56 +57,82 @@ public class CriterialSearch {
      */
     private String unitSize;
     /**
-     * this is a size to file in bytes.
+     * search if only read.
      */
-    private long size;
+    private boolean readOnly;
     /**
      * parameter to true o false to exact search.
      */
     private boolean keySesitive;
     /**
-     * search if true file with hidden o folder hidden.
+     * search all folder, files.
      */
-
-    private boolean hidden;
+    private boolean selectAll;
     /**
      * search only folder.
      */
-    private boolean folder;
+    private boolean selectOnlyfolder;
     /**
-     * search if only read.
+     * search for only files.
      */
-    private boolean readOnly;
+    private boolean selectOnlyfiles;
+    /**
+     * for files or folder title only initialize with word.
+     */
+    private boolean starWord;
+    /**
+     * for files or folder title contain with this word.
+     */
+    private boolean contentWord;
+    /**
+     * for files or folder title end with this word.
+     */
+    private boolean endWord;
+    /**
+     * other extension distint to common list.
+     */
+    private String otherExtencion;
 
     /**
      * @param directory is a patch of file search.
      * @param nameFile name file search.
-     * @param content content into file.
      * @param type extent of file.
      * @param owner of file.
      * @param delimitSizeSearch this is a delimiter search for size minor to <, major to >, equal to =.
      * @param unitSize  type size of file MB, GB, KB.
      * @param size size of file.
      * @param hidden true or false is hidden.
-     * @param folder is a folder true or false.
      * @param readOnly is only file read.
      * @param keySesitive is equal to word tyoe search.
+     * @param selectAll search for all files and folder.
+     * @param selectOnlyfolder search for only folder.
+     * @param selectOnlyfiles search for only files.
+     * @param starWord  title contain with this word.
+     * @param contentWord contain with this word.
+     * @param endWord end with this word.
+     * @param otherExtencion distint extension the common list.
      */
-    public CriterialSearch(String directory, String nameFile, String content,
-                           String type, String owner, String delimitSizeSearch, String unitSize, long size, boolean hidden,
-                           boolean folder, boolean readOnly, boolean keySesitive) {
+    public CriterialSearch(String directory, String nameFile, boolean hidden, String type, String owner,
+                           long size, String delimitSizeSearch, String unitSize, boolean readOnly, boolean keySesitive,
+                           boolean selectAll, boolean selectOnlyfolder, boolean selectOnlyfiles, boolean starWord,
+                           boolean contentWord, boolean endWord, String otherExtencion) {
         this.directory = directory;
         this.nameFile = nameFile;
-        this.content = content;
+        this.hidden = hidden;
         this.type = type;
         this.owner = owner;
+        this.size = size;
         this.delimitSizeSearch = delimitSizeSearch;
         this.unitSize = unitSize;
-        this.size = size;
-        this.hidden = hidden;
-        this.folder = folder;
         this.readOnly = readOnly;
         this.keySesitive = keySesitive;
+        this.selectAll = selectAll;
+        this.selectOnlyfolder = selectOnlyfolder;
+        this.selectOnlyfiles = selectOnlyfiles;
+        this.starWord = starWord;
+        this.contentWord = contentWord;
+        this.endWord = endWord;
+        this.otherExtencion = otherExtencion;
     }
 
     /**
@@ -130,20 +161,6 @@ public class CriterialSearch {
      */
     public void setNameFile(String nameFile) {
         this.nameFile = nameFile;
-    }
-
-    /**
-     * @return a content of file.
-     */
-    public String getContent() {
-        return content;
-    }
-
-    /**
-     * @param content  new content.
-     */
-    public void setContent(String content) {
-        this.content = content;
     }
 
     /**
@@ -203,20 +220,6 @@ public class CriterialSearch {
     }
 
     /**
-     * @return is folder true o false.
-     */
-    public boolean isFolder() {
-        return folder;
-    }
-
-    /**
-     * @param folder set a new folder.
-     */
-    public void setFolder(boolean folder) {
-        this.folder = folder;
-    }
-
-    /**
      * @return is file only read.
      */
     public boolean isReadOnly() {
@@ -244,19 +247,129 @@ public class CriterialSearch {
         this.keySesitive = keySesitive;
     }
 
+    /**
+     * @return a delimit size search.
+     */
     public String getDelimitSizeSearch() {
         return delimitSizeSearch;
     }
 
+    /**
+     * @param delimitSizeSearch a delimit size search.
+     */
     public void setDelimitSizeSearch(String delimitSizeSearch) {
         this.delimitSizeSearch = delimitSizeSearch;
     }
 
+    /**
+     * @return unit size to search.
+     */
     public String getUnitSize() {
         return unitSize;
     }
 
+    /**
+     * @param unitSize unit size to search.
+     */
     public void setUnitSize(String unitSize) {
         this.unitSize = unitSize;
+    }
+
+    /**
+     * @return select all.
+     */
+    public boolean isSelectAll() {
+        return selectAll;
+    }
+
+    /**
+     * @param selectAll select all.
+     */
+    public void setSelectAll(boolean selectAll) {
+        this.selectAll = selectAll;
+    }
+
+    /**
+     * @return only folder search true or not is false.
+     */
+    public boolean isSelectOnlyfolder() {
+        return selectOnlyfolder;
+    }
+
+    /**
+     * @param selectOnlyfolder folder search true or not is false.
+     */
+    public void setSelectOnlyfolder(boolean selectOnlyfolder) {
+        this.selectOnlyfolder = selectOnlyfolder;
+    }
+
+    /**
+     * @return only files search true or not is false.
+     */
+    public boolean isSelectOnlyfiles() {
+        return selectOnlyfiles;
+    }
+
+    /**
+     * @param selectOnlyfiles files search true or not is false.
+     */
+    public void setSelectOnlyfiles(boolean selectOnlyfiles) {
+        this.selectOnlyfiles = selectOnlyfiles;
+    }
+
+    /**
+     * @return word search in title start.
+     */
+    public boolean isStarWord() {
+        return starWord;
+    }
+
+    /**
+     * @param starWord word search in title start.
+     */
+    public void setStarWord(boolean starWord) {
+        this.starWord = starWord;
+    }
+
+    /**
+     * @return contain a word in title true.
+     */
+    public boolean isContentWord() {
+        return contentWord;
+    }
+
+    /**
+     * @param contentWord contain a word in title.
+     */
+    public void setContentWord(boolean contentWord) {
+        this.contentWord = contentWord;
+    }
+
+    /**
+     * @return end to word of title file o folder.
+     */
+    public boolean isEndWord() {
+        return endWord;
+    }
+
+    /**
+     * @param endWord end to word of title file o folder.
+     */
+    public void setEndWord(boolean endWord) {
+        this.endWord = endWord;
+    }
+
+    /**
+     * @return write other extension.
+     */
+    public String getOtherExtencion() {
+        return otherExtencion;
+    }
+
+    /**
+     * @param otherExtencion a new extension.
+     */
+    public void setOtherExtencion(String otherExtencion) {
+        this.otherExtencion = otherExtencion;
     }
 }
