@@ -55,7 +55,7 @@ public class ModelSearch {
         for (File fileIterate : ficheros) {
 
             if (fileIterate.isDirectory()) {
-                searchPathName(fileIterate.getPath(), criteria.getNameFile(), criteria.getType(), criteria.getSize(), criteria.isHidden(), criteria.getOwner());
+                searchPathName(criteria);
             } else {
                 Path filePath = Paths.get(fileIterate.getPath());
                 UserPrincipal ownerFile = Files.getOwner(filePath, LinkOption.NOFOLLOW_LINKS);
@@ -78,9 +78,21 @@ public class ModelSearch {
                     continue;
                 }
 
-                pathList.add(new AssetFile(fileIterate.getAbsolutePath(), fileIterate.getName(), fileIterate.length(), type, ownerFile.getName()));
+                pathList.add(new AssetFile(
+                        fileIterate.getPath(),fileIterate.getName(), fileIterate.length(),getFileExtension(fileIterate),
+                        ownerFile.getName(), fileIterate.isHidden(),
+                        criteria.getDelimitSizeSearch(), fileIterate.canWrite(), criteria.isKeySesitive(), criteria.isSelectAll(),
+                criteria.isSelectOnlyfolder(), criteria.isSelectOnlyfiles(), criteria.isStarWord(), criteria.isContentWord(),
+                criteria.isEndWord(), criteria.getOtherExtencion()));
             }
         }
         return pathList;
+    }
+
+    private static String getFileExtension(File file) {
+        String fileName = file.getName();
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+            return fileName.substring(fileName.lastIndexOf(".")+1);
+        else return "";
     }
 }
