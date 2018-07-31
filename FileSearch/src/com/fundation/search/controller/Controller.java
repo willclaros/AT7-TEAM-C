@@ -76,12 +76,14 @@ public class Controller {
 
         try {
             List<AssetFile> fileList = model.searchPathName(criterialSearch);
+            view.getPanelGeneral().getResultPanel().cleanTable();
             //List<AssetFile> fileList = model.searchPathName(pathName, fileName, fileType, fileSize, fileHidden, owner);
             for (AssetFile a : fileList) {
                 System.out.println(a.getFilename());
                 view.getPanelGeneral().getResultPanel().addRowTable(a.getPath(), a.getFilename(), a.getExtension(), a.getSize(), null, null);
             }
         } catch (Exception e) {
+            System.out.println("hola mundo");
         }
     }
 }

@@ -71,7 +71,7 @@ public class ModelSearch {
                 if (criteria.getNameFile() != null && !fileIterate.getName().contains(criteria.getNameFile())) {
                     continue;
                 }
-                if (criteria.getOwner() != null && !ownerFile.getName().equals(criteria.getOwner())) {
+                if (criteria.getOwner() != null && ownerFile.getName().equals(criteria.getOwner())) {
                     continue;
                 }
                 if (fileIterate.canWrite() == criteria.isReadOnly()) {
