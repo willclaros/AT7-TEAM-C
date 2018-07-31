@@ -16,18 +16,8 @@ package com.fundation.search.view;
 
 import com.fundation.search.model.AssetFile;
 import com.fundation.search.model.ModelSearch;
-import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.ButtonGroup;
-import javax.swing.JRadioButton;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.AbstractAction;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -202,6 +192,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         add(labelExtension);
 
         typeFile = new Vector();
+        typeFile.add("");
         typeFile.add("txt");
         typeFile.add("doc");
         typeFile.add("pdf");
@@ -215,9 +206,9 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         add(labelFileSize);
 
         typeCount = new Vector();
+        typeCount.add(" = ");
         typeCount.add(" < ");
         typeCount.add(" > ");
-        typeCount.add(" = ");
         count = new JComboBox(typeCount);
         count.setBounds(280, 300, 50, 30);
         add(count);
@@ -237,22 +228,17 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
         JButton buttonPath = new JButton("Path");
         buttonPath.addActionListener(this);
+        ImageIcon ico = new ImageIcon("Icons/open.png");
+        buttonPath.setIcon(ico);
         buttonPath.setBounds(540, 60, 120, 30);
         add(buttonPath);
 
         searchButton = new JButton("Search");
-        searchButton.setBounds(540, 270, 100, 50);
-
-        searchButton.setAction(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    List<AssetFile> listPaths = modelSearch.searchPathName(path.getText(), nameFile.getText(), null, 0L, false, null);
-                    panelResult.updageFilesList(listPaths);
-                } catch (Exception ez) {
-                }
-            }
-        });
+        ImageIcon imagen = new ImageIcon("Icons/lupa.png");
+        searchButton.setIcon(imagen);
+        searchButton.setHorizontalTextPosition( SwingConstants.CENTER );
+        searchButton.setVerticalTextPosition( SwingConstants.BOTTOM );
+        searchButton.setBounds(540, 270, 100, 85);
         add(searchButton);
     }
 

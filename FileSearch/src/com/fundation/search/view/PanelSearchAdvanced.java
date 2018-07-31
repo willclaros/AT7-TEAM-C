@@ -15,18 +15,9 @@ package com.fundation.search.view;
 
 import com.toedter.calendar.JDateChooser;
 
-import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.ButtonGroup;
-import javax.swing.JRadioButton;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.AbstractAction;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -121,9 +112,9 @@ public class PanelSearchAdvanced extends JPanel {
         add(labelMultimediaSize);
 
         typeCountMultimedia = new Vector();
+        typeCountMultimedia.add(" = ");
         typeCountMultimedia.add(" < ");
         typeCountMultimedia.add(" > ");
-        typeCountMultimedia.add(" = ");
         countMultimedia = new JComboBox(typeCountMultimedia);
         countMultimedia.setBounds(220, 80, 50, 30);
         add(countMultimedia);
@@ -149,12 +140,16 @@ public class PanelSearchAdvanced extends JPanel {
         datecreated.setBounds(150, 250, 30, 30);
         add(datecreated);
 
+
         dateChoserCreateIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
         dateChoserCreateIni.setBounds(20,290,90,30);
         add(dateChoserCreateIni);
+        dateChoserCreateIni.setEnabled(false);
+
         dateChooserCreateEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
         dateChooserCreateEnd.setBounds(120,290,90,30);
         add(dateChooserCreateEnd);
+        dateChooserCreateEnd.setEnabled(false);
 
 
         JLabel labelDateModificated = new JLabel("Date Modificated");
@@ -168,9 +163,12 @@ public class PanelSearchAdvanced extends JPanel {
         dateChooserModifyIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
         dateChooserModifyIni.setBounds(240,290,90,30);
         add(dateChooserModifyIni);
+        dateChooserModifyIni.setEnabled(false);
+
         dateChooserModifyEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
         dateChooserModifyEnd.setBounds(340,290,90,30);
         add(dateChooserModifyEnd);
+        dateChooserModifyEnd.setEnabled(false);
 
         JLabel labelIntervalDate = new JLabel("Accessed Date");
         labelIntervalDate.setBounds(480, 250, 100, 30);
@@ -183,6 +181,8 @@ public class PanelSearchAdvanced extends JPanel {
         dateChooserAccessedIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
         dateChooserAccessedIni.setBounds(450,290,90,30);
         add(dateChooserAccessedIni);
+        dateChooserAccessedIni.setEnabled(false);
+
         JLabel labelIntervalSymbol = new JLabel();
         labelIntervalSymbol.setText(" - ");
         labelIntervalSymbol.setBounds(514, 290, 10, 10);
@@ -190,6 +190,7 @@ public class PanelSearchAdvanced extends JPanel {
         dateChooserAccessedEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
         dateChooserAccessedEnd.setBounds(550,290,90,30);
         add(dateChooserAccessedEnd);
+        dateChooserAccessedEnd.setEnabled(false);
 
 
         JLabel labelVideoCodec = new JLabel("Video Codec");
@@ -247,7 +248,41 @@ public class PanelSearchAdvanced extends JPanel {
         JComboBox<String> resol = new JComboBox(resolution);
         resol.setBounds(320, 190, 90, 30);
         add(resol);
+        datecreated.addChangeListener(eve -> CheckBoxCalendar(eve));
+        datemodificate.addChangeListener(eve -> CheckBoxCalendar(eve));
+        accessDate.addChangeListener(eve -> CheckBoxCalendar(eve));
 
+        /*JButton im = new JButton();
+        ImageIcon imagen = new ImageIcon("Icons/headphones.png");
+        im.setIcon(imagen);
+        im.setBackground(new Color(255,255,255));
+        im.setBounds(540, 70, 100, 90);
+        add(im);*/
+
+    }
+
+    public void CheckBoxCalendar(ChangeEvent e){
+        if(datecreated.isSelected()){
+            dateChoserCreateIni.setEnabled(true);
+            dateChooserCreateEnd.setEnabled(true);
+        }else{
+            dateChoserCreateIni.setEnabled(false);
+            dateChooserCreateEnd.setEnabled(false);
+        }
+        if(datemodificate.isSelected()){
+            dateChooserModifyIni.setEnabled(true);
+            dateChooserModifyEnd.setEnabled(true);
+        }else{
+            dateChooserModifyIni.setEnabled(false);
+            dateChooserModifyEnd.setEnabled(false);
+        }
+        if(accessDate.isSelected()){
+            dateChooserAccessedIni.setEnabled(true);
+            dateChooserAccessedEnd.setEnabled(true);
+        }else{
+            dateChooserAccessedIni.setEnabled(false);
+            dateChooserAccessedEnd.setEnabled(false);
+        }
     }
 
     public Vector<String> getTypeFormat() {
