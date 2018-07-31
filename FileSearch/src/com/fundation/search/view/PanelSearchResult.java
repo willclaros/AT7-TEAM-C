@@ -52,17 +52,6 @@ public class PanelSearchResult extends JPanel {
         this.panelUpSearch = panelUpSearch;
     }
 
-    public void updageFilesList(List<AssetFile> files) {
-        String column[] = {"NAME", "EXT", "SIZE", "PATH", "HIDDEN", "OWNER", "TYPE", "DATE CREATED", "DATE MODIFICATED", "ACCESS DATE", "READ ONLY", "KEY SENSITIVE"};
-        DefaultTableModel dtm = new DefaultTableModel(column, 0);
-        table.setModel(dtm);
-        for (AssetFile file : files) {
-            String[] item = {file.getFilename(), file.getExtension(), "" + file.getSize(),file.getPath(),  "" + file.isHidden(), file.getOwner()};
-            dtm.addRow(item);
-        }
-        table.updateUI();
-    }
-
     /**
      * General settings of the Panel.
      */
@@ -76,8 +65,10 @@ public class PanelSearchResult extends JPanel {
      */
     public void initComponent() {
         String column[] = {"NAME", "EXT", "SIZE", "PATH", "HIDDEN", "OWNER", "TYPE", "DATE CREATED", "DATE MODIFICATED", "ACCESS DATE", "READ ONLY", "KEY SENSITIVE"};
-        String data[][] = {};
-        table = new JTable(data, column);
+        modelTable = new DefaultTableModel(column, 0);
+        table = new JTable(modelTable);
+        //String data[][] = {};
+        //table = new JTable(data, column);
         int borderSpace = 8;
         scroll = new JScrollPane(table);
         scroll.setSize(1360, 330);
@@ -123,10 +114,12 @@ public class PanelSearchResult extends JPanel {
 
 
     public void addRowTable(String path, String fileName, String fileType, long fileSize, String fileHidden, String owner) {
-        modelTable.addRow(new Object[]{path, fileName, fileType, String.valueOf(fileSize), fileHidden, owner});
+        modelTable.addRow(new String[]{path, fileName, fileType, String.valueOf(fileSize), fileHidden, owner});
     }
 
-
+    public void cleanTable(){
+        modelTable.setNumRows(0);
+    }
 
     public DefaultTableModel getModelTable() {
         return modelTable;
