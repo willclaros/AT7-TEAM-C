@@ -63,7 +63,7 @@ public class CriterialSearch {
     /**
      * parameter to true o false to exact search.
      */
-    private boolean keySesitive;
+    private boolean keySensitive;
     /**
      * search all folder, files.
      */
@@ -94,23 +94,25 @@ public class CriterialSearch {
     private String otherExtencion;
 
     /**
-     * @param directory is a patch of file search.
-     * @param nameFile name file search.
-     * @param type extent of file.
-     * @param owner of file.
+     * Method that receives all the input parameters of the View.
+     *
+     * @param directory         is a patch of file search.
+     * @param nameFile          name file search.
+     * @param type              extent of file.
+     * @param owner             of file.
      * @param delimitSizeSearch this is a delimiter search for size minor to <, major to >, equal to =.
-     * @param unitSize  type size of file MB, GB, KB.
-     * @param size size of file.
-     * @param hidden true or false is hidden.
-     * @param readOnly is only file read.
-     * @param keySesitive is equal to word tyoe search.
-     * @param selectAll search for all files and folder.
-     * @param selectOnlyfolder search for only folder.
-     * @param selectOnlyfiles search for only files.
-     * @param starWord  title contain with this word.
-     * @param contentWord contain with this word.
-     * @param endWord end with this word.
-     * @param otherExtencion distint extension the common list.
+     * @param unitSize          type size of file MB, GB, KB.
+     * @param size              size of file.
+     * @param hidden            true or false is hidden.
+     * @param readOnly          is only file read.
+     * @param keySesitive       is equal to word tyoe search.
+     * @param selectAll         search for all files and folder.
+     * @param selectOnlyfolder  search for only folder.
+     * @param selectOnlyfiles   search for only files.
+     * @param starWord          title contain with this word.
+     * @param contentWord       contain with this word.
+     * @param endWord           end with this word.
+     * @param otherExtencion    distint extension the common list.
      */
     public CriterialSearch(String directory, String nameFile, boolean hidden, String type, String owner,
                            long size, String delimitSizeSearch, String unitSize, boolean readOnly, boolean keySesitive,
@@ -125,7 +127,7 @@ public class CriterialSearch {
         this.delimitSizeSearch = delimitSizeSearch;
         this.unitSize = unitSize;
         this.readOnly = readOnly;
-        this.keySesitive = keySesitive;
+        this.keySensitive = keySensitive;
         this.selectAll = selectAll;
         this.selectOnlyfolder = selectOnlyfolder;
         this.selectOnlyfiles = selectOnlyfiles;
@@ -237,14 +239,14 @@ public class CriterialSearch {
      * @return is a same search.
      */
     public boolean isKeySesitive() {
-        return keySesitive;
+        return keySensitive;
     }
 
     /**
      * @param keySesitive set a new keysensitive.
      */
-    public void setKeySesitive(boolean keySesitive) {
-        this.keySesitive = keySesitive;
+    public void setKeySensitive(boolean keySensitive) {
+        this.keySensitive = keySensitive;
     }
 
     /**

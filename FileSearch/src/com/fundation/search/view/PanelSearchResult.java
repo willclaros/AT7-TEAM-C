@@ -14,12 +14,9 @@
 
 package com.fundation.search.view;
 
-import com.fundation.search.model.AssetFile;
-
-import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
-import java.util.List;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 
@@ -113,18 +110,45 @@ public class PanelSearchResult extends JPanel {
     }
 
 
-    public void addRowTable(String path, String fileName, String fileType, long fileSize, String fileHidden, String owner) {
-        modelTable.addRow(new String[]{path, fileName, fileType, String.valueOf(fileSize), fileHidden, owner});
+    /**
+     * Method that adds to the table.
+     * @param path  of the file.
+     * @param fileName of the file.
+     * @param fileType of the file.
+     * @param fileSize of the file.
+     * @param fileHidden of the file.
+     * @param owner of the file.
+     * @param type of the file.
+     * @param fecha1 of the file.
+     * @param fecha2 of the file.
+     * @param fecha3 of the file.
+     * @param readOnly of the file.
+     */
+    public void addRowTable(String path, String fileName, String fileType, long fileSize, String fileHidden, String owner, String type, String fecha1, String fecha2, String fecha3, boolean readOnly) {
+        modelTable.addRow(new String[]{fileName, fileType, String.valueOf(fileSize), path, fileHidden, owner,null,null,null,null,String.valueOf(readOnly)});
+
     }
 
-    public void cleanTable(){
+    /**
+     * Method to clean the table.
+     */
+    public void cleanTable() {
         modelTable.setNumRows(0);
     }
 
+    /**
+     * Method that returns the table.
+     * @return returns a defaultModelTable.
+     */
     public DefaultTableModel getModelTable() {
         return modelTable;
     }
 
+
+    /**
+     * Method that set a defaultModelTable.
+     * @param modelTable set a defaultModelTable.
+     */
     public void setModelTable(DefaultTableModel modelTable) {
         this.modelTable = modelTable;
     }
