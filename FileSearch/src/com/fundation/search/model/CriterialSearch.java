@@ -93,6 +93,7 @@ public class CriterialSearch {
      */
     private String otherExtencion;
 
+    private String containWordInFile;
     /**
      * Method that receives all the input parameters of the View.
      *
@@ -117,7 +118,7 @@ public class CriterialSearch {
     public CriterialSearch(String directory, String nameFile, boolean hidden, String type, String owner,
                            long size, String delimitSizeSearch, String unitSize, boolean readOnly, boolean keySesitive,
                            boolean selectAll, boolean selectOnlyfolder, boolean selectOnlyfiles, boolean starWord,
-                           boolean contentWord, boolean endWord, String otherExtencion) {
+                           boolean contentWord, boolean endWord, String otherExtencion, String containWordInFile) {
         this.directory = directory;
         this.nameFile = nameFile;
         this.hidden = hidden;
@@ -135,6 +136,7 @@ public class CriterialSearch {
         this.contentWord = contentWord;
         this.endWord = endWord;
         this.otherExtencion = otherExtencion;
+        this.containWordInFile = containWordInFile;
     }
 
     /**
@@ -373,5 +375,19 @@ public class CriterialSearch {
      */
     public void setOtherExtencion(String otherExtencion) {
         this.otherExtencion = otherExtencion;
+    }
+
+    /**
+     * @return a contain word in file to search.
+     */
+    public String getContainWordInFile() {
+        return containWordInFile;
+    }
+
+    /**
+     * @param containWordInFile a contain file to search.
+     */
+    public void setContainWordInFile(String containWordInFile) {
+        this.containWordInFile = containWordInFile;
     }
 }
