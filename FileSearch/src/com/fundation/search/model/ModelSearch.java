@@ -16,7 +16,9 @@ package com.fundation.search.model;
 import com.fundation.search.utils.LoggerWrapper;
 import org.apache.log4j.Logger;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.LinkOption;
@@ -78,6 +80,9 @@ public class ModelSearch {
                 if (fileIterate.canWrite() == criteria.isReadOnly() && fileIterate.canRead() == criteria.isReadOnly()) {
                     continue;
                 }
+                if (criteria.getContainWordInFile() != null && !findContentFile(fileIterate, criteria.getContainWordInFile())){
+                    continue;
+                }
                 pathList.add(new AssetFile(fileIterate.getAbsolutePath(),
                         fileIterate.getName(), fileIterate.length(),getFileExtension(fileIterate),
                         ownerFile.getName(), fileIterate.isHidden(),
@@ -100,5 +105,27 @@ public class ModelSearch {
         if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
             return fileName.substring(fileName.lastIndexOf(".")+1);
         else return "";
+    }
+
+    /**
+     * @param patch is a patch absolute to file.
+     * @param contentFile word to find in file.
+     * @return boolean if find.
+     * @throws IOException to file error.
+     */
+    private boolean findContentFile(File patch, String contentFile) throws IOException {
+        LOGGER.info("ModelSearch findContentFile: init");
+        FileReader fr = new FileReader(patch.getAbsolutePath());
+        BufferedReader br = new BufferedReader(fr);
+        String s;
+        while ((s = br.readLine()) != null) {
+            int indexfound = s.indexOf(contentFile);
+            if (indexfound > -1) {
+                return true;
+            }
+        }
+        fr.close();
+        LOGGER.info("ModelSearch findContentFile: exit");
+        return false;
     }
 }
