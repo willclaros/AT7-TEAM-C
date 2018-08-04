@@ -27,6 +27,7 @@ import java.util.List;
  * This class ModelSearch can be FileResult, MultimediaResult and maybe SearchFolder.
  *
  * @author Yerel Hurtado - AT-[07].
+ * @author William Claros Revollo - AT-[07]
  *
  * @version 1.0.
  */
@@ -34,20 +35,16 @@ public class ModelSearch {
     /**
      * this Array storage files find with specific arguments.
      */
-    private List<AssetFile> pathList = new ArrayList<>();
+    private List<Asset> pathList = new ArrayList<>();
+
 
     /**
-     * @param directory patch to search files.
-     * @param nameFile  is file to search.
-     * @param type      extension to file.
-     * @param size      file to search.
-     * @param hidden    if file hidden true.
-     * @param owner     of file create.
+     * Method that performs the search of files.
+     * @param criteria is an object of type Criteria that contains the information that was recovered from the View.
      * @return List String name file.
      * @throws IOException file.
-     * @throws IOException file.
      */
-    public List<AssetFile> searchPathName(CriterialSearch criteria) throws IOException {
+    public List<Asset> searchPathName(CriterialSearch criteria) throws IOException {
 
         File files = new File(criteria.getDirectory());
         File[] ficheros = files.listFiles();
@@ -55,6 +52,8 @@ public class ModelSearch {
         for (File fileIterate : ficheros) {
 
             if (fileIterate.isDirectory()) {
+                criteria.setDirectory(fileIterate.getPath());
+
                 searchPathName(criteria);
             } else {
                 Path filePath = Paths.get(fileIterate.getPath());
@@ -74,25 +73,32 @@ public class ModelSearch {
                 if (criteria.getOwner() != null && ownerFile.getName().equals(criteria.getOwner())) {
                     continue;
                 }
-                if (fileIterate.canWrite() == criteria.isReadOnly()) {
+                if (fileIterate.canWrite() == criteria.isReadOnly() && fileIterate.canRead() == criteria.isReadOnly()) {
                     continue;
                 }
 
-                pathList.add(new AssetFile(
-                        fileIterate.getPath(),fileIterate.getName(), fileIterate.length(),getFileExtension(fileIterate),
+                pathList.add(new AssetFile(fileIterate.getAbsolutePath(),
+                        fileIterate.getName(), fileIterate.length(),getFileExtension(fileIterate),
                         ownerFile.getName(), fileIterate.isHidden(),
-                        criteria.getDelimitSizeSearch(), fileIterate.canWrite(), criteria.isKeySesitive(), criteria.isSelectAll(),
-                criteria.isSelectOnlyfolder(), criteria.isSelectOnlyfiles(), criteria.isStarWord(), criteria.isContentWord(),
-                criteria.isEndWord(), criteria.getOtherExtencion()));
+                        criteria.getDelimitSizeSearch(), fileIterate.canWrite(), criteria.isKeySesitive(), criteria.isSelectAll()
+                , criteria.isSelectOnlyfiles(), criteria.isStarWord(), criteria.isContentWord(),
+                criteria.isEndWord(), criteria.getOtherExtencion(),criteria.isSelectOnlyfolder()));
             }
         }
         return pathList;
     }
 
+    /**
+     * Method that returns a string with the extension of the document.
+     * @param file receive a file.
+     * @return returns a string with the extension of the document.
+     */
     private static String getFileExtension(File file) {
         String fileName = file.getName();
         if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
             return fileName.substring(fileName.lastIndexOf(".")+1);
         else return "";
     }
+
+
 }

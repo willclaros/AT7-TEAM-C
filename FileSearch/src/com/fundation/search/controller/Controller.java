@@ -17,6 +17,10 @@
 package com.fundation.search.controller;
 
 import com.fundation.search.model.AssetFile;
+import com.fundation.search.model.Asset;
+import com.fundation.search.model.AssetMultimedia;
+
+import com.fundation.search.model.AssetMultimedia;
 import com.fundation.search.model.CriterialSearch;
 import com.fundation.search.model.ModelSearch;
 import com.fundation.search.view.View;
@@ -75,12 +79,19 @@ public class Controller {
         ModelSearch model = new ModelSearch();
 
         try {
-            List<AssetFile> fileList = model.searchPathName(criterialSearch);
+            List<Asset> fileList = model.searchPathName(criterialSearch);
             view.getPanelGeneral().getResultPanel().cleanTable();
             //List<AssetFile> fileList = model.searchPathName(pathName, fileName, fileType, fileSize, fileHidden, owner);
-            for (AssetFile a : fileList) {
-                System.out.println(a.getFilename());
-                view.getPanelGeneral().getResultPanel().addRowTable(a.getPath(), a.getFilename(), a.getExtension(), a.getSize(), null, null);
+            for (Asset asset : fileList) {
+                if(asset instanceof AssetFile){
+                    AssetFile assetFile = (AssetFile) asset;
+                    view.getPanelGeneral().getResultPanel().addRowTable(assetFile.getPath(), assetFile.getFilename(), assetFile.getExtension(), assetFile.getSize(), String.valueOf(assetFile.isHidden()), assetFile.getOwner(), null,null,null,null,assetFile.isReadOnly());
+                }else{
+                    AssetMultimedia assetMultimedia = (AssetMultimedia) asset;
+                    //System.out.println(a.getFilename());
+                }
+
+                //view.getPanelGeneral().getResultPanel().addRowTable(a.getPath(), a.getFilename(), a.getExtension(), a.getSize(), String.valueOf(a.isHidden()), a.getOwner());
             }
         } catch (Exception e) {
             System.out.println("hola mundo");
