@@ -54,14 +54,14 @@ public class PanelSearchResult extends JPanel {
      */
     private void settingPanelSearchResult() {
         setLayout(null);
-        setBackground(Color.BLACK);
+        //setBackground(Color.BLACK);
     }
 
     /**
      * Method that contains the components of the PanelSearchResult.
      */
     public void initComponent() {
-        String column[] = {"NAME", "EXT", "SIZE", "PATH", "HIDDEN", "OWNER", "TYPE", "DATE CREATED", "DATE MODIFICATED", "ACCESS DATE", "READ ONLY", "KEY SENSITIVE"};
+        String column[] = {"PATH","NAME", "EXT", "SIZE", "HIDDEN", "OWNER", "TYPE", "DATE CREATED", "DATE MODIFICATED", "ACCESS DATE"};
         modelTable = new DefaultTableModel(column, 0);
         table = new JTable(modelTable);
         //String data[][] = {};
