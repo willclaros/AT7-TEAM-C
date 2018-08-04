@@ -13,6 +13,9 @@
  */
 package com.fundation.search.model;
 
+import com.fundation.search.utils.LoggerWrapper;
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,34 +30,35 @@ import java.util.List;
  * This class ModelSearch can be FileResult, MultimediaResult and maybe SearchFolder.
  *
  * @author Yerel Hurtado - AT-[07].
- *
  * @version 1.0.
  */
 public class ModelSearch {
+    private static final Logger LOGGER = LoggerWrapper.getInstance().getLogger();
     /**
      * this Array storage files find with specific arguments.
      */
     private List<AssetFile> pathList = new ArrayList<>();
 
+    private static String getFileExtension(File file) {
+        String fileName = file.getName();
+        if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        else return "";
+    }
+
     /**
-     * @param directory patch to search files.
-     * @param nameFile  is file to search.
-     * @param type      extension to file.
-     * @param size      file to search.
-     * @param hidden    if file hidden true.
-     * @param owner     of file create.
      * @return List String name file.
      * @throws IOException file.
      * @throws IOException file.
      */
     public List<AssetFile> searchPathName(CriterialSearch criteria) throws IOException {
-
+        LOGGER.info("init search");
         File files = new File(criteria.getDirectory());
         File[] ficheros = files.listFiles();
 
         for (File fileIterate : ficheros) {
-
             if (fileIterate.isDirectory()) {
+                criteria.setDirectory(fileIterate.getPath());
                 searchPathName(criteria);
             } else {
                 Path filePath = Paths.get(fileIterate.getPath());
@@ -79,20 +83,14 @@ public class ModelSearch {
                 }
 
                 pathList.add(new AssetFile(
-                        fileIterate.getPath(),fileIterate.getName(), fileIterate.length(),getFileExtension(fileIterate),
+                        fileIterate.getPath(), fileIterate.getName(), fileIterate.length(), getFileExtension(fileIterate),
                         ownerFile.getName(), fileIterate.isHidden(),
                         criteria.getDelimitSizeSearch(), fileIterate.canWrite(), criteria.isKeySesitive(), criteria.isSelectAll(),
-                criteria.isSelectOnlyfolder(), criteria.isSelectOnlyfiles(), criteria.isStarWord(), criteria.isContentWord(),
-                criteria.isEndWord(), criteria.getOtherExtencion()));
+                        criteria.isSelectOnlyfolder(), criteria.isSelectOnlyfiles(), criteria.isStarWord(), criteria.isContentWord(),
+                        criteria.isEndWord(), criteria.getOtherExtencion()));
             }
         }
+        LOGGER.info("menseje exit");
         return pathList;
-    }
-
-    private static String getFileExtension(File file) {
-        String fileName = file.getName();
-        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
-            return fileName.substring(fileName.lastIndexOf(".")+1);
-        else return "";
     }
 }

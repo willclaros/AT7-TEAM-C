@@ -19,7 +19,9 @@ package com.fundation.search.controller;
 import com.fundation.search.model.AssetFile;
 import com.fundation.search.model.CriterialSearch;
 import com.fundation.search.model.ModelSearch;
+import com.fundation.search.utils.LoggerWrapper;
 import com.fundation.search.view.View;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Objects;
@@ -32,6 +34,7 @@ import java.util.Objects;
  */
 public class Controller {
 
+    private static final Logger LOGGER = LoggerWrapper.getInstance().getLogger();
     private View view;
     private ModelSearch model;
     private CriterialSearch criterialSearch;
@@ -41,9 +44,11 @@ public class Controller {
      * in the SearchFrame view.
      */
     public void init() {
+        LOGGER.info("Controller init: enter");
         this.view = new View();
         this.model = new ModelSearch();
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSearchButton().addActionListener(e -> getData());
+        LOGGER.info("Controller init: exit");
     }
 
     /**
@@ -51,6 +56,7 @@ public class Controller {
      * with the Model.
      */
     private void getData() {
+        LOGGER.info("Controller getData: enter");
         String pathName = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getPath().getText();
         String fileName = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getNameFile().getText();
         boolean fileHidden = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getHiddenFile().isSelected();
@@ -85,5 +91,6 @@ public class Controller {
         } catch (Exception e) {
             System.out.println("hola mundo");
         }
+        LOGGER.info("Controller init: exit");
     }
 }
