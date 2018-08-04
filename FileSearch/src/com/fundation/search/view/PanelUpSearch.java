@@ -28,6 +28,7 @@ public class PanelUpSearch extends JPanel {
     public PanelSearchBasic panelSearchBasic;
     public PanelSearchAdvanced panelSearchAdvanced;
     public PanelSearchResult panelResult;
+    public PanelDataBase panelDataBase;
 
     /**
      * Constructor that creates the primary panels that will contain the search panels.
@@ -36,8 +37,10 @@ public class PanelUpSearch extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         panelSearchBasic = new PanelSearchBasic();
         panelSearchAdvanced = new PanelSearchAdvanced();
+        panelDataBase = new PanelDataBase();
         this.add(panelSearchBasic);
         this.add(panelSearchAdvanced);
+        this.add(panelDataBase);
     }
 
     public PanelUpSearch(PanelSearchResult panelResult) {
@@ -45,8 +48,10 @@ public class PanelUpSearch extends JPanel {
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         panelSearchBasic = new PanelSearchBasic(panelResult);
         panelSearchAdvanced = new PanelSearchAdvanced();
+        panelDataBase = new PanelDataBase();
         this.add(panelSearchBasic);
         this.add(panelSearchAdvanced);
+        this.add(panelDataBase);
     }
 
     /**

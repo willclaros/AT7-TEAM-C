@@ -14,19 +14,30 @@
 
 package com.fundation.search.view;
 
-import com.fundation.search.model.AssetFile;
 import com.fundation.search.model.ModelSearch;
-
-import javax.swing.*;
+import java.awt.Image;
+import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.ButtonGroup;
+import javax.swing.JRadioButton;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import java.io.File;
-import java.util.List;
 import java.util.Vector;
 
 /**
  * Class that creates the basic search panel.
- *
  * @author William Claros Revollo - AT - [07]
  * @author Erik Vargas - AT - [07]
  * @version 1.0.
@@ -59,6 +70,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     private JButton searchButton;
     private PanelSearchResult panelResult;
     private ModelSearch modelSearch;
+    private JCheckBox checkOtherExtention;
 
     /**
      * Constructor that creates the basic search panel.
@@ -69,7 +81,6 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         this.panelResult = panelResult;
         modelSearch = new ModelSearch();
     }
-
     public PanelSearchBasic() {
         settingPanel();
         initComponent();
@@ -89,54 +100,50 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
      */
     public void initComponent() {
         JLabel labelPanelBasic = new JLabel("SEARCH");
-        labelPanelBasic.setBounds(320, 10, 130, 30);
+        labelPanelBasic.setBounds(190, 10, 130, 30);
         add(labelPanelBasic);
 
-        JLabel labelSearchPath = new JLabel();
-        labelSearchPath.setText("Document Path: ");
-        labelSearchPath.setBounds(20, 60, 100, 30);
+        JLabel labelSearchPath = new JLabel("Path:");
+        labelSearchPath.setBounds(20, 50, 50, 30);
         add(labelSearchPath);
 
         path = new JTextField();
-        path.setBounds(130, 60, 380, 30);
+        path.setBounds(90, 50, 250, 30);
         add(path);
 
-        JLabel labelNameFile = new JLabel();
-        labelNameFile.setText("File Name: ");
-        labelNameFile.setBounds(20, 120, 120, 30);
+        JLabel labelNameFile = new JLabel("File Name: ");
+        labelNameFile.setBounds(20, 90, 120, 30);
         add(labelNameFile);
 
         nameFile = new JTextField();
-        nameFile.setBounds(130, 120, 170, 30);
+        nameFile.setBounds(90, 90, 70, 30);
         add(nameFile);
 
-        JLabel labelOwner = new JLabel();
-        labelOwner.setText("Owner");
-        labelOwner.setBounds(320, 120, 80, 30);
+        JLabel labelOwner = new JLabel("Owner");
+        labelOwner.setBounds(170, 90, 80, 30);
         add(labelOwner);
         owner = new JTextField();
-        owner.setBounds(370, 120, 100, 30);
+        owner.setBounds(220, 90, 70, 30);
         add(owner);
 
-        JLabel labelContent = new JLabel();
-        labelContent.setText("Contains");
-        labelContent.setBounds(490, 120, 100, 30);
+        JLabel labelContent = new JLabel("Contains");
+        labelContent.setBounds(310, 90, 100, 30);
         add(labelContent);
 
         content = new JTextField();
-        content.setBounds(550, 120, 100, 30);
+        content.setBounds(370, 90, 70, 30);
         add(content);
 
         all = new JRadioButton("All");
-        all.setBounds(150, 170, 80, 20);
+        all.setBounds(70, 160, 50, 20);
         add(all);
 
         file = new JRadioButton("File");
-        file.setBounds(150, 190, 80, 20);
+        file.setBounds(70, 180, 50, 20);
         add(file);
 
         folder = new JRadioButton("Folder");
-        folder.setBounds(150, 210, 80, 20);
+        folder.setBounds(70, 200, 70, 20);
         add(folder);
 
         group1 = new ButtonGroup();
@@ -145,15 +152,15 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         group1.add(folder);
 
         startWord = new JRadioButton("Start Word");
-        startWord.setBounds(250, 170, 100, 20);
+        startWord.setBounds(160, 160, 100, 20);
         add(startWord);
 
         contentWord = new JRadioButton("Content Word");
-        contentWord.setBounds(250, 190, 120, 20);
+        contentWord.setBounds(160, 180, 110, 20);
         add(contentWord);
 
         endWord = new JRadioButton("End Word");
-        endWord.setBounds(250, 210, 100, 20);
+        endWord.setBounds(160, 200, 100, 20);
         add(endWord);
 
         group2 = new ButtonGroup();
@@ -162,33 +169,32 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         group2.add(endWord);
 
         readOnly = new JCheckBox("Read Only");
-        readOnly.setBounds(400, 172, 100, 20);
+        readOnly.setBounds(290, 162, 100, 20);//212
         add(readOnly);
 
         hiddenFile = new JCheckBox("Hidden");
-        hiddenFile.setBounds(400, 193, 100, 20);
+        hiddenFile.setBounds(290, 183, 100, 20);
         add(hiddenFile);
 
         keySensitive = new JCheckBox("Key Sensitive");
-        keySensitive.setBounds(400, 214, 120, 20);
+        keySensitive.setBounds(290, 204, 120, 20);
         add(keySensitive);
 
-        JLabel labelTypeDocument = new JLabel();
-        labelTypeDocument.setText("Documents");
-        labelTypeDocument.setBounds(60, 240, 80, 30);
+        JLabel labelTypeDocument = new JLabel("Documents");
+        labelTypeDocument.setBounds(50, 254, 80, 30);
         add(labelTypeDocument);
 
-        JLabel labelOtherExtension = new JLabel();
-        labelOtherExtension.setText("Other extension");
-        labelOtherExtension.setBounds(10, 270, 100, 30);
-        add(labelOtherExtension);
+        checkOtherExtention = new JCheckBox("Other extension");
+        checkOtherExtention.setBounds(20, 284, 120, 30);
+        add(checkOtherExtention);
 
         writeExtension = new JTextField();
-        writeExtension.setBounds(120, 270, 100, 30);
+        writeExtension.setBounds(140, 284, 80, 30);
         add(writeExtension);
+        writeExtension.setEnabled(false);
 
-        JLabel labelExtension = new JLabel("extension");
-        labelExtension.setBounds(10, 300, 80, 30);
+        JLabel labelExtension = new JLabel("Extension");
+        labelExtension.setBounds(22, 320, 80, 30);
         add(labelExtension);
 
         typeFile = new Vector();
@@ -198,11 +204,11 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         typeFile.add("pdf");
         typeFile.add("xlsx");
         fileType = new JComboBox(typeFile);
-        fileType.setBounds(120, 300, 100, 30);
+        fileType.setBounds(140, 320, 80, 30);
         add(fileType);
 
         JLabel labelFileSize = new JLabel("File Size");
-        labelFileSize.setBounds(355, 270, 80, 30);
+        labelFileSize.setBounds(255, 254, 80, 30);
         add(labelFileSize);
 
         typeCount = new Vector();
@@ -210,11 +216,11 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         typeCount.add(" < ");
         typeCount.add(" > ");
         count = new JComboBox(typeCount);
-        count.setBounds(280, 300, 50, 30);
+        count.setBounds(230, 284, 40, 30);
         add(count);
 
         sizeFile = new JSpinner();
-        sizeFile.setBounds(340, 300, 70, 30);
+        sizeFile.setBounds(270, 284, 50, 30);
         add(sizeFile);
 
         typeSize = new Vector();
@@ -223,23 +229,44 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         typeSize.add("MByte");
         typeSize.add("GByte");
         sizeType = new JComboBox(typeSize);
-        sizeType.setBounds(420, 300, 70, 30);
+        sizeType.setBounds(230, 320, 89, 30);
         add(sizeType);
 
         JButton buttonPath = new JButton("Path");
         buttonPath.addActionListener(this);
         ImageIcon ico = new ImageIcon("Icons/open.png");
         buttonPath.setIcon(ico);
-        buttonPath.setBounds(540, 60, 120, 30);
+        Icon iconPath = new ImageIcon(ico.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT));
+        buttonPath.setIcon(iconPath);
+
+        buttonPath.setBounds(350, 50, 90, 30);
         add(buttonPath);
 
         searchButton = new JButton("Search");
-        ImageIcon imagen = new ImageIcon("Icons/lupa.png");
-        searchButton.setIcon(imagen);
         searchButton.setHorizontalTextPosition( SwingConstants.CENTER );
         searchButton.setVerticalTextPosition( SwingConstants.BOTTOM );
-        searchButton.setBounds(540, 270, 100, 85);
+        searchButton.setBounds(340, 300, 80, 50);
+
+        ImageIcon imagen = new ImageIcon("Icons/lupa.png");
+        searchButton.setIcon(imagen);
+        Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(30,30, Image.SCALE_DEFAULT));
+        searchButton.setIcon(icon);
         add(searchButton);
+
+        // Enable and disable check other documents
+        checkOtherExtention.addChangeListener(eve -> CheckBoxOtherExtension(eve));
+    }
+
+    /**
+     * This method is for enable and disable checkbox of other estension.
+     * @param event
+     */
+    public void CheckBoxOtherExtension (ChangeEvent event) {
+        if (checkOtherExtention.isSelected()) {
+            writeExtension.setEnabled(true);
+        }else{
+            writeExtension.setEnabled(false);
+        }
     }
 
     /**
@@ -481,8 +508,6 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         this.endWord = endWord;
     }
 
-
-
     /**
      * Method that returns an object of the JTextField class.
      * @return write extension.
@@ -602,13 +627,4 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     public JSpinner getSizeFile() {
         return sizeFile;
     }
-
-    /**
-     * Method that is responsible for modifying the value of the object of the JSpinner class.
-     * @param sizeFile new object of the JTextField class.
-     */
-    public void setSizeFile(JSpinner sizeFile) {
-        this.sizeFile = sizeFile;
-    }
-
 }
