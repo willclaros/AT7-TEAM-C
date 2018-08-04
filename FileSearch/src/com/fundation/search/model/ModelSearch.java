@@ -13,6 +13,9 @@
  */
 package com.fundation.search.model;
 
+import com.fundation.search.utils.LoggerWrapper;
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -32,6 +35,7 @@ import java.util.List;
  * @version 1.0.
  */
 public class ModelSearch {
+    private static final Logger LOGGER = LoggerWrapper.getInstance().getLogger();
     /**
      * this Array storage files find with specific arguments.
      */
@@ -45,15 +49,13 @@ public class ModelSearch {
      * @throws IOException file.
      */
     public List<Asset> searchPathName(CriterialSearch criteria) throws IOException {
-
+        LOGGER.info("init search");
         File files = new File(criteria.getDirectory());
         File[] ficheros = files.listFiles();
 
         for (File fileIterate : ficheros) {
-
             if (fileIterate.isDirectory()) {
                 criteria.setDirectory(fileIterate.getPath());
-
                 searchPathName(criteria);
             } else {
                 Path filePath = Paths.get(fileIterate.getPath());
@@ -76,7 +78,6 @@ public class ModelSearch {
                 if (fileIterate.canWrite() == criteria.isReadOnly() && fileIterate.canRead() == criteria.isReadOnly()) {
                     continue;
                 }
-
                 pathList.add(new AssetFile(fileIterate.getAbsolutePath(),
                         fileIterate.getName(), fileIterate.length(),getFileExtension(fileIterate),
                         ownerFile.getName(), fileIterate.isHidden(),
@@ -85,6 +86,7 @@ public class ModelSearch {
                 criteria.isEndWord(), criteria.getOtherExtencion(),criteria.isSelectOnlyfolder()));
             }
         }
+        LOGGER.info("menseje exit");
         return pathList;
     }
 
@@ -99,6 +101,4 @@ public class ModelSearch {
             return fileName.substring(fileName.lastIndexOf(".")+1);
         else return "";
     }
-
-
 }
