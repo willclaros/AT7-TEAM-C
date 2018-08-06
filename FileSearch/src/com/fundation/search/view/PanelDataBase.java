@@ -13,6 +13,9 @@
  */
 package com.fundation.search.view;
 
+import java.awt.Image;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -69,23 +72,39 @@ public class PanelDataBase extends JPanel {
         add(labelPanelDataBase);
 
         checkDataBase = new JCheckBox();
-        checkDataBase.setBounds(260, 10, 30, 30);
+        checkDataBase.setBounds(360, 0, 70, 70);
+        Icon unselIcon = new ImageIcon("Icons/db.png");
+        checkDataBase.setIcon(unselIcon);
+        //checkDataBase.setSelectedIcon(new ImageIcon("Icons/comprobado.png"));
+        // Set disabled icon for checkbox
+        //checkDataBase.setDisabledIcon(new ImageIcon("Icons/se.png"));
+        // Set disabled-selected icon for checkbox
+        //checkDataBase.setDisabledSelectedIcon(new ImageIcon("Icons/comprobado.png"));
+        // Set checkbox icon when checkbox is pressed
+        //checkDataBase.setPressedIcon(new ImageIcon("Icons/se.png"));
+        // Set icon when a mouse is over the checkbox
+        //checkDataBase.setRolloverIcon(new ImageIcon("Icons/se.png"));
+        // Set icon when a mouse is over a selected checkbox
+        //checkDataBase.setRolloverSelectedIcon(new ImageIcon("Icons/se.png"));
         add(checkDataBase);
 
         labelTypeMultimedia = new JLabel("Criteria");
-        labelTypeMultimedia.setBounds(20, 50, 100, 30);
+        labelTypeMultimedia.setBounds(20, 70, 100, 30);
         add(labelTypeMultimedia);
         labelTypeMultimedia.setEnabled(false);
 
         writeExtensionMult = new JTextField();
-        writeExtensionMult.setBounds(90, 50, 230, 30);
+        writeExtensionMult.setBounds(80, 70, 230, 30);
         add(writeExtensionMult);
         writeExtensionMult.setEnabled(false);
 
         saveCriteriaButton = new JButton("Save");
-        saveCriteriaButton.setHorizontalTextPosition( SwingConstants.CENTER );
-        saveCriteriaButton.setVerticalTextPosition( SwingConstants.BOTTOM );
-        saveCriteriaButton.setBounds(330, 50, 90, 30);
+
+        ImageIcon ico = new ImageIcon("Icons/save.png");
+        saveCriteriaButton.setIcon(ico);
+        Icon iconPath = new ImageIcon(ico.getImage().getScaledInstance(25,25,Image.SCALE_DEFAULT));
+        saveCriteriaButton.setIcon(iconPath);
+        saveCriteriaButton.setBounds(320, 70, 100, 30);
         add(saveCriteriaButton);
         saveCriteriaButton.setEnabled(false);
 
@@ -95,14 +114,14 @@ public class PanelDataBase extends JPanel {
         int borderSpace = 8;
         scroll = new JScrollPane(table);
         scroll.setSize(400, 170);
-        scroll.setLocation(20, 90);
+        scroll.setLocation(20, 110);
         add(scroll);
         scroll.setEnabled(false);
 
         loadCriteriaButton = new JButton("LOAD");
         loadCriteriaButton.setHorizontalTextPosition( SwingConstants.CENTER );
         loadCriteriaButton.setVerticalTextPosition( SwingConstants.BOTTOM );
-        loadCriteriaButton.setBounds(190, 284, 90, 30);
+        loadCriteriaButton.setBounds(190, 294, 90, 30);
         add(loadCriteriaButton);
         loadCriteriaButton.setEnabled(false);
 
