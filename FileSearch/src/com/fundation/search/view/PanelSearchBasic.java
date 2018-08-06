@@ -15,26 +15,24 @@
 package com.fundation.search.view;
 
 import com.fundation.search.model.ModelSearch;
-import java.awt.Image;
-import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.JTextField;
-import javax.swing.ButtonGroup;
-import javax.swing.JRadioButton;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.SwingConstants;
-import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import java.io.File;
 import java.util.Vector;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
 
 /**
  * Class that creates the basic search panel.
@@ -72,6 +70,14 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     private ModelSearch modelSearch;
     private JCheckBox checkOtherExtention;
 
+    private ImageIcon openBtn1;
+    private ImageIcon openBtn2;
+    private ImageIcon openBtn3;
+
+    private ImageIcon searchBtn1;
+    private ImageIcon searchBtn2;
+    private ImageIcon searchBtn3;
+
     /**
      * Constructor that creates the basic search panel.
      */
@@ -108,7 +114,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         add(labelSearchPath);
 
         path = new JTextField();
-        path.setBounds(90, 50, 250, 30);
+        path.setBounds(90, 50, 300, 30);
         add(path);
 
         JLabel labelNameFile = new JLabel("File Name: ");
@@ -169,7 +175,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         group2.add(endWord);
 
         readOnly = new JCheckBox("Read Only");
-        readOnly.setBounds(290, 162, 100, 20);//212
+        readOnly.setBounds(290, 162, 100, 20);
         add(readOnly);
 
         hiddenFile = new JCheckBox("Hidden");
@@ -203,6 +209,8 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         typeFile.add("doc");
         typeFile.add("pdf");
         typeFile.add("xlsx");
+        typeFile.add("png");
+        typeFile.add("jpg");
         fileType = new JComboBox(typeFile);
         fileType.setBounds(140, 320, 80, 30);
         add(fileType);
@@ -232,30 +240,55 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         sizeType.setBounds(230, 320, 89, 30);
         add(sizeType);
 
-        JButton buttonPath = new JButton("Path");
+        JButton buttonPath = new JButton();
         buttonPath.addActionListener(this);
-        ImageIcon ico = new ImageIcon("Icons/open.png");
-        buttonPath.setIcon(ico);
-        Icon iconPath = new ImageIcon(ico.getImage().getScaledInstance(20,20,Image.SCALE_DEFAULT));
-        buttonPath.setIcon(iconPath);
+        openBtn1 = new ImageIcon("Icons/open1.png");
+        openBtn2 = new ImageIcon("Icons/open.png");
+        openBtn3 = new ImageIcon("Icons/open.png");
 
-        buttonPath.setBounds(350, 50, 90, 30);
+        buttonPath.setBounds(376, 50, 80, 30);
+        ConfigurarBoton(buttonPath, openBtn1, openBtn2, openBtn3);
         add(buttonPath);
 
         searchButton = new JButton("Search");
         searchButton.setHorizontalTextPosition( SwingConstants.CENTER );
         searchButton.setVerticalTextPosition( SwingConstants.BOTTOM );
-        searchButton.setBounds(340, 300, 80, 50);
+        searchButton.setBounds(360, 260, 80, 100);
 
-        ImageIcon imagen = new ImageIcon("Icons/lupa.png");
+
+        searchBtn1 = new ImageIcon("Icons/busqueda2.png");
+        searchBtn2 = new ImageIcon("Icons/busqueda1.png");
+        searchBtn3 = new ImageIcon("Icons/busqueda1.png");
+        ConfigurarBoton(searchButton, searchBtn1, searchBtn2, searchBtn3);
+
+        /*ImageIcon imagen = new ImageIcon("Icons/busqueda1.png");
         searchButton.setIcon(imagen);
-        Icon icon = new ImageIcon(imagen.getImage().getScaledInstance(30,30, Image.SCALE_DEFAULT));
-        searchButton.setIcon(icon);
+        searchButton.setBorderPainted(false);
+        searchButton.setContentAreaFilled(false);
+        searchButton.setFocusable(false);*/
         add(searchButton);
 
         // Enable and disable check other documents
         checkOtherExtention.addChangeListener(eve -> CheckBoxOtherExtension(eve));
     }
+
+
+    public void ConfigurarBoton(JButton boton,ImageIcon img1,ImageIcon img2,ImageIcon img3) {
+
+        //Definimos el icono por defecto que tendra la imagen
+        boton.setIcon(img1);
+        //Para que el boton no tenga borde …
+        boton.setBorderPainted(false);
+        //Para que no se pinte el boton
+        boton.setContentAreaFilled(false);
+        boton.setFocusable(false);
+        boton.setRolloverEnabled(true);
+        //Definimos el icono que se mostrara cuando el mouse este sobre el boton
+        boton.setRolloverIcon(img2);
+        //Configuramos el icono que se mostrara cuando se de click en el boton
+        boton.setPressedIcon(img3);
+    }
+
 
     /**
      * This method is for enable and disable checkbox of other estension.

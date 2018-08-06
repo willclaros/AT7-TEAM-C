@@ -14,6 +14,8 @@
 package com.fundation.search.view;
 
 import com.toedter.calendar.JDateChooser;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.event.ChangeEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JCheckBox;
@@ -93,21 +95,23 @@ public class PanelSearchAdvanced extends JPanel {
         add(labelPanelAdvanced);
 
         checkMultimedia = new JCheckBox();
-        checkMultimedia.setBounds(310, 10, 30, 30);
+        checkMultimedia.setBounds(360, 0, 70, 70);
+        Icon unselIcon = new ImageIcon("Icons/multimedia.png");
+        checkMultimedia.setIcon(unselIcon);
         add(checkMultimedia);
 
         labelTypeMultimedia = new JLabel("Other Extension");
-        labelTypeMultimedia.setBounds(20, 50, 100, 30);
+        labelTypeMultimedia.setBounds(20, 60, 100, 30);
         add(labelTypeMultimedia);
         labelTypeMultimedia.setEnabled(false);
 
         writeExtensionMult = new JTextField();
-        writeExtensionMult.setBounds(120, 50, 70, 30);
+        writeExtensionMult.setBounds(120, 60, 70, 30);
         add(writeExtensionMult);
         writeExtensionMult.setEnabled(false);
 
         labelExtension = new JLabel("Extension");
-        labelExtension.setBounds(20, 80, 80, 30);
+        labelExtension.setBounds(20, 90, 80, 30);
         add(labelExtension);
         labelExtension.setEnabled(false);
 
@@ -116,7 +120,7 @@ public class PanelSearchAdvanced extends JPanel {
         typeFormat.add("Mp4");
         typeFormat.add("Mpeg");
         type = new JComboBox(typeFormat);
-        type.setBounds(120, 80, 70, 30);
+        type.setBounds(120, 90, 70, 30);
         add(type);
         type.setEnabled(false);
 

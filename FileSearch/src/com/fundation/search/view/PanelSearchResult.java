@@ -14,11 +14,10 @@
 
 package com.fundation.search.view;
 
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import java.awt.Color;
 
 
 /**
@@ -61,14 +60,14 @@ public class PanelSearchResult extends JPanel {
      * Method that contains the components of the PanelSearchResult.
      */
     public void initComponent() {
-        String column[] = {"PATH","NAME", "EXT", "SIZE", "HIDDEN", "OWNER", "TYPE", "DATE CREATED", "DATE MODIFICATED", "ACCESS DATE"};
+        String column[] = {"NAME", "EXT", "SIZE", "HIDDEN", "OWNER", "PATH","TYPE", "DATE CREATED", "DATE MODIFICATED", "ACCESS DATE"};
         modelTable = new DefaultTableModel(column, 0);
         table = new JTable(modelTable);
         //String data[][] = {};
         //table = new JTable(data, column);
         int borderSpace = 8;
         scroll = new JScrollPane(table);
-        scroll.setSize(1360, 330);
+        scroll.setSize(1350, 330);
         scroll.setLocation(0, borderSpace);
         add(scroll);
     }
