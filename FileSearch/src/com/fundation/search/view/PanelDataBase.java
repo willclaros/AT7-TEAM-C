@@ -73,19 +73,8 @@ public class PanelDataBase extends JPanel {
 
         checkDataBase = new JCheckBox();
         checkDataBase.setBounds(360, 0, 70, 70);
-        Icon unselIcon = new ImageIcon("Icons/db.png");
-        checkDataBase.setIcon(unselIcon);
-        //checkDataBase.setSelectedIcon(new ImageIcon("Icons/comprobado.png"));
-        // Set disabled icon for checkbox
-        //checkDataBase.setDisabledIcon(new ImageIcon("Icons/se.png"));
-        // Set disabled-selected icon for checkbox
-        //checkDataBase.setDisabledSelectedIcon(new ImageIcon("Icons/comprobado.png"));
-        // Set checkbox icon when checkbox is pressed
-        //checkDataBase.setPressedIcon(new ImageIcon("Icons/se.png"));
-        // Set icon when a mouse is over the checkbox
-        //checkDataBase.setRolloverIcon(new ImageIcon("Icons/se.png"));
-        // Set icon when a mouse is over a selected checkbox
-        //checkDataBase.setRolloverSelectedIcon(new ImageIcon("Icons/se.png"));
+        Icon iconDataBase = new ImageIcon("Icons/db.png");
+        checkDataBase.setIcon(iconDataBase);
         add(checkDataBase);
 
         labelTypeMultimedia = new JLabel("Criteria");
@@ -245,4 +234,6 @@ public class PanelDataBase extends JPanel {
     public void setLoadCriteriaButton(JButton loadCriteriaButton) {
         this.loadCriteriaButton = loadCriteriaButton;
     }
+
+
 }

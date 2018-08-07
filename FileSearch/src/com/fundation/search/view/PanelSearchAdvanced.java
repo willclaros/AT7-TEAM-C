@@ -35,7 +35,7 @@ import java.util.Vector;
 public class PanelSearchAdvanced extends JPanel {
     private JLabel labelPanelAdvanced;
     private JCheckBox checkMultimedia;
-    private JLabel labelTypeMultimedia;
+    private JCheckBox checkOtherExtentionMult;
     private JTextField writeExtensionMult;
     private JLabel labelExtension;
     private Vector<String> typeFormat;
@@ -96,31 +96,32 @@ public class PanelSearchAdvanced extends JPanel {
 
         checkMultimedia = new JCheckBox();
         checkMultimedia.setBounds(360, 0, 70, 70);
-        Icon unselIcon = new ImageIcon("Icons/multimedia.png");
-        checkMultimedia.setIcon(unselIcon);
+        Icon iconMultimedia = new ImageIcon("Icons/multimedia.png");
+        checkMultimedia.setIcon(iconMultimedia);
         add(checkMultimedia);
 
-        labelTypeMultimedia = new JLabel("Other Extension");
-        labelTypeMultimedia.setBounds(20, 60, 100, 30);
-        add(labelTypeMultimedia);
-        labelTypeMultimedia.setEnabled(false);
+        checkOtherExtentionMult = new JCheckBox("Other extension");
+        checkOtherExtentionMult.setBounds(20, 60, 120, 30);
+        add(checkOtherExtentionMult);
+        checkOtherExtentionMult.setEnabled(false);
 
         writeExtensionMult = new JTextField();
-        writeExtensionMult.setBounds(120, 60, 70, 30);
+        writeExtensionMult.setBounds(140, 60, 70, 30);
         add(writeExtensionMult);
         writeExtensionMult.setEnabled(false);
 
         labelExtension = new JLabel("Extension");
-        labelExtension.setBounds(20, 90, 80, 30);
+        labelExtension.setBounds(22, 90, 80, 30);
         add(labelExtension);
         labelExtension.setEnabled(false);
 
         typeFormat = new Vector();
+        typeFormat.add("");
         typeFormat.add("Mp3");
         typeFormat.add("Mp4");
         typeFormat.add("Mpeg");
         type = new JComboBox(typeFormat);
-        type.setBounds(120, 90, 70, 30);
+        type.setBounds(140, 90, 70, 30);
         add(type);
         type.setEnabled(false);
 
@@ -158,6 +159,7 @@ public class PanelSearchAdvanced extends JPanel {
         labelVideoCodec.setEnabled(false);
 
         videoCodec = new Vector();
+        videoCodec.add("");
         videoCodec.add("H264");
         videoCodec.add("H263");
         videoCodec.add("MPEG4");
@@ -174,6 +176,7 @@ public class PanelSearchAdvanced extends JPanel {
         labelAudioCodec.setEnabled(false);
 
         audioCodec = new Vector();
+        audioCodec.add("");
         audioCodec.add("DoD CELP");
         audioCodec.add("LPC10");
         audioCodec.add("Speex");
@@ -190,6 +193,7 @@ public class PanelSearchAdvanced extends JPanel {
         labelFrameRate.setEnabled(false);
 
         frameRate = new Vector();
+        frameRate.add("");
         frameRate.add("24 fps");
         frameRate.add("25 fps");
         frameRate.add("27 fps");
@@ -206,6 +210,7 @@ public class PanelSearchAdvanced extends JPanel {
         labelResolution.setEnabled(false);
 
         resolution = new Vector();
+        resolution.add("");
         resolution.add("320 x 240");
         resolution.add("512 x 384");
         resolution.add("640 x 480");
@@ -276,11 +281,28 @@ public class PanelSearchAdvanced extends JPanel {
         // Enable and disable options of multimedia
         checkMultimedia.addChangeListener(eve -> CheckBoxMultimedia(eve));
 
+        // Enable and disable check other extension of the multimedia
+        checkOtherExtentionMult.addChangeListener(eve -> CheckBoxOtherExtension(eve));
+
         //Enable and disable checkbox calendar
         datecreated.addChangeListener(eve -> CheckBoxCalendar(eve));
         datemodificate.addChangeListener(eve -> CheckBoxCalendar(eve));
         accessDate.addChangeListener(eve -> CheckBoxCalendar(eve));
 
+    }
+
+    /**
+     * This method is for enable and disable checkbox of other extension.
+     * @param event
+     */
+    public void CheckBoxOtherExtension (ChangeEvent event) {
+        if (checkOtherExtentionMult.isSelected()) {
+            writeExtensionMult.setEnabled(true);;
+            type.setEnabled(false);
+        }else{
+            writeExtensionMult.setEnabled(false);
+            type.setEnabled(true);
+        }
     }
 
     /**
@@ -317,7 +339,8 @@ public class PanelSearchAdvanced extends JPanel {
      */
     public void CheckBoxMultimedia (ChangeEvent event){
         if(checkMultimedia.isSelected()){
-            writeExtensionMult.setEnabled(true);
+            checkOtherExtentionMult.setEnabled(true);
+            writeExtensionMult.setEnabled(false);
             type.setEnabled(true);
             countMultimedia.setEnabled(true);
             sizeMutimedia.setEnabled(true);
@@ -326,7 +349,7 @@ public class PanelSearchAdvanced extends JPanel {
             audio.setEnabled(true);
             rate.setEnabled(true);
             resol.setEnabled(true);
-            labelTypeMultimedia.setEnabled(true);
+
             labelExtension.setEnabled(true);
             labelMultimediaSize.setEnabled(true);
             labelVideoCodec.setEnabled(true);
@@ -334,6 +357,7 @@ public class PanelSearchAdvanced extends JPanel {
             labelFrameRate.setEnabled(true);
             labelResolution.setEnabled(true);
         }else{
+            checkOtherExtentionMult.setEnabled(false);
             writeExtensionMult.setEnabled(false);
             type.setEnabled(false);
             countMultimedia.setEnabled(false);
@@ -343,7 +367,7 @@ public class PanelSearchAdvanced extends JPanel {
             audio.setEnabled(false);
             rate.setEnabled(false);
             resol.setEnabled(false);
-            labelTypeMultimedia.setEnabled(false);
+
             labelExtension.setEnabled(false);
             labelMultimediaSize.setEnabled(false);
             labelVideoCodec.setEnabled(false);
@@ -799,5 +823,21 @@ public class PanelSearchAdvanced extends JPanel {
      */
     public void setResol(JComboBox<String> resol) {
         this.resol = resol;
+    }
+
+    /**
+     * Method that returns an object of the JCheckBox class.
+     * @return checkOtherExtentionMult.
+     */
+    public JCheckBox getCheckOtherExtentionMult() {
+        return checkOtherExtentionMult;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JCheckBox class.
+     * @param checkOtherExtentionMult new object of the JCheckBox class.
+     */
+    public void setCheckOtherExtentionMult(JCheckBox checkOtherExtentionMult) {
+        this.checkOtherExtentionMult = checkOtherExtentionMult;
     }
 }
