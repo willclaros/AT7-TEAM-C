@@ -215,6 +215,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         fileType.setBounds(140, 320, 80, 30);
         add(fileType);
 
+
         JLabel labelFileSize = new JLabel("File Size");
         labelFileSize.setBounds(255, 254, 80, 30);
         add(labelFileSize);
@@ -247,7 +248,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         openBtn3 = new ImageIcon("Icons/open.png");
 
         buttonPath.setBounds(376, 50, 80, 30);
-        ConfigurarBoton(buttonPath, openBtn1, openBtn2, openBtn3);
+        ConfigurationButton(buttonPath, openBtn1, openBtn2, openBtn3);
         add(buttonPath);
 
         searchButton = new JButton("Search");
@@ -255,50 +256,45 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         searchButton.setVerticalTextPosition( SwingConstants.BOTTOM );
         searchButton.setBounds(360, 260, 80, 100);
 
-
         searchBtn1 = new ImageIcon("Icons/busqueda2.png");
         searchBtn2 = new ImageIcon("Icons/busqueda1.png");
         searchBtn3 = new ImageIcon("Icons/busqueda1.png");
-        ConfigurarBoton(searchButton, searchBtn1, searchBtn2, searchBtn3);
-
-        /*ImageIcon imagen = new ImageIcon("Icons/busqueda1.png");
-        searchButton.setIcon(imagen);
-        searchButton.setBorderPainted(false);
-        searchButton.setContentAreaFilled(false);
-        searchButton.setFocusable(false);*/
+        ConfigurationButton(searchButton, searchBtn1, searchBtn2, searchBtn3);
         add(searchButton);
 
-        // Enable and disable check other documents
+        // Enable and disable check other extension of the documents
         checkOtherExtention.addChangeListener(eve -> CheckBoxOtherExtension(eve));
     }
 
+    /**
+     * Method for configuration buttons.
+     * @param button object JButton.
+     * @param img1 first image.
+     * @param img2 second image.
+     * @param img3 third image.
+     */
+    public void ConfigurationButton(JButton button, ImageIcon img1, ImageIcon img2, ImageIcon img3) {
 
-    public void ConfigurarBoton(JButton boton,ImageIcon img1,ImageIcon img2,ImageIcon img3) {
-
-        //Definimos el icono por defecto que tendra la imagen
-        boton.setIcon(img1);
-        //Para que el boton no tenga borde …
-        boton.setBorderPainted(false);
-        //Para que no se pinte el boton
-        boton.setContentAreaFilled(false);
-        boton.setFocusable(false);
-        boton.setRolloverEnabled(true);
-        //Definimos el icono que se mostrara cuando el mouse este sobre el boton
-        boton.setRolloverIcon(img2);
-        //Configuramos el icono que se mostrara cuando se de click en el boton
-        boton.setPressedIcon(img3);
+        button.setIcon(img1);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(false);
+        button.setFocusable(false);
+        button.setRolloverEnabled(true);
+        button.setRolloverIcon(img2);
+        button.setPressedIcon(img3);
     }
 
-
     /**
-     * This method is for enable and disable checkbox of other estension.
+     * This method is for enable and disable checkbox of other extension.
      * @param event
      */
     public void CheckBoxOtherExtension (ChangeEvent event) {
         if (checkOtherExtention.isSelected()) {
             writeExtension.setEnabled(true);
+            fileType.setEnabled(false);
         }else{
             writeExtension.setEnabled(false);
+            fileType.setEnabled(true);
         }
     }
 
@@ -659,5 +655,21 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
      */
     public JSpinner getSizeFile() {
         return sizeFile;
+    }
+
+    /**
+     * Method that returns an object of the JCheckBox class.
+     * @return checkOtherExtention.
+     */
+    public JCheckBox getCheckOtherExtention() {
+        return checkOtherExtention;
+    }
+
+    /**
+     * Method that is responsible for modifying the value of the object of the JCheckBox class.
+     * @param checkOtherExtention new object of the JCheckBox class.
+     */
+    public void setCheckOtherExtention(JCheckBox checkOtherExtention) {
+        this.checkOtherExtention = checkOtherExtention;
     }
 }
