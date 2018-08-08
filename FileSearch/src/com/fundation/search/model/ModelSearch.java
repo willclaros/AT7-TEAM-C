@@ -52,43 +52,48 @@ public class ModelSearch {
      */
     public List<Asset> searchPathName(CriterialSearch criteria) throws IOException {
         LOGGER.info("init search");
-        File files = new File(criteria.getDirectory());
+        File files = new File(criteria.getPath());
         File[] ficheros = files.listFiles();
 
         for (File fileIterate : ficheros) {
             if (fileIterate.isDirectory()) {
-                criteria.setDirectory(fileIterate.getPath());
+                criteria.setPath(fileIterate.getPath());
                 searchPathName(criteria);
             } else {
                 Path filePath = Paths.get(fileIterate.getPath());
                 UserPrincipal ownerFile = Files.getOwner(filePath, LinkOption.NOFOLLOW_LINKS);
-                if (fileIterate.isHidden() != criteria.isHidden()) {
+                if (fileIterate.isHidden() != criteria.getHidden()) {
                     continue;
                 }
-                if (criteria.getType() != null && !fileIterate.getName().toLowerCase().endsWith(criteria.getType())) {
+                if (criteria.getFileExtension() != null && !fileIterate.getName().toLowerCase().endsWith(criteria.getFileExtension())) {
                     continue;
                 }
                 if (criteria.getSize() > 0 && fileIterate.length() != criteria.getSize()) {
                     continue;
                 }
-                if (criteria.getNameFile() != null && !fileIterate.getName().contains(criteria.getNameFile())) {
+                if (criteria.getFilename() != null && !fileIterate.getName().contains(criteria.getFilename())) {
                     continue;
                 }
                 if (criteria.getOwner() != null && ownerFile.getName().equals(criteria.getOwner())) {
                     continue;
                 }
-                if (fileIterate.canWrite() == criteria.isReadOnly() && fileIterate.canRead() == criteria.isReadOnly()) {
+                if (fileIterate.canWrite() == criteria.getReadOnly() && fileIterate.canRead() == criteria.getReadOnly()) {
                     continue;
                 }
                 if (criteria.getContainWordInFile() != null && !findContentFile(fileIterate, criteria.getContainWordInFile())){
                     continue;
                 }
-                pathList.add(new AssetFile(fileIterate.getAbsolutePath(),
-                        fileIterate.getName(), fileIterate.length(),getFileExtension(fileIterate),
-                        ownerFile.getName(), fileIterate.isHidden(),
-                        criteria.getDelimitSizeSearch(), fileIterate.canWrite(), criteria.isKeySesitive(), criteria.isSelectAll()
-                , criteria.isSelectOnlyfiles(), criteria.isStarWord(), criteria.isContentWord(),
-                criteria.isEndWord(), criteria.getOtherExtencion(),criteria.isSelectOnlyfolder()));
+                if (criteria.getDateCreatedIni()!= 0 && (criteria.getDateCreatedEnd()-criteria.getDateCreatedEnd()>0)){
+                    continue;
+                }
+                if (criteria.getDateModifyIni()!= 0 && (criteria.getDateModifyEnd()-criteria.getDateModifyIni()>0)){
+                    continue;
+                }
+                pathList.add(new AssetFile(fileIterate.getCanonicalPath(),
+                        fileIterate.getName(),getFileExtension(fileIterate), null, fileIterate.length(), null, null,
+                        ownerFile.getName(), false, false, fileIterate.isHidden(), fileIterate.canWrite(),
+                        criteria.getKeySensitive(),criteria.getStarWord(), criteria.getContentWord(), criteria.getEndWord(), criteria.getDateCreatedIni(),
+                        criteria.getDateModifyEnd(), criteria.getDateAccessEnd(), criteria.getSelectFolder(), criteria.getContainWordInFile()));
             }
         }
         LOGGER.info("menseje exit");
@@ -128,4 +133,6 @@ public class ModelSearch {
         LOGGER.info("ModelSearch findContentFile: exit");
         return false;
     }
+
+
 }

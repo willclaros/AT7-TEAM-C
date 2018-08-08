@@ -1,5 +1,25 @@
+/**
+ * @(#)Asset.java Copyright (c) 2018 Jala Foundation.
+ * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+ * All rights reserved.
+ * <p>
+ * This software is the confidential and proprietary information of
+ * Jala Foundation, ("Confidential Information").  You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Jala Foundation.
+ */
 package com.fundation.search.model;
 
+import com.sun.org.apache.xalan.internal.lib.ExsltDatetime;
+
+/**
+ * This class Asset can be FileResult, MultimediaResult and maybe SearchFolder.
+ *
+ * @author Erik Vargas - AT-[07].
+ * @author William Claros Revollo - AT-[07].
+ * @version 1.0.
+ */
 public class Asset {
 
     /**
@@ -15,9 +35,21 @@ public class Asset {
      */
     private long size;
     /**
+     * this is a unit size to file in bytes, Kbyte, GByte.
+     */
+    private String unitSize;
+    /**
+     * this is a range size to file in bytes, Kbyte, GByte.
+     */
+    private String rangeSize;
+    /**
      * this is a extension of file to search.
      */
-    private String extension;
+    private String fileExtension;
+    /**
+     * other extension distint to common list.
+     */
+    private String otherExtension;
     /**
      * this is a owner of file to search.
      */
@@ -26,8 +58,6 @@ public class Asset {
      * search if true file with hidden o folder hidden.
      */
     private boolean hidden;
-
-    private String countSearch;
     /**
      * search if only read.
      */
@@ -41,9 +71,9 @@ public class Asset {
      */
     private boolean selectAll;
     /**
-     * search only folder.
+     * search only files.
      */
-    private boolean selectfiles;
+    private boolean selectFiles;
     /**
      * for files or folder title only initialize with word.
      */
@@ -57,49 +87,66 @@ public class Asset {
      */
     private boolean endWord;
     /**
-     * other extension distint to common list.
+     * Date of creation of the file.
      */
-    private String otherExtension;
-
+    private long dateCreated;
+    /**
+     * Date of modification of the file.
+     */
+    private long dateModify;
+    /**
+     * Access date of the file.
+     */
+    private long dateAccess;
 
     /**
      * Constructor of the class Asset.
      *
-     * @param directory         is a patch of file search.
-     * @param nameFile          name file search.
-     * @param type              extent of file.
-     * @param owner             of file.
-     * @param delimitSizeSearch this is a delimiter search for size minor to <, major to >, equal to =.
-     * @param unitSize          type size of file MB, GB, KB.
-     * @param size              size of file.
-     * @param hidden            true or false is hidden.
-     * @param readOnly          is only file read.
-     * @param keySesitive       is equal to word tyoe search.
-     * @param selectAll         search for all files and folder.
-     * @param selectOnlyfolder  search for only folder.
-     * @param selectOnlyfiles   search for only files.
-     * @param starWord          title contain with this word.
-     * @param contentWord       contain with this word.
-     * @param endWord           end with this word.
-     * @param otherExtencion    distint extension the common list.
+     * @param path           is a patch of file search.
+     * @param filename       name file search.
+     * @param fileExtension  extent of file.
+     * @param owner          of file.
+     * @param rangeSize      this is a delimiter search for size minor to <, major to >, equal to =.
+     * @param unitSize       type size of file MB, GB, KB.
+     * @param size           size of file.
+     * @param hidden         true or false is hidden.
+     * @param readOnly       is only file read.
+     * @param keySensitive   is equal to word tyoe search.
+     * @param selectAll      search for all files and folder.
+     * @param selectAll      search for only folder.
+     * @param selectFiles    search for only files.
+     * @param starWord       title contain with this word.
+     * @param contentWord    contain with this word.
+     * @param endWord        end with this word.
+     * @param otherExtension distint extension the common list.
      */
-    public Asset(String path, String filename, long size, String extension, String owner,
-                 boolean hidden, String countSearch, boolean readOnly, boolean keySensitive, boolean selectAll,
-                 boolean selectfiles, boolean starWord, boolean contentWord, boolean endWord, String otherExtension) {
+    public Asset(String path, String filename, String fileExtension, String otherExtension, long size, String unitSize, String rangeSize, String owner,
+                 boolean selectAll, boolean selectFiles, boolean hidden, boolean readOnly, boolean keySensitive, boolean starWord,
+                 boolean contentWord, boolean endWord, long dateCreated, long dateModify, long dateAccess) {
+        this.path = path;
         this.filename = filename;
         this.size = size;
-        this.extension = extension;
+        this.fileExtension = fileExtension;
         this.owner = owner;
         this.hidden = hidden;
-        this.countSearch = countSearch;
         this.readOnly = readOnly;
         this.keySensitive = keySensitive;
         this.selectAll = selectAll;
-        this.selectfiles = selectfiles;
+        this.selectFiles = selectFiles;
         this.starWord = starWord;
         this.contentWord = contentWord;
         this.endWord = endWord;
         this.otherExtension = otherExtension;
+        this.dateCreated = dateCreated;
+        this.dateModify = dateModify;
+        this.dateAccess = dateAccess;
+    }
+
+    /**
+     * Constructor free of the class Asset.
+     */
+    public Asset() {
+
     }
 
     /**
@@ -161,17 +208,17 @@ public class Asset {
      *
      * @return extension.
      */
-    public String getExtension() {
-        return extension;
+    public String getFileExtension() {
+        return fileExtension;
     }
 
     /**
      * this is method setExtention.
      *
-     * @param extension string of extension.
+     * @param fileExtension string of extension.
      */
-    public void setExtension(String extension) {
-        this.extension = extension;
+    public void setFileExtension(String fileExtension) {
+        this.fileExtension = fileExtension;
     }
 
     /**
@@ -195,7 +242,7 @@ public class Asset {
      *
      * @return returns a boolean with the name of the owner.
      */
-    public boolean isHidden() {
+    public boolean getHidden() {
         return hidden;
     }
 
@@ -209,7 +256,7 @@ public class Asset {
     /**
      * @return is file only read.
      */
-    public boolean isReadOnly() {
+    public boolean getReadOnly() {
         return readOnly;
     }
 
@@ -223,15 +270,14 @@ public class Asset {
     /**
      * @return is a same search.
      */
-    public boolean isKeySensitive() {
+    public boolean getKeySensitive() {
         return keySensitive;
     }
-
 
     /**
      * @return select all.
      */
-    public boolean isSelectAll() {
+    public boolean getSelectAll() {
         return selectAll;
     }
 
@@ -244,25 +290,27 @@ public class Asset {
 
     /**
      * Method that selects only files.
+     *
      * @return returns a Boolean to see if it is a file.
      */
-    public boolean isSelectfiles() {
-        return selectfiles;
+    public boolean getSelectfiles() {
+        return selectFiles;
     }
 
     /**
      * Method that selects only files.
+     *
      * @param selectfiles set a Boolean to see if it is a file.
      */
     public void setSelectfiles(boolean selectfiles) {
-        this.selectfiles = selectfiles;
+        this.selectFiles = selectfiles;
     }
 
 
     /**
      * @return word search in title start.
      */
-    public boolean isStarWord() {
+    public boolean getStarWord() {
         return starWord;
     }
 
@@ -310,26 +358,33 @@ public class Asset {
     }
 
     /**
-     * @param otherExtencion a new extension.
+     * @param otherExtension a new extension.
      */
     public void setOtherExtension(String otherExtension) {
         this.otherExtension = otherExtension;
     }
 
-    /**
-     * Method that contains the word in the document.
-     * @return Word that contains the document.
-     */
-    public String getCountSearch() {
-        return countSearch;
+    public long getDateCreated() {
+        return dateCreated;
     }
 
-    /**
-     * Method that contains the word in the document.
-     * @param countSearch hat contains the document
-     */
-    public void setCountSearch(String countSearch) {
-        this.countSearch = countSearch;
+    public void setDateCreated(long dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
+    public long getDateModify() {
+        return dateModify;
+    }
+
+    public void setDateModify(long dateModify) {
+        this.dateModify = dateModify;
+    }
+
+    public long getDateAccess() {
+        return dateAccess;
+    }
+
+    public void setDateAccess(long dateAccess) {
+        this.dateAccess = dateAccess;
+    }
 }
