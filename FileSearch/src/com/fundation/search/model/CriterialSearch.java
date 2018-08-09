@@ -120,38 +120,33 @@ public class CriterialSearch {
      * Audio codec of the music file.
      */
     private String audioCodec;
-
-
     private long dateCreatedIni;
     private long dateCreatedEnd;
-
     private long dateModifyIni;
     private long dateModifyEnd;
-
     private long dateAccessIni;
     private long dateAccessEnd;
-
-
+    
     /**
      * Method that receives all the input parameters of the View.
      *
-     * @param path         is a patch of file search.
-     * @param filename          name file search.
-     * @param fileExtension              extent of file.
-     * @param owner             of file.
-     * @param rangeSize this is a delimiter search for size minor to <, major to >, equal to =.
-     * @param unitSize          type size of file MB, GB, KB.
-     * @param size              size of file.
-     * @param hidden            true or false is hidden.
-     * @param readOnly          is only file read.
-     * @param keySensitive       is equal to word tyoe search.
-     * @param selectAll         search for all files and folder.
-     * @param selectOnlyfolder  search for only folder.
-     * @param selectOnlyfiles   search for only files.
-     * @param starWord          title contain with this word.
-     * @param contentWord       contain with this word.
-     * @param endWord           end with this word.
-     * @param otherExtension    distint extension the common list.
+     * @param path             is a patch of file search.
+     * @param filename         name file search.
+     * @param fileExtension    extent of file.
+     * @param owner            of file.
+     * @param rangeSize        this is a delimiter search for size minor to <, major to >, equal to =.
+     * @param unitSize         type size of file MB, GB, KB.
+     * @param size             size of file.
+     * @param hidden           true or false is hidden.
+     * @param readOnly         is only file read.
+     * @param keySensitive     is equal to word tyoe search.
+     * @param selectAll        search for all files and folder.
+     * @param selectOnlyfolder search for only folder.
+     * @param selectOnlyfiles  search for only files.
+     * @param starWord         title contain with this word.
+     * @param contentWord      contain with this word.
+     * @param endWord          end with this word.
+     * @param otherExtension   distint extension the common list.
      */
     public CriterialSearch(String path, String filename, boolean hidden, String fileExtension, String owner,
                            long size, String rangeSize, String unitSize, boolean readOnly, boolean keySensitive,
@@ -223,12 +218,14 @@ public class CriterialSearch {
     }
 
     /**
-     * this is method setSize.
-     *
-     * @param size of type long.
+     * @return unitSize .
      */
-    public void setSize(long size) {
-        this.size = size;
+    public String getUnitSize() {
+        return unitSize;
+    }
+
+    public String getRangeSize() {
+        return rangeSize;
     }
 
     /**
@@ -391,6 +388,7 @@ public class CriterialSearch {
     public void setOtherExtension(String otherExtension) {
         this.otherExtension = otherExtension;
     }
+
     /**
      * Method that determines whether or not it is a folder.
      *
@@ -521,43 +519,55 @@ public class CriterialSearch {
     public void setAudioCodec(String audioCodec) {
         this.audioCodec = audioCodec;
     }
+
     /**
      * Initial creation date.
+     *
      * @return dateCreatedIni .
      */
     public long getDateCreatedIni() {
         return dateCreatedIni;
     }
+
     /**
      * Initial creation final date.
+     *
      * @return dateCreatedEnd .
      */
     public long getDateCreatedEnd() {
         return dateCreatedEnd;
     }
+
     /**
      * Date of initial modification.
+     *
      * @return dateModifyIni .
      */
     public long getDateModifyIni() {
         return dateModifyIni;
     }
+
     /**
      * Date of final modification.
+     *
      * @return dateModifyEnd .
      */
     public long getDateModifyEnd() {
         return dateModifyEnd;
     }
+
     /**
      * Date of last initial access.
+     *
      * @return dateAccessIni;
      */
     public long getDateAccessIni() {
         return dateAccessIni;
     }
+
     /**
      * Date of last final access.
+     *
      * @return dateAccessEnd .
      */
     public long getDateAccessEnd() {

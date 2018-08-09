@@ -33,7 +33,6 @@ import java.util.List;
  *
  * @author Yerel Hurtado - AT-[07].
  * @author William Claros Revollo - AT-[07]
- *
  * @version 1.0.
  */
 public class ModelSearch {
@@ -42,10 +41,10 @@ public class ModelSearch {
      * this Array storage files find with specific arguments.
      */
     private List<Asset> pathList = new ArrayList<>();
-
-
+    
     /**
      * Method that performs the search of files.
+     *
      * @param criteria is an object of type Criteria that contains the information that was recovered from the View.
      * @return List String name file.
      * @throws IOException file.
@@ -68,31 +67,27 @@ public class ModelSearch {
                 if (criteria.getFileExtension() != null && !fileIterate.getName().toLowerCase().endsWith(criteria.getFileExtension())) {
                     continue;
                 }
-                if (criteria.getSize() > 0 && fileIterate.length() != criteria.getSize()) {
-                    continue;
-                }
+
                 if (criteria.getFilename() != null && !fileIterate.getName().contains(criteria.getFilename())) {
                     continue;
                 }
-                if (criteria.getOwner() != null && ownerFile.getName().equals(criteria.getOwner())) {
+                if (criteria.getKeySensitive() && fileIterate.getName().toLowerCase().startsWith(criteria.getFilename())) {
+                    continue;
+                }
+                if (!criteria.getOwner().isEmpty() && !ownerFile.getName().equals(criteria.getOwner())) {
                     continue;
                 }
                 if (fileIterate.canWrite() == criteria.getReadOnly() && fileIterate.canRead() == criteria.getReadOnly()) {
                     continue;
                 }
-                if (criteria.getContainWordInFile() != null && !findContentFile(fileIterate, criteria.getContainWordInFile())){
+                if (criteria.getContainWordInFile() != null && !findContentFile(fileIterate, criteria.getContainWordInFile())) {
                     continue;
                 }
-                if (criteria.getDateCreatedIni()!= 0 && (criteria.getDateCreatedEnd()-criteria.getDateCreatedEnd()>0)){
-                    continue;
-                }
-                if (criteria.getDateModifyIni()!= 0 && (criteria.getDateModifyEnd()-criteria.getDateModifyIni()>0)){
-                    continue;
-                }
-                pathList.add(new AssetFile(fileIterate.getCanonicalPath(),
-                        fileIterate.getName(),getFileExtension(fileIterate), null, fileIterate.length(), null, null,
+
+                pathList.add(new AssetFile(fileIterate.getAbsolutePath(),
+                        fileIterate.getName(), getFileExtension(fileIterate), null, fileIterate.length(), null, null,
                         ownerFile.getName(), false, false, fileIterate.isHidden(), fileIterate.canWrite(),
-                        criteria.getKeySensitive(),criteria.getStarWord(), criteria.getContentWord(), criteria.getEndWord(), criteria.getDateCreatedIni(),
+                        criteria.getKeySensitive(), criteria.getStarWord(), criteria.getContentWord(), criteria.getEndWord(), criteria.getDateCreatedIni(),
                         criteria.getDateModifyEnd(), criteria.getDateAccessEnd(), criteria.getSelectFolder(), criteria.getContainWordInFile()));
             }
         }
@@ -100,20 +95,22 @@ public class ModelSearch {
         return pathList;
     }
 
+
     /**
      * Method that returns a string with the extension of the document.
+     *
      * @param file receive a file.
      * @return returns a string with the extension of the document.
      */
     private static String getFileExtension(File file) {
         String fileName = file.getName();
-        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
-            return fileName.substring(fileName.lastIndexOf(".")+1);
+        if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
         else return "";
     }
 
     /**
-     * @param patch is a patch absolute to file.
+     * @param patch       is a patch absolute to file.
      * @param contentFile word to find in file.
      * @return boolean if find.
      * @throws IOException to file error.
@@ -133,6 +130,4 @@ public class ModelSearch {
         LOGGER.info("ModelSearch findContentFile: exit");
         return false;
     }
-
-
 }

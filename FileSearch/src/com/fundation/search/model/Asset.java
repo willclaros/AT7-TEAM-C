@@ -364,14 +364,18 @@ public class Asset {
         this.otherExtension = otherExtension;
     }
 
+    public String getUnitSize() {
+        return unitSize;
+    }
+
+    public String getRangeSize() {
+        return rangeSize;
+    }
+
     public long getDateCreated() {
         return dateCreated;
     }
-
-    public void setDateCreated(long dateCreated) {
-        this.dateCreated = dateCreated;
-    }
-
+    
     public long getDateModify() {
         return dateModify;
     }
