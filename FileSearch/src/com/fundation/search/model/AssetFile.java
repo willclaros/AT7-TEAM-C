@@ -72,7 +72,7 @@ public class AssetFile extends Asset {
     }
 
     /**
-     * Method that determines whether or not it is a folder.
+     * Method that determines whether not it is a folder.
      *
      * @return returns a boolean that determines whether or not it is a folder.
      */

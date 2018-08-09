@@ -32,7 +32,6 @@ import org.apache.log4j.Logger;
  *
  * @author Yerel Hurtado - AT-[07].
  * @author William Claros Revollo - AT-[07]
- *
  * @version 1.0.
  */
 public class ModelSearch {
@@ -43,10 +42,10 @@ public class ModelSearch {
     private List<Asset> pathList = new ArrayList<>();
 
     private UserPrincipal ownerFile;
-
     /**
      * Method that performs the search of files.
-     * @param criteria is an object of type Criteria that contains the information that was recovered from the View.
+     *
+     * @param criteria is object of type Criteria that contains the information that was recovered from the View.
      * @return List String name file.
      * @throws IOException file.
      */
@@ -80,7 +79,10 @@ public class ModelSearch {
                     if (criteria.getFilename() != null && !fileIterate.getName().contains(criteria.getFilename())) {
                         continue;
                     }
-                    if (criteria.getOwner() != null && ownerFile.getName().equals(criteria.getOwner())) {
+                  if (criteria.getKeySensitive() && fileIterate.getName().toLowerCase().startsWith(criteria.getFilename())) {
+                    continue;
+                }
+                     if (!criteria.getOwner().isEmpty() && !ownerFile.getName().equals(criteria.getOwner())) {
                         continue;
                     }
                     if (fileIterate.canWrite() == criteria.getReadOnly() && fileIterate.canRead() == criteria.getReadOnly()) {
@@ -123,7 +125,10 @@ public class ModelSearch {
                         if (criteria.getFilename() != null && !fileIterate.getName().contains(criteria.getFilename())) {
                             continue;
                         }
-                        if (criteria.getOwner() != null && ownerFile.getName().equals(criteria.getOwner())) {
+                         if (criteria.getKeySensitive() && fileIterate.getName().toLowerCase().startsWith(criteria.getFilename())) {
+                            continue;
+                        }
+                         if (!criteria.getOwner().isEmpty() && !ownerFile.getName().equals(criteria.getOwner())) {
                             continue;
                         }
                         if (fileIterate.canWrite() == criteria.getReadOnly() && fileIterate.canRead() == criteria.getReadOnly()) {
@@ -165,20 +170,22 @@ public class ModelSearch {
         return pathList;
     }
 
+
     /**
      * Method that returns a string with the extension of the document.
+     *
      * @param file receive a file.
      * @return returns a string with the extension of the document.
      */
     private static String getFileExtension(File file) {
         String fileName = file.getName();
-        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
-            return fileName.substring(fileName.lastIndexOf(".")+1);
+        if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
         else return "";
     }
 
     /**
-     * @param patch is a patch absolute to file.
+     * @param patch       is a patch absolute to file.
      * @param contentFile word to find in file.
      * @return boolean if find.
      * @throws IOException to file error.

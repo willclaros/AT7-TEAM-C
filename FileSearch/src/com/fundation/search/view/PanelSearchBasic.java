@@ -15,6 +15,8 @@
 package com.fundation.search.view;
 
 import com.fundation.search.model.ModelSearch;
+import javafx.scene.control.SpinnerValueFactory;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -34,6 +36,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 
+import javax.swing.SpinnerNumberModel;
+import javax.swing.text.DefaultFormatter;
 /**
  * Class that creates the basic search panel.
  * @author William Claros Revollo - AT - [07]
@@ -93,7 +97,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     }
 
     /**
-     * Method that contains the Basic Panel settings.
+     * Method that contains Basic Panel settings.
      */
     public void settingPanel() {
         setBorder(BorderFactory.createRaisedBevelBorder());
@@ -228,8 +232,12 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         count.setBounds(230, 284, 40, 30);
         add(count);
 
-        sizeFile = new JSpinner();
-        sizeFile.setBounds(270, 284, 50, 30);
+
+        sizeFile = new JSpinner(new SpinnerNumberModel(0,0,999999999,1));
+        JSpinner.NumberEditor jsEditor = (JSpinner.NumberEditor)sizeFile.getEditor();
+        DefaultFormatter formatter = (DefaultFormatter) jsEditor.getTextField().getFormatter();
+        formatter.setAllowsInvalid(false);
+        sizeFile.setBounds(270, 284, 85, 30);
         add(sizeFile);
 
         typeSize = new Vector();
@@ -238,7 +246,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         typeSize.add("MByte");
         typeSize.add("GByte");
         sizeType = new JComboBox(typeSize);
-        sizeType.setBounds(230, 320, 89, 30);
+        sizeType.setBounds(230, 320, 124, 30);
         add(sizeType);
 
         JButton buttonPath = new JButton();
