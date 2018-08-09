@@ -15,6 +15,8 @@
  */
 package com.fundation.search.model;
 
+import java.util.Date;
+
 /**
  * Class that creates the basic search panel.
  *
@@ -94,6 +96,12 @@ public class CriterialSearch {
     private String otherExtencion;
 
     private String containWordInFile;
+    private Date dateChoserCreateIni;
+    private Date dateChooserCreateEnd;
+    private Date dateChoiserModifyIni;
+    private Date dateChoiserModifyEnd;
+    private Date dateChoiserAccessedIni;
+    private Date dateChoiserAccessedEnd;
     /**
      * Method that receives all the input parameters of the View.
      *
@@ -137,6 +145,39 @@ public class CriterialSearch {
         this.endWord = endWord;
         this.otherExtencion = otherExtencion;
         this.containWordInFile = containWordInFile;
+
+    }
+
+    public CriterialSearch(String directory, String nameFile, boolean hidden, String type, String owner, long size,
+                           String delimitSizeSearch, String unitSize, boolean readOnly, boolean keySensitive,
+                           boolean selectAll, boolean selectOnlyfolder, boolean selectOnlyfiles, boolean starWord,
+                           boolean contentWord, boolean endWord, String otherExtencion, String containWordInFile,
+                           Date dateChoserCreateIni, Date dateChooserCreateEnd, Date dateChoiserModifyIni,
+                           Date dateChoiserModifyEnd, Date dateChoiserAccessedIni, Date dateChoiserAccessedEnd) {
+        this.directory = directory;
+        this.nameFile = nameFile;
+        this.hidden = hidden;
+        this.type = type;
+        this.owner = owner;
+        this.size = size;
+        this.delimitSizeSearch = delimitSizeSearch;
+        this.unitSize = unitSize;
+        this.readOnly = readOnly;
+        this.keySensitive = keySensitive;
+        this.selectAll = selectAll;
+        this.selectOnlyfolder = selectOnlyfolder;
+        this.selectOnlyfiles = selectOnlyfiles;
+        this.starWord = starWord;
+        this.contentWord = contentWord;
+        this.endWord = endWord;
+        this.otherExtencion = otherExtencion;
+        this.containWordInFile = containWordInFile;
+        this.dateChoserCreateIni = dateChoserCreateIni;
+        this.dateChooserCreateEnd = dateChooserCreateEnd;
+        this.dateChoiserModifyIni = dateChoiserModifyIni;
+        this.dateChoiserModifyEnd = dateChoiserModifyEnd;
+        this.dateChoiserAccessedIni = dateChoiserAccessedIni;
+        this.dateChoiserAccessedEnd = dateChoiserAccessedEnd;
     }
 
     /**
@@ -389,5 +430,57 @@ public class CriterialSearch {
      */
     public void setContainWordInFile(String containWordInFile) {
         this.containWordInFile = containWordInFile;
+    }
+
+    public boolean isKeySensitive() {
+        return keySensitive;
+    }
+
+    public Date getDateChoserCreateIni() {
+        return dateChoserCreateIni;
+    }
+
+    public void setDateChoserCreateIni(Date dateChoserCreateIni) {
+        this.dateChoserCreateIni = dateChoserCreateIni;
+    }
+
+    public Date getDateChooserCreateEnd() {
+        return dateChooserCreateEnd;
+    }
+
+    public void setDateChooserCreateEnd(Date dateChooserCreateEnd) {
+        this.dateChooserCreateEnd = dateChooserCreateEnd;
+    }
+
+    public Date getDateChoiserModifyIni() {
+        return dateChoiserModifyIni;
+    }
+
+    public void setDateChoiserModifyIni(Date dateChoiserModifyIni) {
+        this.dateChoiserModifyIni = dateChoiserModifyIni;
+    }
+
+    public Date getDateChoiserModifyEnd() {
+        return dateChoiserModifyEnd;
+    }
+
+    public void setDateChoiserModifyEnd(Date dateChoiserModifyEnd) {
+        this.dateChoiserModifyEnd = dateChoiserModifyEnd;
+    }
+
+    public Date getDateChoiserAccessedIni() {
+        return dateChoiserAccessedIni;
+    }
+
+    public void setDateChoiserAccessedIni(Date dateChoiserAccessedIni) {
+        this.dateChoiserAccessedIni = dateChoiserAccessedIni;
+    }
+
+    public Date getDateChoiserAccessedEnd() {
+        return dateChoiserAccessedEnd;
+    }
+
+    public void setDateChoiserAccessedEnd(Date dateChoiserAccessedEnd) {
+        this.dateChoiserAccessedEnd = dateChoiserAccessedEnd;
     }
 }

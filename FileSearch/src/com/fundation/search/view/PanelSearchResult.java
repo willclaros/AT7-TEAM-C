@@ -14,6 +14,9 @@
 
 package com.fundation.search.view;
 
+import com.fundation.search.model.Asset;
+import com.fundation.search.model.AssetMultimedia;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -60,11 +63,10 @@ public class PanelSearchResult extends JPanel {
      * Method that contains the components of the PanelSearchResult.
      */
     public void initComponent() {
-        String column[] = {"NAME", "EXT", "SIZE", "HIDDEN", "OWNER", "PATH","TYPE", "DATE CREATED", "DATE MODIFICATED", "ACCESS DATE"};
+        String column[] = {"NAME", "EXT", "SIZE", "PATH","HIDDEN", "OWNER", "DATE CREATED", "DATE MODIFICATED",
+                "ACCESS DATE","READ_ONLY", "DURATION","FRAMERATE","HEIGTH","WIDTH","ASPECTRATIO","CODEC"};
         modelTable = new DefaultTableModel(column, 0);
         table = new JTable(modelTable);
-        //String data[][] = {};
-        //table = new JTable(data, column);
         int borderSpace = 8;
         scroll = new JScrollPane(table);
         scroll.setSize(1350, 330);
@@ -117,17 +119,18 @@ public class PanelSearchResult extends JPanel {
      * @param fileSize of the file.
      * @param fileHidden of the file.
      * @param owner of the file.
-     * @param type of the file.
      * @param fecha1 of the file.
      * @param fecha2 of the file.
      * @param fecha3 of the file.
      * @param readOnly of the file.
      */
-    public void addRowTable(String path, String fileName, String fileType, long fileSize, String fileHidden, String owner, String type, String fecha1, String fecha2, String fecha3, boolean readOnly) {
-        modelTable.addRow(new String[]{fileName, fileType, String.valueOf(fileSize), path, fileHidden, owner,null,null,null,null,String.valueOf(readOnly)});
-
+    public void addRowTable(String path, String fileName, String fileType, long fileSize, String fileHidden,
+                            String owner, String fecha1, String fecha2, String fecha3, boolean readOnly,
+                            double duration, double frameRate, int heigth, int width, String aspedtRatio, String codec) {
+        modelTable.addRow(new String[]{fileName, fileType, String.valueOf(fileSize), path, fileHidden, owner
+                ,null,null,null,String.valueOf(readOnly),String.valueOf(duration),String.valueOf(frameRate),String.valueOf(heigth),
+                 String.valueOf(width),aspedtRatio,codec});
     }
-
     /**
      * Method to clean the table.
      */

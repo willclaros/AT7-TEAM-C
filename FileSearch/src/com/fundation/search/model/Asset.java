@@ -1,5 +1,7 @@
 package com.fundation.search.model;
 
+import java.util.Date;
+
 public class Asset {
 
     /**
@@ -60,8 +62,12 @@ public class Asset {
      * other extension distint to common list.
      */
     private String otherExtension;
-
-
+    private Date dateChoserCreateIni;
+    private Date dateChooserCreateEnd;
+    private Date dateChoiserModifyIni;
+    private Date dateChoiserModifyEnd;
+    private Date dateChoiserAccessedIni;
+    private Date dateChoiserAccessedEnd;
     /**
      * Constructor of the class Asset.
      *
@@ -86,6 +92,7 @@ public class Asset {
     public Asset(String path, String filename, long size, String extension, String owner,
                  boolean hidden, String countSearch, boolean readOnly, boolean keySensitive, boolean selectAll,
                  boolean selectfiles, boolean starWord, boolean contentWord, boolean endWord, String otherExtension) {
+        this.path = path;
         this.filename = filename;
         this.size = size;
         this.extension = extension;
@@ -100,6 +107,34 @@ public class Asset {
         this.contentWord = contentWord;
         this.endWord = endWord;
         this.otherExtension = otherExtension;
+    }
+
+    public Asset(String path, String filename, long size, String extension, String owner, boolean hidden,
+                 String countSearch, boolean readOnly, boolean keySensitive, boolean selectAll, boolean selectfiles,
+                 boolean starWord, boolean contentWord, boolean endWord, String otherExtension, Date dateChoserCreateIni,
+                 Date dateChooserCreateEnd, Date dateChoiserModifyIni, Date dateChoiserModifyEnd,
+                 Date dateChoiserAccessedIni, Date dateChoiserAccessedEnd) {
+        this.path = path;
+        this.filename = filename;
+        this.size = size;
+        this.extension = extension;
+        this.owner = owner;
+        this.hidden = hidden;
+        this.countSearch = countSearch;
+        this.readOnly = readOnly;
+        this.keySensitive = keySensitive;
+        this.selectAll = selectAll;
+        this.selectfiles = selectfiles;
+        this.starWord = starWord;
+        this.contentWord = contentWord;
+        this.endWord = endWord;
+        this.otherExtension = otherExtension;
+        this.dateChoserCreateIni = dateChoserCreateIni;
+        this.dateChooserCreateEnd = dateChooserCreateEnd;
+        this.dateChoiserModifyIni = dateChoiserModifyIni;
+        this.dateChoiserModifyEnd = dateChoiserModifyEnd;
+        this.dateChoiserAccessedIni = dateChoiserAccessedIni;
+        this.dateChoiserAccessedEnd = dateChoiserAccessedEnd;
     }
 
     /**
@@ -332,4 +367,51 @@ public class Asset {
         this.countSearch = countSearch;
     }
 
+    public Date getDateChoserCreateIni() {
+        return dateChoserCreateIni;
+    }
+
+    public void setDateChoserCreateIni(Date dateChoserCreateIni) {
+        this.dateChoserCreateIni = dateChoserCreateIni;
+    }
+
+    public Date getDateChooserCreateEnd() {
+        return dateChooserCreateEnd;
+    }
+
+    public void setDateChooserCreateEnd(Date dateChooserCreateEnd) {
+        this.dateChooserCreateEnd = dateChooserCreateEnd;
+    }
+
+    public Date getDateChoiserModifyIni() {
+        return dateChoiserModifyIni;
+    }
+
+    public void setDateChoiserModifyIni(Date dateChoiserModifyIni) {
+        this.dateChoiserModifyIni = dateChoiserModifyIni;
+    }
+
+    public Date getDateChoiserModifyEnd() {
+        return dateChoiserModifyEnd;
+    }
+
+    public void setDateChoiserModifyEnd(Date dateChoiserModifyEnd) {
+        this.dateChoiserModifyEnd = dateChoiserModifyEnd;
+    }
+
+    public Date getDateChoiserAccessedIni() {
+        return dateChoiserAccessedIni;
+    }
+
+    public void setDateChoiserAccessedIni(Date dateChoiserAccessedIni) {
+        this.dateChoiserAccessedIni = dateChoiserAccessedIni;
+    }
+
+    public Date getDateChoiserAccessedEnd() {
+        return dateChoiserAccessedEnd;
+    }
+
+    public void setDateChoiserAccessedEnd(Date dateChoiserAccessedEnd) {
+        this.dateChoiserAccessedEnd = dateChoiserAccessedEnd;
+    }
 }

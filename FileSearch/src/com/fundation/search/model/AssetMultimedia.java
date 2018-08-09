@@ -7,7 +7,12 @@ package com.fundation.search.model;
  * @version 1.0.
  */
 public class AssetMultimedia extends Asset {
-
+    private double duration;
+    private double frameRate;
+    private int heigth;
+    private int width;
+    private String aspectRatio;
+    private String codec;
     /**
      * Builder of the Asset Multimedia class.
      *
@@ -31,8 +36,63 @@ public class AssetMultimedia extends Asset {
      */
     public AssetMultimedia(String path, String filename, long size, String extension, String owner, boolean hidden, String countSearch, boolean readOnly,
                            boolean keySensitive, boolean selectAll, boolean selectfiles, boolean starWord, boolean contentWord,
-                           boolean endWord, String otherExtension) {
+                           boolean endWord, String otherExtension, double duration, double frameRate, int heigth, int width,
+                           String aspectRatio, String codec) {
         super(path, filename, size, extension, owner, hidden, countSearch, readOnly, keySensitive, selectAll, selectfiles, starWord, contentWord,
                 endWord, otherExtension);
+        this.duration = duration;
+        this.frameRate = frameRate;
+        this.heigth = heigth;
+        this.width = width;
+        this.aspectRatio = aspectRatio;
+        this.codec = codec;
+    }
+
+    public double getDuration() {
+        return duration;
+    }
+
+    public void setDuration(double duration) {
+        this.duration = duration;
+    }
+
+    public double getFrameRate() {
+        return frameRate;
+    }
+
+    public void setFrameRate(double frameRate) {
+        this.frameRate = frameRate;
+    }
+
+    public int getHeigth() {
+        return heigth;
+    }
+
+    public void setHeigth(int heigth) {
+        this.heigth = heigth;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public String getAspectRatio() {
+        return aspectRatio;
+    }
+
+    public void setAspectRatio(String aspectRatio) {
+        this.aspectRatio = aspectRatio;
+    }
+
+    public String getCodec() {
+        return codec;
+    }
+
+    public void setCodec(String codec) {
+        this.codec = codec;
     }
 }
