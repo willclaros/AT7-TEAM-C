@@ -344,7 +344,7 @@ public class Asset {
     }
 
     /**
-     * @param endWord end to word of title file o folder.
+     * @param endWord end word of title file o folder.
      */
     public void setEndWord(boolean endWord) {
         this.endWord = endWord;
@@ -364,12 +364,16 @@ public class Asset {
         this.otherExtension = otherExtension;
     }
 
-    public long getDateCreated() {
-        return dateCreated;
+    public String getUnitSize() {
+        return unitSize;
     }
 
-    public void setDateCreated(long dateCreated) {
-        this.dateCreated = dateCreated;
+    public String getRangeSize() {
+        return rangeSize;
+    }
+
+    public long getDateCreated() {
+        return dateCreated;
     }
 
     public long getDateModify() {

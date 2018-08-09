@@ -50,13 +50,15 @@ public class Controller {
     public void init() {
         LOGGER.info("Controller init: enter");
         this.view = new View();
+        /*view.setDefaultLookAndFeelDecorated(true); //que nos permite dejar a Substance la decoracion ( por asi decirlo)
+        SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.SaharaSkin");*/
         this.model = new ModelSearch();
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSearchButton().addActionListener(e -> getData());
         LOGGER.info("Controller init: exit");
     }
 
     /**
-     * Method that is in charge of making the data capture and the setting of the View. And also the communication
+     * Method that is charge of making the data capture and the setting of the View. And also the communication
      * with the Model.
      */
     private void getData() {
@@ -67,10 +69,10 @@ public class Controller {
         String fileType = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFileType().getSelectedItem().toString();
         String owner = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getOwner().getText();
         long fileSize = Long.parseLong(view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSizeFile().getValue().toString());
-        String countSearch = Objects.requireNonNull(view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getCount().getSelectedItem()).toString();
+        String countSearch = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getCount().getSelectedItem().toString();
         String sizeType = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSizeType().getSelectedItem().toString();
         boolean readOnly = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getReadOnly().isSelected();
-        boolean keySensiteve = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getKeySensitive().isSelected();
+        boolean keySensitive = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getKeySensitive().isSelected();
         boolean selectAll = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getAll().isSelected();
         boolean selectFolder = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().isSelected();
         boolean selectfiles = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFile().isSelected();
@@ -80,8 +82,12 @@ public class Controller {
         String otherExtension = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getWriteExtension().getText();
         String containWordInFile = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getContent().getText();
 
-        criterialSearch = new CriterialSearch(pathName,fileName,fileHidden,fileType,owner,fileSize,countSearch,sizeType,
-                readOnly,keySensiteve,selectAll,selectFolder,selectfiles,starWord,contentWord,endWord,otherExtension,
+        if (!keySensitive) {
+            fileName = fileName.toLowerCase();
+        }
+
+        criterialSearch = new CriterialSearch(pathName, fileName, fileHidden, fileType, owner, fileSize, countSearch, sizeType,
+                readOnly, keySensitive, selectAll, selectFolder, selectfiles, starWord, contentWord, endWord, otherExtension,
                 containWordInFile);
 
         ModelSearch model = new ModelSearch();
@@ -89,20 +95,16 @@ public class Controller {
         try {
             List<Asset> fileList = model.searchPathName(criterialSearch);
             view.getPanelGeneral().getResultPanel().cleanTable();
-            //List<AssetFile> fileList = model.searchPathName(pathName, fileName, fileType, fileSize, fileHidden, owner);
             for (Asset asset : fileList) {
-                if(asset instanceof AssetFile){
+                if (asset instanceof AssetFile) {
                     AssetFile assetFile = (AssetFile) asset;
-                    view.getPanelGeneral().getResultPanel().addRowTable(assetFile.getPath(), assetFile.getFilename(), assetFile.getExtension(), assetFile.getSize(), String.valueOf(assetFile.isHidden()), assetFile.getOwner(), null,null,null,null,assetFile.isReadOnly());
-                }else{
+                    view.getPanelGeneral().getResultPanel().addRowTable(assetFile.getPath(), assetFile.getFilename(), assetFile.getFileExtension(), assetFile.getSize(), String.valueOf(assetFile.getHidden()), assetFile.getOwner(), null, null, null, null, assetFile.getReadOnly());
+                } else {
                     AssetMultimedia assetMultimedia = (AssetMultimedia) asset;
-                    //System.out.println(a.getFilename());
                 }
-
-                //view.getPanelGeneral().getResultPanel().addRowTable(a.getPath(), a.getFilename(), a.getExtension(), a.getSize(), String.valueOf(a.isHidden()), a.getOwner());
             }
         } catch (Exception e) {
-            System.out.println("hola mundo");
+            System.out.println("Hello World...");
         }
         LOGGER.info("Controller init: exit");
     }
