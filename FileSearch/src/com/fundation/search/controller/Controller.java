@@ -16,19 +16,16 @@
 
 package com.fundation.search.controller;
 
-import com.fundation.search.model.AssetFile;
 import com.fundation.search.model.Asset;
-import com.fundation.search.model.AssetMultimedia;
-
+import com.fundation.search.model.AssetFile;
 import com.fundation.search.model.AssetMultimedia;
 import com.fundation.search.model.CriterialSearch;
 import com.fundation.search.model.ModelSearch;
 import com.fundation.search.utils.LoggerWrapper;
 import com.fundation.search.view.View;
-import org.apache.log4j.Logger;
-
 import java.util.List;
 import java.util.Objects;
+import org.apache.log4j.Logger;
 
 /**
  * Controller class where the communication will be made with the view.
@@ -78,13 +75,18 @@ public class Controller {
         boolean contentWord = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getContentWord().isSelected();
         boolean endWord = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getEndWord().isSelected();
         String otherExtension = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getWriteExtension().getText();
+        boolean checkOtherExtension = view.getPanelGeneral().getSearchPanel().panelSearchBasic.getCheckOtherExtention().isSelected();
         String containWordInFile = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getContent().getText();
 
+        if (checkOtherExtension && !otherExtension.isEmpty()){
+            fileType = otherExtension;
+        }
         criterialSearch = new CriterialSearch(pathName,fileName,fileHidden,fileType,owner,fileSize,countSearch,sizeType,
-                readOnly,keySensiteve,selectAll,selectFolder,selectfiles,starWord,contentWord,endWord,otherExtension,
+                readOnly,keySensiteve,selectAll,selectFolder,selectfiles,starWord,contentWord,endWord,"",
                 containWordInFile);
 
         ModelSearch model = new ModelSearch();
+        //model.saveCriteriaDataBase(criterialSearch);
 
         try {
             List<Asset> fileList = model.searchPathName(criterialSearch);
@@ -93,7 +95,7 @@ public class Controller {
             for (Asset asset : fileList) {
                 if(asset instanceof AssetFile){
                     AssetFile assetFile = (AssetFile) asset;
-                    view.getPanelGeneral().getResultPanel().addRowTable(assetFile.getPath(), assetFile.getFilename(), assetFile.getExtension(), assetFile.getSize(), String.valueOf(assetFile.isHidden()), assetFile.getOwner(), null,null,null,null,assetFile.isReadOnly());
+                    view.getPanelGeneral().getResultPanel().addRowTable(assetFile.getPath(), assetFile.getFilename(), assetFile.getFileExtension(), assetFile.getSize(), String.valueOf(assetFile.getHidden()), assetFile.getOwner(), null,null,null,null,assetFile.getReadOnly());
                 }else{
                     AssetMultimedia assetMultimedia = (AssetMultimedia) asset;
                     //System.out.println(a.getFilename());

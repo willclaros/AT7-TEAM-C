@@ -161,7 +161,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         startWord.setBounds(160, 160, 100, 20);
         add(startWord);
 
-        contentWord = new JRadioButton("Content Word");
+        contentWord = new JRadioButton("Content Word", true);
         contentWord.setBounds(160, 180, 110, 20);
         add(contentWord);
 
