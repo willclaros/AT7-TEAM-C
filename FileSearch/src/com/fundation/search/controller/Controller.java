@@ -58,7 +58,7 @@ public class Controller {
     }
 
     /**
-     * Method that is in charge of making the data capture and the setting of the View. And also the communication
+     * Method that is charge of making the data capture and the setting of the View. And also the communication
      * with the Model.
      */
     private void getData() {

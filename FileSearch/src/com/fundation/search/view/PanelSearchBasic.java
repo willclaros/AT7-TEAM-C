@@ -97,7 +97,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     }
 
     /**
-     * Method that contains the Basic Panel settings.
+     * Method that contains Basic Panel settings.
      */
     public void settingPanel() {
         setBorder(BorderFactory.createRaisedBevelBorder());

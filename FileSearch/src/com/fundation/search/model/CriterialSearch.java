@@ -126,11 +126,11 @@ public class CriterialSearch {
     private long dateModifyEnd;
     private long dateAccessIni;
     private long dateAccessEnd;
-    
+
     /**
      * Method that receives all the input parameters of the View.
      *
-     * @param path             is a patch of file search.
+     * @param path             is a path of file search.
      * @param filename         name file search.
      * @param fileExtension    extent of file.
      * @param owner            of file.

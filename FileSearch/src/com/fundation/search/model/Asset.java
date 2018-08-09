@@ -344,7 +344,7 @@ public class Asset {
     }
 
     /**
-     * @param endWord end to word of title file o folder.
+     * @param endWord end word of title file o folder.
      */
     public void setEndWord(boolean endWord) {
         this.endWord = endWord;
@@ -375,7 +375,7 @@ public class Asset {
     public long getDateCreated() {
         return dateCreated;
     }
-    
+
     public long getDateModify() {
         return dateModify;
     }

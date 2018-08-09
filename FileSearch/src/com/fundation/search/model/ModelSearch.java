@@ -41,11 +41,11 @@ public class ModelSearch {
      * this Array storage files find with specific arguments.
      */
     private List<Asset> pathList = new ArrayList<>();
-    
+
     /**
      * Method that performs the search of files.
      *
-     * @param criteria is an object of type Criteria that contains the information that was recovered from the View.
+     * @param criteria is object of type Criteria that contains the information that was recovered from the View.
      * @return List String name file.
      * @throws IOException file.
      */
