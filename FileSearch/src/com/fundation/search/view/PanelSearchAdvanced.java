@@ -25,6 +25,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import java.util.Vector;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.text.DefaultFormatter;
 
 /**
  * Class that creates the advanced search panel.
@@ -117,9 +119,10 @@ public class PanelSearchAdvanced extends JPanel {
 
         typeFormat = new Vector();
         typeFormat.add("");
-        typeFormat.add("Mp3");
-        typeFormat.add("Mp4");
-        typeFormat.add("Mpeg");
+        typeFormat.add("mp3");
+        typeFormat.add("mp4");
+        typeFormat.add("mpeg");
+        typeFormat.add("mov");
         type = new JComboBox(typeFormat);
         type.setBounds(140, 90, 70, 30);
         add(type);
@@ -139,15 +142,18 @@ public class PanelSearchAdvanced extends JPanel {
         add(countMultimedia);
         countMultimedia.setEnabled(false);
 
-        sizeMutimedia = new JSpinner();
+        sizeMutimedia = new JSpinner(new SpinnerNumberModel(0,0,999999999,1));
+        JSpinner.NumberEditor jsEditor = (JSpinner.NumberEditor)sizeMutimedia.getEditor();
+        DefaultFormatter formatter = (DefaultFormatter) jsEditor.getTextField().getFormatter();
+        formatter.setAllowsInvalid(false);
         sizeMutimedia.setBounds(280, 80, 70, 30);
         add(sizeMutimedia);
         sizeMutimedia.setEnabled(false);
 
         typeSizeMultimeia = new Vector();
-        typeSizeMultimeia.add("Hora");
-        typeSizeMultimeia.add("Minutes");
         typeSizeMultimeia.add("Seconds");
+        typeSizeMultimeia.add("Minutes");
+        typeSizeMultimeia.add("Hora");
         sizeTypeMultimedia = new JComboBox(typeSizeMultimeia);
         sizeTypeMultimedia.setBounds(360, 80, 70, 30);
         add(sizeTypeMultimedia);
@@ -181,7 +187,7 @@ public class PanelSearchAdvanced extends JPanel {
         audioCodec.add("LPC10");
         audioCodec.add("Speex");
         audioCodec.add("ITU G.729");
-        audioCodec.add("GSM ");
+        audioCodec.add("GSM");
         audio = new JComboBox(audioCodec);
         audio.setBounds(120, 190, 90, 30);
         add(audio);
@@ -194,11 +200,11 @@ public class PanelSearchAdvanced extends JPanel {
 
         frameRate = new Vector();
         frameRate.add("");
-        frameRate.add("24 fps");
-        frameRate.add("25 fps");
-        frameRate.add("27 fps");
-        frameRate.add("30 fps");
-        frameRate.add("64 fps ");
+        frameRate.add("24.0");
+        frameRate.add("25.0");
+        frameRate.add("27.0");
+        frameRate.add("30.0");
+        frameRate.add("64.0");
         rate = new JComboBox(frameRate);
         rate.setBounds(320, 150, 90, 30);
         add(rate);
@@ -214,7 +220,11 @@ public class PanelSearchAdvanced extends JPanel {
         resolution.add("320 x 240");
         resolution.add("512 x 384");
         resolution.add("640 x 480");
-        resolution.add("1280 x 768");
+        resolution.add("800 x 600");
+        resolution.add("1024 x 780");
+        resolution.add("1280 x 720");
+        resolution.add("1920 x 1080");
+        resolution.add("2048 x 1080");
         resol = new JComboBox(resolution);
         resol.setBounds(320, 190, 90, 30);
         add(resol);

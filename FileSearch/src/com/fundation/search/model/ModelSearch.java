@@ -14,6 +14,8 @@
 package com.fundation.search.model;
 
 import com.fundation.search.utils.LoggerWrapper;
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -22,16 +24,21 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.UserPrincipal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
-import org.apache.log4j.Logger;
 
 /**
  * This class ModelSearch can be FileResult, MultimediaResult and maybe SearchFolder.
  *
  * @author Yerel Hurtado - AT-[07].
  * @author William Claros Revollo - AT-[07]
+ *
  * @version 1.0.
  */
 public class ModelSearch {
@@ -40,128 +47,118 @@ public class ModelSearch {
      * this Array storage files find with specific arguments.
      */
     private List<Asset> pathList = new ArrayList<>();
-
     private UserPrincipal ownerFile;
+
     /**
      * Method that performs the search of files.
-     *
-     * @param criteria is object of type Criteria that contains the information that was recovered from the View.
+     * @param criteria is an object of type Criteria that contains the information that was recovered from the View.
      * @return List String name file.
      * @throws IOException file.
      */
     public List<Asset> searchPathName(CriterialSearch criteria) throws IOException {
         LOGGER.info("init search");
-        File files = new File(criteria.getPath());
+        File files = new File(criteria.getDirectory());
         File[] ficheros = files.listFiles();
-
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         for (File fileIterate : ficheros) {
-            if(criteria.getSelectAll()) {
+            if(criteria.isSelectAll()) {
                 if (fileIterate.isDirectory()) {
-                    pathList.add(new AssetFile(fileIterate.getCanonicalPath(),
-                            fileIterate.getName(), getFileExtension(fileIterate), null, fileIterate.length(), null, null,
-                            ownerFile.getName(), false, false, fileIterate.isHidden(), fileIterate.canWrite(),
-                            criteria.getKeySensitive(), criteria.getStarWord(), criteria.getContentWord(), criteria.getEndWord(), criteria.getDateCreatedIni(),
-                            criteria.getDateModifyEnd(), criteria.getDateAccessEnd(), criteria.getSelectFolder(), criteria.getContainWordInFile()));
-                    criteria.setPath(fileIterate.getPath());
+                    pathList.add(new AssetFile(fileIterate.getAbsolutePath(),
+                            fileIterate.getName(), fileIterate.length(),getFileExtension(fileIterate),
+                            ownerFile.getName(), fileIterate.isHidden(),
+                            criteria.getDelimitSizeSearch(), fileIterate.canWrite(), criteria.isKeySesitive(), criteria.isSelectAll()
+                            , criteria.isSelectOnlyfiles(), criteria.isStarWord(), criteria.isContentWord(),
+                            criteria.isEndWord(), criteria.getOtherExtencion(),criteria.isSelectOnlyfolder()));
+                    criteria.setDirectory(fileIterate.getPath());
                     searchPathName(criteria);
-                } else {
-                    Path filePath = Paths.get(fileIterate.getPath());
-                    ownerFile = Files.getOwner(filePath, LinkOption.NOFOLLOW_LINKS);
-                    if (fileIterate.isHidden() != criteria.getHidden()) {
-                        continue;
-                    }
-                    if (criteria.getFileExtension() != null && !fileIterate.getName().toLowerCase().endsWith(criteria.getFileExtension())) {
-                        continue;
-                    }
-                    if (criteria.getSize() > 0 && fileIterate.length() != criteria.getSize()) {
-                        continue;
-                    }
-                    if (criteria.getFilename() != null && !fileIterate.getName().contains(criteria.getFilename())) {
-                        continue;
-                    }
-                  if (criteria.getKeySensitive() && fileIterate.getName().toLowerCase().startsWith(criteria.getFilename())) {
-                    continue;
                 }
-                     if (!criteria.getOwner().isEmpty() && !ownerFile.getName().equals(criteria.getOwner())) {
-                        continue;
-                    }
-                    if (fileIterate.canWrite() == criteria.getReadOnly() && fileIterate.canRead() == criteria.getReadOnly()) {
-                        continue;
-                    }
-                    if (criteria.getContainWordInFile() != null && !findContentFile(fileIterate, criteria.getContainWordInFile())) {
-                        continue;
-                    }
-                    if (criteria.getDateCreatedIni() != 0 && (criteria.getDateCreatedEnd() - criteria.getDateCreatedEnd() > 0)) {
-                        continue;
-                    }
-                    if (criteria.getDateModifyIni() != 0 && (criteria.getDateModifyEnd() - criteria.getDateModifyIni() > 0)) {
-                        continue;
-                    }
-                    pathList.add(new AssetFile(fileIterate.getCanonicalPath(),
-                            fileIterate.getName(), getFileExtension(fileIterate), null, fileIterate.length(), null, null,
-                            ownerFile.getName(), false, false, fileIterate.isHidden(), fileIterate.canWrite(),
-                            criteria.getKeySensitive(), criteria.getStarWord(), criteria.getContentWord(), criteria.getEndWord(), criteria.getDateCreatedIni(),
-                            criteria.getDateModifyEnd(), criteria.getDateAccessEnd(), criteria.getSelectFolder(), criteria.getContainWordInFile()));
-                }
-            }else {
-                if(criteria.getSelectfiles()){
-
+            } else {
+                if(criteria.isSelectOnlyfiles()){
                     if (fileIterate.isDirectory()) {
 
-                        criteria.setPath(fileIterate.getPath());
+                        criteria.setDirectory(fileIterate.getPath());
                         searchPathName(criteria);
                     } else {
                         Path filePath = Paths.get(fileIterate.getPath());
                         ownerFile = Files.getOwner(filePath, LinkOption.NOFOLLOW_LINKS);
-                        if (fileIterate.isHidden() != criteria.getHidden()) {
+                        if (fileIterate.isHidden() != criteria.isHidden()) {
                             continue;
                         }
-                        if (criteria.getFileExtension() != null && !fileIterate.getName().toLowerCase().endsWith(criteria.getFileExtension())) {
+                        if (criteria.getType() != null && !fileIterate.getName().toLowerCase().endsWith(criteria.getType())) {
                             continue;
                         }
                         if (criteria.getSize() > 0 && fileIterate.length() != criteria.getSize()) {
                             continue;
                         }
-                        if (criteria.getFilename() != null && !fileIterate.getName().contains(criteria.getFilename())) {
+                        if (criteria.getNameFile() != null && !fileIterate.getName().contains(criteria.getNameFile())) {
                             continue;
                         }
-                         if (criteria.getKeySensitive() && fileIterate.getName().toLowerCase().startsWith(criteria.getFilename())) {
+                        if (criteria.isKeySesitive() && fileIterate.getName().toLowerCase().startsWith(criteria.getNameFile())) {
                             continue;
                         }
-                         if (!criteria.getOwner().isEmpty() && !ownerFile.getName().equals(criteria.getOwner())) {
+                        if (!criteria.getOwner().isEmpty() && !ownerFile.getName().equals(criteria.getOwner())) {
                             continue;
                         }
-                        if (fileIterate.canWrite() == criteria.getReadOnly() && fileIterate.canRead() == criteria.getReadOnly()) {
+                        if (fileIterate.canWrite() == criteria.isReadOnly() && fileIterate.canRead() == criteria.isReadOnly()) {
                             continue;
                         }
                         if (criteria.getContainWordInFile() != null && !findContentFile(fileIterate, criteria.getContainWordInFile())) {
                             continue;
                         }
-                        if (criteria.getDateCreatedIni() != 0 && (criteria.getDateCreatedEnd() - criteria.getDateCreatedEnd() > 0)) {
-                            continue;
+
+                        BasicFileAttributes attr = Files.readAttributes(filePath, BasicFileAttributes.class);
+                        /*String formatFileCreate =  formatDateString(attr.creationTime().toMillis());
+                        String formatCreateIni = formatDateString(criteria.getDateChoserCreateIni().toInstant().toEpochMilli());
+                        String formatCreateEnd = formatDateString(criteria.getDateChooserCreateEnd().toInstant().toEpochMilli());*/
+                        if (criteria.getDateChoserCreateIni() != null && criteria.getDateChooserCreateEnd() != null) {
+                            String formatFileCreate =  formatDateString(attr.creationTime().toMillis());
+                            String formatCreateIni = formatDateString(criteria.getDateChoserCreateIni().toInstant().toEpochMilli());
+                            String formatCreateEnd = formatDateString(criteria.getDateChooserCreateEnd().toInstant().toEpochMilli());
+                            if (!isRangeDate(formatCreateIni, formatCreateEnd, formatFileCreate)){
+                                continue;
+                            }
                         }
-                        if (criteria.getDateModifyIni() != 0 && (criteria.getDateModifyEnd() - criteria.getDateModifyIni() > 0)) {
-                            continue;
+                        if (criteria.getDateChoiserAccessedIni() != null && criteria.getDateChoiserAccessedEnd() != null) {
+                            String formatlastAccessTimeFile =  formatDateString(attr.lastAccessTime().toMillis());
+                            String formatAccessedIni = formatDateString(criteria.getDateChoiserAccessedIni().toInstant().toEpochMilli());
+                            String formatAccessedEnd = formatDateString(criteria.getDateChoiserAccessedEnd().toInstant().toEpochMilli());
+                            if(!isRangeDate(formatAccessedIni, formatAccessedEnd, formatlastAccessTimeFile)){
+                                continue;
+                            }
                         }
-                        pathList.add(new AssetFile(fileIterate.getCanonicalPath(),
-                                fileIterate.getName(), getFileExtension(fileIterate), null, fileIterate.length(), null, null,
-                                ownerFile.getName(), false, false, fileIterate.isHidden(), fileIterate.canWrite(),
-                                criteria.getKeySensitive(), criteria.getStarWord(), criteria.getContentWord(), criteria.getEndWord(), criteria.getDateCreatedIni(),
-                                criteria.getDateModifyEnd(), criteria.getDateAccessEnd(), criteria.getSelectFolder(), criteria.getContainWordInFile()));
+
+                        if (criteria.getDateChoiserModifyIni() != null && criteria.getDateChoiserModifyEnd() != null) {
+                            String formatlastModifiedFile =  formatDateString(attr.lastModifiedTime().toMillis());
+                            String formatModifyIni = formatDateString(criteria.getDateChoiserModifyIni().toInstant().toEpochMilli());
+                            String formatModifyEnd = formatDateString(criteria.getDateChoiserModifyEnd().toInstant().toEpochMilli());
+                            if(!isRangeDate(formatModifyIni, formatModifyEnd, formatlastModifiedFile)){
+                                continue;
+                            }
+                        }
+
+                        pathList.add(new AssetFile(fileIterate.getAbsolutePath(),
+                                fileIterate.getName(), fileIterate.length(),getFileExtension(fileIterate),
+                                ownerFile.getName(), fileIterate.isHidden(),
+                                criteria.getDelimitSizeSearch(), fileIterate.canWrite(), criteria.isKeySesitive(), criteria.isSelectAll()
+                                , criteria.isSelectOnlyfiles(), criteria.isStarWord(), criteria.isContentWord(),
+                                criteria.isEndWord(), criteria.getOtherExtencion(),criteria.isSelectOnlyfolder()));
+                        criteria.setDirectory(fileIterate.getPath());
                     }
                 }else{
 
                     if (fileIterate.isDirectory()) {
 
-                        criteria.setPath(fileIterate.getPath());
+                        criteria.setDirectory(fileIterate.getPath());
                         searchPathName(criteria);
                         Path filePath = Paths.get(fileIterate.getPath());
                         ownerFile = Files.getOwner(filePath, LinkOption.NOFOLLOW_LINKS);
-                        pathList.add(new AssetFile(fileIterate.getCanonicalPath(),
-                                fileIterate.getName(), getFileExtension(fileIterate), null, fileIterate.length(), null, null,
-                                ownerFile.getName(), false, false, fileIterate.isHidden(), fileIterate.canWrite(),
-                                criteria.getKeySensitive(), criteria.getStarWord(), criteria.getContentWord(), criteria.getEndWord(), criteria.getDateCreatedIni(),
-                                criteria.getDateModifyEnd(), criteria.getDateAccessEnd(), criteria.getSelectFolder(), criteria.getContainWordInFile()));
+                        pathList.add(new AssetFile(fileIterate.getAbsolutePath(),
+                                fileIterate.getName(), fileIterate.length(),getFileExtension(fileIterate),
+                                ownerFile.getName(), fileIterate.isHidden(),
+                                criteria.getDelimitSizeSearch(), fileIterate.canWrite(), criteria.isKeySesitive(), criteria.isSelectAll()
+                                , criteria.isSelectOnlyfiles(), criteria.isStarWord(), criteria.isContentWord(),
+                                criteria.isEndWord(), criteria.getOtherExtencion(),criteria.isSelectOnlyfolder()));
+                        criteria.setDirectory(fileIterate.getPath());
                     }
                 }
             }
@@ -170,22 +167,20 @@ public class ModelSearch {
         return pathList;
     }
 
-
     /**
      * Method that returns a string with the extension of the document.
-     *
      * @param file receive a file.
      * @return returns a string with the extension of the document.
      */
     private static String getFileExtension(File file) {
         String fileName = file.getName();
-        if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
-            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+            return fileName.substring(fileName.lastIndexOf(".")+1);
         else return "";
     }
 
     /**
-     * @param patch       is a patch absolute to file.
+     * @param patch is a patch absolute to file.
      * @param contentFile word to find in file.
      * @return boolean if find.
      * @throws IOException to file error.
@@ -205,19 +200,24 @@ public class ModelSearch {
         LOGGER.info("ModelSearch findContentFile: exit");
         return false;
     }
-
-    /*public void saveCriteriaDataBase(CriterialSearch criteriaSearch) {
-        try {
-            SearchQuery insertCriteriaDb = new SearchQuery();
-            Gson jsonCriteria = new Gson();
-            String saveCriteria = jsonCriteria.toJson(criteriaSearch);
-            System.out.println(saveCriteria);
-            insertCriteriaDb.insertCriteria(saveCriteria);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+    public String formatDateString(long date){
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        return sdf.format(date);
+    }
+    public boolean isRangeDate(String dateInitial, String dateFinal, String dateFile){
+        String[] dateInittialArray = dateInitial.split("/");
+        String[] dateFinalArray = dateFinal.split("/");
+        String[] dateFileArray = dateFile.split("/");
+        if (Integer.parseInt(dateFileArray[0]) >= Integer.parseInt(dateInittialArray[0]) &&
+                Integer.parseInt(dateFileArray[0]) <= Integer.parseInt(dateFinalArray[0])) {
+            if(Integer.parseInt(dateFileArray[1]) >= Integer.parseInt(dateInittialArray[1]) &&
+                    Integer.parseInt(dateFileArray[1]) <= Integer.parseInt(dateFinalArray[1])){
+                if(Integer.parseInt(dateFileArray[2]) >= Integer.parseInt(dateInittialArray[2]) &&
+                        Integer.parseInt(dateFileArray[2]) <= Integer.parseInt(dateFinalArray[2])){
+                    return true;
+                }
+            }
         }
-    }*/
-
+        return false;
+    }
 }

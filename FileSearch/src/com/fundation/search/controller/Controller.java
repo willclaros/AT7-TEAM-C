@@ -16,16 +16,25 @@
 
 package com.fundation.search.controller;
 
+import com.fundation.search.model.CriterialSearch;
+import com.fundation.search.model.CriterialSearchMultimedia;
+import com.fundation.search.model.ModelSearch;
+import com.fundation.search.model.ModelSearchMultimedia;
 import com.fundation.search.model.Asset;
 import com.fundation.search.model.AssetFile;
+import com.fundation.search.model.Asset;
 import com.fundation.search.model.AssetMultimedia;
+
 import com.fundation.search.model.CriterialSearch;
 import com.fundation.search.model.ModelSearch;
 import com.fundation.search.utils.LoggerWrapper;
 import com.fundation.search.view.View;
+import org.apache.log4j.Logger;
+
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import org.apache.log4j.Logger;
 
 /**
  * Controller class where the communication will be made with the view.
@@ -39,6 +48,7 @@ public class Controller {
     private View view;
     private ModelSearch model;
     private CriterialSearch criterialSearch;
+    private CriterialSearchMultimedia criterialSearchMultimedia;
 
     /**
      * A constructor of the Controller class that receives 2 parameters that are a ModelSearch object and an object
@@ -66,10 +76,10 @@ public class Controller {
         String fileType = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFileType().getSelectedItem().toString();
         String owner = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getOwner().getText();
         long fileSize = Long.parseLong(view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSizeFile().getValue().toString());
-        String countSearch = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getCount().getSelectedItem().toString();
+        String countSearch = Objects.requireNonNull(view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getCount().getSelectedItem()).toString();
         String sizeType = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSizeType().getSelectedItem().toString();
         boolean readOnly = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getReadOnly().isSelected();
-        boolean keySensitive = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getKeySensitive().isSelected();
+        boolean keySensiteve = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getKeySensitive().isSelected();
         boolean selectAll = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getAll().isSelected();
         boolean selectFolder = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().isSelected();
         boolean selectfiles = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFile().isSelected();
@@ -80,34 +90,85 @@ public class Controller {
         boolean checkOtherExtension = view.getPanelGeneral().getSearchPanel().panelSearchBasic.getCheckOtherExtention().isSelected();
         String containWordInFile = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getContent().getText();
 
+        Date dateChoserCreateIni = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChoserCreateIni().getDate();
+        Date dateChooserCreateEnd = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChooserCreateEnd().getDate();
+        Date dateChoiserModifyIni = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChooserModifyIni().getDate();
+        Date dateChoiserModifyEnd = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChooserModifyEnd().getDate();
+        Date dateChoiserAccessedIni = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChooserAccessedIni().getDate();
+        Date dateChoiserAccessedEnd = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChooserAccessedEnd().getDate();
+
+        String otherExtencionMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getWriteExtensionMult().getText();
+        String extencionList = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getType().getSelectedItem().toString();
+        String countMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCountMultimedia().getSelectedItem().toString();
+        String inputSizeMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getSizeMutimedia().getValue().toString();
+        String durationTypeMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getSizeTypeMultimedia().getSelectedItem().toString();
+        String videoCode = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getVideo().getSelectedItem().toString();
+        String audioCode = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getAudio().getSelectedItem().toString();
+        String frameRate = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getRate().getSelectedItem().toString();
+        String resolution = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getResol().getSelectedItem().toString();
+        boolean checkOtherExtentionMult =  view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckOtherExtentionMult().isSelected();
+
         if (checkOtherExtension && !otherExtension.isEmpty()){
             fileType = otherExtension;
         }
         
-        if (!keySensitive) {
+        if (!keySensiteve) {
             fileName = fileName.toLowerCase();
         }
       
         criterialSearch = new CriterialSearch(pathName,fileName,fileHidden,fileType,owner,fileSize,countSearch,sizeType,
-                readOnly,keySensiteve,selectAll,selectFolder,selectfiles,starWord,contentWord,endWord,"",
+                readOnly,keySensiteve,selectAll,selectFolder,selectfiles,starWord,contentWord,endWord,otherExtension,
+                containWordInFile);
 
         ModelSearch model = new ModelSearch();
-        //model.saveCriteriaDataBase(criterialSearch);
-
-        try {
-            List<Asset> fileList = model.searchPathName(criterialSearch);
-            view.getPanelGeneral().getResultPanel().cleanTable();
-            for (Asset asset : fileList) {
-                if (asset instanceof AssetFile) {
-                    AssetFile assetFile = (AssetFile) asset;
-                    view.getPanelGeneral().getResultPanel().addRowTable(assetFile.getPath(), assetFile.getFilename(), assetFile.getFileExtension(), assetFile.getSize(), String.valueOf(assetFile.getHidden()), assetFile.getOwner(), null, null, null, null, assetFile.getReadOnly());
-                } else {
+	boolean isCheckMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckMultimedia().isSelected();
+        if(checkOtherExtentionMult && !otherExtencionMultimedia.isEmpty()) extencionList = otherExtencionMultimedia;
+        if(isCheckMultimedia){
+            criterialSearchMultimedia = new CriterialSearchMultimedia(pathName, fileName, fileHidden, fileType, owner,
+                                                                        keySensiteve, starWord, contentWord, endWord,
+                                                                 extencionList, countMultimedia, inputSizeMultimedia,
+                                                   durationTypeMultimedia, videoCode, audioCode, frameRate, resolution);
+            ModelSearchMultimedia modelSearchMultimedia = new ModelSearchMultimedia();
+            try {
+                List<Asset> multimediaList = modelSearchMultimedia.searchMultimedia(criterialSearchMultimedia);
+                view.getPanelGeneral().getResultPanel().cleanTable();
+                for (Asset asset : multimediaList) {
                     AssetMultimedia assetMultimedia = (AssetMultimedia) asset;
+                    view.getPanelGeneral().getResultPanel().addRowTable(asset.getPath(), asset.getFilename(),
+                            asset.getExtension(), asset.getSize(), String.valueOf(asset.isHidden()), asset.getOwner(),null,null,null,asset.isReadOnly(), assetMultimedia.getDuration(),
+                            assetMultimedia.getFrameRate(), assetMultimedia.getHeigth(), assetMultimedia.getWidth(),
+                            assetMultimedia.getAspectRatio(), assetMultimedia.getCodec());
+                    //System.out.println(dateChoserCreateIni +"  "+DateChooserCreateEnd);
                 }
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            System.out.println("Hello World...");
+
+        } else {
+            criterialSearch = new CriterialSearch(pathName,fileName,fileHidden,fileType,owner,fileSize,countSearch,sizeType,
+                    readOnly,keySensiteve,selectAll,selectFolder,selectfiles,starWord,contentWord,endWord,otherExtension,
+                    containWordInFile,dateChoserCreateIni,dateChooserCreateEnd,dateChoiserModifyIni,dateChoiserModifyEnd,
+                    dateChoiserAccessedIni,dateChoiserAccessedEnd);
+            try {
+                List<Asset> fileList = model.searchPathName(criterialSearch);
+                view.getPanelGeneral().getResultPanel().cleanTable();
+                for (Asset asset : fileList) {
+                    if(asset instanceof AssetFile){
+                        AssetFile assetFile = (AssetFile) asset;
+                        view.getPanelGeneral().getResultPanel().addRowTable(assetFile.getPath(), assetFile.getFilename(),
+                                assetFile.getExtension(), assetFile.getSize(), String.valueOf(assetFile.isHidden()),
+                                assetFile.getOwner(),null,null,null,assetFile.isReadOnly(),
+                                0,0,0,0,null,null);
+                    }else{
+                        AssetMultimedia assetMultimedia = (AssetMultimedia) asset;
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("hola mundo");
+            }
         }
+	
         LOGGER.info("Controller init: exit");
     }
 }

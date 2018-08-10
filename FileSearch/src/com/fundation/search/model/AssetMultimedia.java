@@ -18,184 +18,92 @@ package com.fundation.search.model;
  * @version 1.0.
  */
 public class AssetMultimedia extends Asset {
-
+    private double duration;
+    private double frameRate;
+    private int heigth;
+    private int width;
+    private String aspectRatio;
+    private String codec;
     /**
-     * Duration of the multimedia file.
-     */
-    private int durationTime;
-    /**
-     * Unit of the multimedia file. Example: sec, min, hour.
-     */
-    private String unitDuration;
-    /**
-     * Video codec unit.
-     */
-    private String videoCodec;
-    /**
-     * Video frame rate.
-     */
-    private String frameRate;
-    /**
-     * Video resolution
-     */
-    private String resolutionVideo;
-    /**
-     * Audio codec of the music file.
-     */
-    private String audioCodec;
-
-    /**
-     * Constructor of the class Asset Multimedia.
+     * Builder of the Asset Multimedia class.
      *
-     * @param path           is a patch of file search.
-     * @param filename       name file search.
-     * @param fileExtension  extent of file.
-     * @param owner          of file.
-     * @param rangeSize      this is a delimiter search for size minor to <, major to >, equal to =.
-     * @param unitSize       type size of file MB, GB, KB.
-     * @param size           size of file.
-     * @param hidden         true or false is hidden.
-     * @param readOnly       is only file read.
-     * @param keySensitive   is equal to word tyoe search.
-     * @param selectAll      search for all files and folder.
-     * @param selectAll      search for only folder.
-     * @param selectFiles    search for only files.
-     * @param starWord       title contain with this word.
-     * @param contentWord    contain with this word.
-     * @param endWord        end with this word.
-     * @param otherExtension distint extension the common list.
-     * @param dateCreated    distint extension the common list.
-     * @param dateModify     distint extension the common list.
-     * @param dateAccess     distint extension the common list.
+     * @param directory         is a patch of file search.
+     * @param nameFile          name file search.
+     * @param type              extent of file.
+     * @param owner             of file.
+     * @param delimitSizeSearch this is a delimiter search for size minor to <, major to >, equal to =.
+     * @param unitSize          type size of file MB, GB, KB.
+     * @param size              size of file.
+     * @param hidden            true or false is hidden.
+     * @param readOnly          is only file read.
+     * @param keySesitive       is equal to word tyoe search.
+     * @param selectAll         search for all files and folder.
+     * @param selectOnlyfolder  search for only folder.
+     * @param selectOnlyfiles   search for only files.
+     * @param starWord          title contain with this word.
+     * @param contentWord       contain with this word.
+     * @param endWord           end with this word.
+     * @param otherExtencion    distint extension the common list.
      */
-    public AssetMultimedia(String path, String filename, String fileExtension, String otherExtension, long size, String unitSize, String rangeSize, String owner,
-                           boolean selectAll, boolean selectFiles, boolean hidden, boolean readOnly, boolean keySensitive, boolean starWord,
-                           boolean contentWord, boolean endWord, long dateCreated, long dateModify, long dateAccess, int durationTime, String unitDuration, String videoCodec, String frameRate,
-                           String resolutionVideo, String audioCodec) {
-        super(path, filename, fileExtension, otherExtension, size, unitSize, rangeSize, owner, selectAll, selectFiles, hidden,
-                readOnly, keySensitive, starWord, contentWord, endWord, dateCreated, dateModify, dateAccess);
-
-        this.durationTime = durationTime;
-        this.unitDuration = unitDuration;
-        this.videoCodec = videoCodec;
+    public AssetMultimedia(String path, String filename, long size, String extension, String owner, boolean hidden, String countSearch, boolean readOnly,
+                           boolean keySensitive, boolean selectAll, boolean selectfiles, boolean starWord, boolean contentWord,
+                           boolean endWord, String otherExtension, double duration, double frameRate, int heigth, int width,
+                           String aspectRatio, String codec) {
+        super(path, filename, size, extension, owner, hidden, countSearch, readOnly, keySensitive, selectAll, selectfiles, starWord, contentWord,
+                endWord, otherExtension);
+        this.duration = duration;
         this.frameRate = frameRate;
-        this.resolutionVideo = resolutionVideo;
-        this.audioCodec = audioCodec;
+        this.heigth = heigth;
+        this.width = width;
+        this.aspectRatio = aspectRatio;
+        this.codec = codec;
     }
 
-    /**
-     * Constructor free of the class Asset Multimedia.
-     */
-    public AssetMultimedia() {
-
+    public double getDuration() {
+        return duration;
     }
 
-    /**
-     * Method that returns the duration of the multimedia file.
-     *
-     * @return durationTime.
-     */
-    public int getDurationTime() {
-        return durationTime;
+    public void setDuration(double duration) {
+        this.duration = duration;
     }
 
-    /**
-     * Method that sets the duration time of a music.
-     *
-     * @param durationTime .
-     */
-    public void setDurationTime(int durationTime) {
-        this.durationTime = durationTime;
-    }
-
-    /**
-     * Method that returns the duration of the multimedia file.
-     *
-     * @return durationTime.
-     */
-    public String getUnitDuration() {
-        return unitDuration;
-    }
-
-    /**
-     * Method that sets the time unit of the multimedia file.
-     *
-     * @param unitDuration .
-     */
-    public void setUnitDuration(String unitDuration) {
-        this.unitDuration = unitDuration;
-    }
-
-    /**
-     * Method that returns the unit of duration of the multimedia file.
-     *
-     * @return videoCodec.
-     */
-    public String getVideoCodec() {
-        return videoCodec;
-    }
-
-    /**
-     * Method that sets the video codec of the video.
-     *
-     * @param videoCodec .
-     */
-    public void setVideoCodec(String videoCodec) {
-        this.videoCodec = videoCodec;
-    }
-
-    /**
-     * Method that returns the frame rate of the video..
-     *
-     * @return frameRate.
-     */
-    public String getFrameRate() {
+    public double getFrameRate() {
         return frameRate;
     }
 
-    /**
-     * Method that sets the frame rate of the video.
-     *
-     * @param frameRate .
-     */
-    public void setFrameRate(String frameRate) {
+    public void setFrameRate(double frameRate) {
         this.frameRate = frameRate;
     }
 
-    /**
-     * Method that returns the resolution of the video.
-     *
-     * @return resolutionVideo.
-     */
-    public String getResolutionVideo() {
-        return resolutionVideo;
+    public int getHeigth() {
+        return heigth;
     }
 
-    /**
-     * Method that sets the resolution of the video.
-     *
-     * @param resolutionVideo .
-     */
-    public void setResolutionVideo(String resolutionVideo) {
-        this.resolutionVideo = resolutionVideo;
+    public void setHeigth(int heigth) {
+        this.heigth = heigth;
     }
 
-    /**
-     * Method that returns the audio codec of the music file.
-     *
-     * @return audioCodec.
-     */
-    public String getAudioCodec() {
-        return audioCodec;
+    public int getWidth() {
+        return width;
     }
 
-    /**
-     * Method that sets the audio codec of the music file.
-     *
-     * @param audioCodec .
-     */
-    public void setAudioCodec(String audioCodec) {
-        this.audioCodec = audioCodec;
+    public void setWidth(int width) {
+        this.width = width;
     }
 
+    public String getAspectRatio() {
+        return aspectRatio;
+    }
+
+    public void setAspectRatio(String aspectRatio) {
+        this.aspectRatio = aspectRatio;
+    }
+
+    public String getCodec() {
+        return codec;
+    }
+
+    public void setCodec(String codec) {
+        this.codec = codec;
+    }
 }
