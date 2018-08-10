@@ -16,8 +16,12 @@
 
 package com.fundation.search.controller;
 
-import com.fundation.search.model.*;
-
+import com.fundation.search.model.CriterialSearch;
+import com.fundation.search.model.CriterialSearchMultimedia;
+import com.fundation.search.model.ModelSearch;
+import com.fundation.search.model.ModelSearchMultimedia;
+import com.fundation.search.model.Asset;
+import com.fundation.search.model.AssetFile;
 import com.fundation.search.model.AssetMultimedia;
 import com.fundation.search.utils.LoggerWrapper;
 import com.fundation.search.view.View;
