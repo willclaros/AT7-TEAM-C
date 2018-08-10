@@ -150,7 +150,6 @@ public class Controller {
                     readOnly,keySensiteve,selectAll,selectFolder,selectfiles,starWord,contentWord,endWord,otherExtension,
                     containWordInFile,dateChoserCreateIni,dateChooserCreateEnd,dateChoiserModifyIni,dateChoiserModifyEnd,
                     dateChoiserAccessedIni,dateChoiserAccessedEnd);
-            ModelSearch model = new ModelSearch();
             try {
                 List<Asset> fileList = model.searchPathName(criterialSearch);
                 view.getPanelGeneral().getResultPanel().cleanTable();
