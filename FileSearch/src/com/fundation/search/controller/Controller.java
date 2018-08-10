@@ -22,7 +22,11 @@ import com.fundation.search.model.ModelSearch;
 import com.fundation.search.model.ModelSearchMultimedia;
 import com.fundation.search.model.Asset;
 import com.fundation.search.model.AssetFile;
+import com.fundation.search.model.Asset;
 import com.fundation.search.model.AssetMultimedia;
+
+import com.fundation.search.model.CriterialSearch;
+import com.fundation.search.model.ModelSearch;
 import com.fundation.search.utils.LoggerWrapper;
 import com.fundation.search.view.View;
 import org.apache.log4j.Logger;
@@ -51,15 +55,17 @@ public class Controller {
      * in the SearchFrame view.
      */
     public void init() {
-        //LOGGER.info("Controller init: enter");
+        LOGGER.info("Controller init: enter");
         this.view = new View();
+        /*view.setDefaultLookAndFeelDecorated(true); //que nos permite dejar a Substance la decoracion ( por asi decirlo)
+        SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.SaharaSkin");*/
         this.model = new ModelSearch();
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSearchButton().addActionListener(e -> getData());
         LOGGER.info("Controller init: exit");
     }
 
     /**
-     * Method that is in charge of making the data capture and the setting of the View. And also the communication
+     * Method that is charge of making the data capture and the setting of the View. And also the communication
      * with the Model.
      */
     private void getData() {
@@ -81,6 +87,7 @@ public class Controller {
         boolean contentWord = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getContentWord().isSelected();
         boolean endWord = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getEndWord().isSelected();
         String otherExtension = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getWriteExtension().getText();
+        boolean checkOtherExtension = view.getPanelGeneral().getSearchPanel().panelSearchBasic.getCheckOtherExtention().isSelected();
         String containWordInFile = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getContent().getText();
 
         Date dateChoserCreateIni = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChoserCreateIni().getDate();
@@ -101,7 +108,20 @@ public class Controller {
         String resolution = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getResol().getSelectedItem().toString();
         boolean checkOtherExtentionMult =  view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckOtherExtentionMult().isSelected();
 
-        boolean isCheckMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckMultimedia().isSelected();
+        if (checkOtherExtension && !otherExtension.isEmpty()){
+            fileType = otherExtension;
+        }
+        
+        if (!keySensiteve) {
+            fileName = fileName.toLowerCase();
+        }
+      
+        criterialSearch = new CriterialSearch(pathName,fileName,fileHidden,fileType,owner,fileSize,countSearch,sizeType,
+                readOnly,keySensiteve,selectAll,selectFolder,selectfiles,starWord,contentWord,endWord,otherExtension,
+                containWordInFile);
+
+        ModelSearch model = new ModelSearch();
+	boolean isCheckMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckMultimedia().isSelected();
         if(checkOtherExtentionMult && !otherExtencionMultimedia.isEmpty()) extencionList = otherExtencionMultimedia;
         if(isCheckMultimedia){
             criterialSearchMultimedia = new CriterialSearchMultimedia(pathName, fileName, fileHidden, fileType, owner,
@@ -149,7 +169,7 @@ public class Controller {
                 System.out.println("hola mundo");
             }
         }
-
-        //LOGGER.info("Controller init: exit");
+	
+        LOGGER.info("Controller init: exit");
     }
 }

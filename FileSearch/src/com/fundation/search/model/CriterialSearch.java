@@ -21,6 +21,7 @@ import java.util.Date;
  * Class that creates the basic search panel.
  *
  * @author Estalin Yerel Hurtado Arias - AT - [07]
+ * @author William Claros Revollo - AT - [07]
  * @version 1.0.
  */
 public class CriterialSearch {
