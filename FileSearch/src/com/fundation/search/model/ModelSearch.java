@@ -13,7 +13,9 @@
  */
 package com.fundation.search.model;
 
+import com.fundation.search.DataBase.SearchQuery;
 import com.fundation.search.utils.LoggerWrapper;
+import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
@@ -26,12 +28,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.UserPrincipal;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class ModelSearch can be FileResult, MultimediaResult and maybe SearchFolder.
@@ -219,5 +225,41 @@ public class ModelSearch {
             }
         }
         return false;
+    }
+
+    public void saveCriteriaDataBase(CriterialSearch criteriaSearch) {
+        try {
+            SearchQuery insertCriteriaDb = new SearchQuery();
+            Gson jsonCriteria = new Gson();
+            String saveCriteria = jsonCriteria.toJson(criteriaSearch);
+            //System.out.println(saveCriteria);
+            insertCriteriaDb.insertCriteria(saveCriteria);
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Map<Integer, CriterialSearch> getAllDataCriteriaDataBase() {
+        ResultSet resultSet = null;
+        CriterialSearch searchCriteria;
+        int index;
+        Map<Integer, CriterialSearch> criteriaList = new HashMap<>();
+        Gson gSonCriteria = new Gson();
+        try {
+            SearchQuery searchQuery = new SearchQuery();
+            resultSet = searchQuery.getAllCriteria();
+            while (resultSet.next()) {
+
+                index = resultSet.getInt("ID");
+                searchCriteria = gSonCriteria.fromJson(resultSet.getString("CRITERIAJSON"), CriterialSearch.class);
+                criteriaList.put(index, searchCriteria);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println(criteriaList);
+        return criteriaList;
     }
 }

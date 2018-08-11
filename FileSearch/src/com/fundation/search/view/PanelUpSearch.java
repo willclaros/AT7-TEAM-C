@@ -71,4 +71,13 @@ public class PanelUpSearch extends JPanel {
     public PanelSearchAdvanced getPanelSearchAdvanced() {
         return panelSearchAdvanced;
     }
+
+    /**
+     * Method that returns an object of the PanelDataBase class.
+     *
+     * @return an object of the PanelDataBase class.
+     */
+    public PanelDataBase getPanelDataBase() {
+        return panelDataBase;
+    }
 }

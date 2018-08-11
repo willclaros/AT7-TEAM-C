@@ -41,7 +41,7 @@ public class PanelDataBase extends JPanel {
     private JTable table;
     private DefaultTableModel modelTable;
     private JScrollPane scroll;
-    private JTextField writeExtensionMult;
+    private JTextField writeDescritionCritera;
     private JButton saveCriteriaButton;
     private JButton loadCriteriaButton;
 
@@ -82,10 +82,10 @@ public class PanelDataBase extends JPanel {
         add(labelTypeMultimedia);
         labelTypeMultimedia.setEnabled(false);
 
-        writeExtensionMult = new JTextField();
-        writeExtensionMult.setBounds(80, 70, 230, 30);
-        add(writeExtensionMult);
-        writeExtensionMult.setEnabled(false);
+        writeDescritionCritera = new JTextField();
+        writeDescritionCritera.setBounds(80, 70, 230, 30);
+        add(writeDescritionCritera);
+        writeDescritionCritera.setEnabled(false);
 
         saveCriteriaButton = new JButton("Save");
 
@@ -126,13 +126,13 @@ public class PanelDataBase extends JPanel {
     public void CheckBoxDataBase(ChangeEvent event){
         if(checkDataBase.isSelected()){
             labelTypeMultimedia.setEnabled(true);
-            writeExtensionMult.setEnabled(true);
+            writeDescritionCritera.setEnabled(true);
             saveCriteriaButton.setEnabled(true);
             scroll.setEnabled(true);
             loadCriteriaButton.setEnabled(true);
         }else{
             labelTypeMultimedia.setEnabled(false);
-            writeExtensionMult.setEnabled(false);
+            writeDescritionCritera.setEnabled(false);
             saveCriteriaButton.setEnabled(false);
             scroll.setEnabled(false);
             loadCriteriaButton.setEnabled(false);
@@ -189,18 +189,18 @@ public class PanelDataBase extends JPanel {
 
     /**
      * Method that returns an object of the JTextField class.
-     * @return writeExtensionMult.
+     * @return writeDescritionCritera.
      */
-    public JTextField getWriteExtensionMult() {
-        return writeExtensionMult;
+    public JTextField getWriteDescritionCritera() {
+        return writeDescritionCritera;
     }
 
     /**
      * Method that is responsible for modifying the value of the object of the JTextField class.
-     * @param writeExtensionMult new object of the JTextField class.
+     * @param writeDescritionCritera new object of the JTextField class.
      */
-    public void setWriteExtensionMult(JTextField writeExtensionMult) {
-        this.writeExtensionMult = writeExtensionMult;
+    public void setWriteDescritionCritera(JTextField writeDescritionCritera) {
+        this.writeDescritionCritera = writeDescritionCritera;
     }
 
     /**
@@ -235,5 +235,17 @@ public class PanelDataBase extends JPanel {
         this.loadCriteriaButton = loadCriteriaButton;
     }
 
+    /**
+     * @param objects this is a controller return.
+     */
+    public void addRowTable(Object[] objects) {
+        modelTable.addRow(new Object[]{objects[0],objects[1]});
+    }
 
+    /**
+     * Method to clean the table.
+     */
+    public void cleanTable() {
+        modelTable.setNumRows(0);
+    }
 }

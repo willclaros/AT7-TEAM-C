@@ -103,6 +103,9 @@ public class CriterialSearch {
     private Date dateChoiserModifyEnd;
     private Date dateChoiserAccessedIni;
     private Date dateChoiserAccessedEnd;
+
+    private String nameCriterialDatabase;
+
     /**
      * Method that receives all the input parameters of the View.
      *
@@ -483,5 +486,13 @@ public class CriterialSearch {
 
     public void setDateChoiserAccessedEnd(Date dateChoiserAccessedEnd) {
         this.dateChoiserAccessedEnd = dateChoiserAccessedEnd;
+    }
+
+    public String getNameCriterialDatabase() {
+        return nameCriterialDatabase;
+    }
+
+    public void setNameCriterialDatabase(String nameCriterialDatabase) {
+        this.nameCriterialDatabase = nameCriterialDatabase;
     }
 }
