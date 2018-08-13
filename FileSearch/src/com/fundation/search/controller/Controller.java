@@ -39,6 +39,7 @@ public class Controller {
     private View view;
     private Search search;
     private String writeDescritionCritera;
+    private Map <Integer,CriterialSearch> searchCriteriaMapOfDataBase;
 
     /**
      * A constructor of the Controller class that receives 2 parameters that are a ModelSearch object and an object
@@ -58,6 +59,7 @@ public class Controller {
         });
         view.getPanelGeneral().getSearchPanel().getPanelDataBase().getLoadCriteriaButton().addActionListener(e -> listenLoadButton());
         //view.getPanelGeneral().getSearchPanel().getPanelDataBase().getSaveCriteriaButton().addActionListener(e -> saveDataBase());
+        updateDataBase();
         LOGGER.info("Controller init: exit");
     }
 
@@ -114,12 +116,6 @@ public class Controller {
         if (!keySensiteve) {
             fileName = fileName.toLowerCase();
         }
-
-        /*criterialSearch = new CriterialSearch(pathName, fileName, fileHidden, fileType, owner, fileSize, countSearch, sizeType,
-                readOnly, keySensiteve, selectAll, selectFolder, selectfiles, starWord, contentWord, endWord, otherExtension,
-                containWordInFile);*/
-
-
         //SearchFile model = new SearchFile();
         SearchMultimedia modelMultimedia = new SearchMultimedia();
         DirectorCriterialSearch directorCriterialSearch = new DirectorCriterialSearch();
@@ -143,7 +139,7 @@ public class Controller {
                     AssetMultimedia assetMultimedia = (AssetMultimedia) asset;
                     view.getPanelGeneral().getResultPanel().addRowTable(asset.getPath(), asset.getFilename(),
                             asset.getExtension(), asset.getSize(), String.valueOf(asset.isHidden()), asset.getOwner(),
-                            null, null, null, asset.isReadOnly(), assetMultimedia.getDuration(),
+                            assetMultimedia.getDateCreate(), assetMultimedia.getDatAccessed(), assetMultimedia.getDateModify(), asset.isReadOnly(), assetMultimedia.getDuration(),
                             assetMultimedia.getFrameRate(), assetMultimedia.getHeigth(), assetMultimedia.getWidth(),
                             assetMultimedia.getAspectRatio(), assetMultimedia.getCodec());
                 }
@@ -180,16 +176,35 @@ public class Controller {
             search = new SearchFile();
             criterialSearch.setNameCriterialDatabase(writeDescritionCritera);
             search.saveCriteriaDataBase(criterialSearch);
+            updateDataBase();
         }
     }
 
     private void listenLoadButton() {
-        view.getPanelGeneral().getSearchPanel().getPanelDataBase().cleanTable();
+/*view.getPanelGeneral().getSearchPanel().getPanelDataBase().cleanTable();
         Map<Integer, CriterialSearch> searchCriteriaMapOfDataBase;
         search = new SearchFile();
         searchCriteriaMapOfDataBase = search.getAllDataCriteriaDataBase();
         searchCriteriaMapOfDataBase.forEach((k,v) -> view.getPanelGeneral().getSearchPanel().getPanelDataBase().
-                addRowTable(this.getDataFromCriteriaMap(k,v)));
+                addRowTable(this.getDataFromCriteriaMap(k,v)));*/
+
+        searchCriteriaMapOfDataBase = search.getAllDataCriteriaDataBase();
+
+        int row =  view.getPanelGeneral().getSearchPanel().getPanelDataBase().getTable().getSelectedRow();
+
+        String id=view.getPanelGeneral().getSearchPanel().getPanelDataBase().getTable().getValueAt(row, 0).toString();
+        System.out.println(id);
+
+        int aux2 = Integer.parseInt(id);
+        System.out.println(searchCriteriaMapOfDataBase);
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getPath().setText(searchCriteriaMapOfDataBase.get(aux2).getDirectory());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getOwner().setText(searchCriteriaMapOfDataBase.get(aux2).getOwner());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getNameFile().setText(searchCriteriaMapOfDataBase.get(aux2).getNameFile());
+
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().setSelected(searchCriteriaMapOfDataBase.get(aux2).isSelectOnlyfolder());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getKeySensitive().setSelected(searchCriteriaMapOfDataBase.get(aux2).isKeySensitive());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getHiddenFile().setSelected(searchCriteriaMapOfDataBase.get(aux2).isHidden());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getReadOnly().setSelected(searchCriteriaMapOfDataBase.get(aux2).isReadOnly());
     }
 
     /**
@@ -198,14 +213,22 @@ public class Controller {
      * @param (idOfCriteria, searchCriteria) .
      */
     private Object[] getDataFromCriteriaMap(Integer idOfCriteria, CriterialSearch searchCriteria) {
-        //LOOGER.info("getDataFromAsset Entry");
-
+        LOGGER.info("getDataFromAsset Entry");
         // Object[] for create row and sent this to table result on User Interface
         Object[] dataFromAsset = new Object[3]; // number of columns
         // Getting data for table result
         dataFromAsset[0] = idOfCriteria;
         dataFromAsset[1] = searchCriteria.getNameCriterialDatabase();
-        //LOOGER.info("getDataFromAsset Exit");
+        LOGGER.info("getDataFromAsset Exit");
         return dataFromAsset;
+    }
+    private void updateDataBase(){
+
+        view.getPanelGeneral().getSearchPanel().getPanelDataBase().cleanTable();
+        Map<Integer, CriterialSearch> searchCriteriaMapOfDataBase;
+        search = new SearchFile();
+        searchCriteriaMapOfDataBase = search.getAllDataCriteriaDataBase();
+        searchCriteriaMapOfDataBase.forEach((k,v) -> view.getPanelGeneral().getSearchPanel().getPanelDataBase().
+                addRowTable(this.getDataFromCriteriaMap(k,v)));
     }
 }

@@ -25,6 +25,15 @@ public abstract class Search {
     protected BasicFileAttributes attr;
 
     protected abstract List<Asset> searchCriterial (CriterialSearch criterialSearch) throws IOException;
+
+    /*public boolean verifyRangeSizeFile(CriterialSearch criterialSearch, long size){
+        if(criterialSearch.getDelimitSizeSearch() == " = "){
+            if(criterialSearch.getUnitSize() == ){
+
+            }
+        }
+        return false;
+    }*/
     /**
      * Method that returns a string with the extension of the document.
      * @param file receive a file.

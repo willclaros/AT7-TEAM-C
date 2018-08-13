@@ -123,6 +123,7 @@ public class PanelSearchAdvanced extends JPanel {
         typeFormat.add("mp4");
         typeFormat.add("mpeg");
         typeFormat.add("mov");
+        typeFormat.add("m4a");
         type = new JComboBox(typeFormat);
         type.setBounds(140, 90, 70, 30);
         add(type);
@@ -183,10 +184,10 @@ public class PanelSearchAdvanced extends JPanel {
 
         audioCodec = new Vector();
         audioCodec.add("");
-        audioCodec.add("DoD CELP");
-        audioCodec.add("LPC10");
-        audioCodec.add("Speex");
-        audioCodec.add("ITU G.729");
+        audioCodec.add("mp3");
+        audioCodec.add("acc");
+        audioCodec.add("wma");
+        audioCodec.add("m4a");
         audioCodec.add("GSM");
         audio = new JComboBox(audioCodec);
         audio.setBounds(120, 190, 90, 30);

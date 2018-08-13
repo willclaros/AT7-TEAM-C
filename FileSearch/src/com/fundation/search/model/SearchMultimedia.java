@@ -42,7 +42,7 @@ public class SearchMultimedia extends Search{
                     FFmpegStream multimediaFile = fFprobe.probe(videoPath).getStreams().get(0);
                     UserPrincipal ownerFile = Files.getOwner(filePath, LinkOption.NOFOLLOW_LINKS);
 
-                    duration = multimediaFile.duration;
+                    duration = Math.round(multimediaFile.duration);
                     frameRate = multimediaFile.r_frame_rate.doubleValue();
                     height = multimediaFile.height;
                     width = multimediaFile.width;

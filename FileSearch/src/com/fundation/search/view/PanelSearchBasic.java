@@ -145,7 +145,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         all.setBounds(70, 160, 50, 20);
         add(all);
 
-        file = new JRadioButton("File");
+        file = new JRadioButton("File", true);
         file.setBounds(70, 180, 50, 20);
         add(file);
 
