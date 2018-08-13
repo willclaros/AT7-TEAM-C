@@ -41,6 +41,8 @@ public class Controller {
     private String writeDescritionCritera;
     private Map <Integer,CriterialSearch> searchCriteriaMapOfDataBase;
 
+    private CriterialSearch criterialSearch;
+
     /**
      * A constructor of the Controller class that receives 2 parameters that are a ModelSearch object and an object
      * in the SearchFrame view.
@@ -58,7 +60,7 @@ public class Controller {
             }
         });
         view.getPanelGeneral().getSearchPanel().getPanelDataBase().getLoadCriteriaButton().addActionListener(e -> listenLoadButton());
-        //view.getPanelGeneral().getSearchPanel().getPanelDataBase().getSaveCriteriaButton().addActionListener(e -> saveDataBase());
+        view.getPanelGeneral().getSearchPanel().getPanelDataBase().getSaveCriteriaButton().addActionListener(e -> saveDataBase(criterialSearch));
         updateDataBase();
         LOGGER.info("Controller init: exit");
     }
@@ -130,10 +132,10 @@ public class Controller {
                     audioCode, frameRate, resolution);
             directorCriterialSearch.setCriterialBuilder(multimedia);
             directorCriterialSearch.buildCriterialSearch();
-            CriterialSearch criterialSearch = directorCriterialSearch.getCriterialSearch();
+            criterialSearch = directorCriterialSearch.getCriterialSearch();
             try {
                 List<Asset> multimediaList = modelMultimedia.searchCriterial(criterialSearch);
-                view.getPanelGeneral().getSearchPanel().getPanelDataBase().getSaveCriteriaButton().addActionListener(e -> saveDataBase(criterialSearch));
+                //view.getPanelGeneral().getSearchPanel().getPanelDataBase().getSaveCriteriaButton().addActionListener(e -> saveDataBase(criterialSearch));
                 view.getPanelGeneral().getResultPanel().cleanTable();
                 for (Asset asset : multimediaList) {
                     AssetMultimedia assetMultimedia = (AssetMultimedia) asset;
@@ -155,9 +157,9 @@ public class Controller {
                     dateCreatedSelected, dateModifySelected, dateAccessedSelected, "");
             directorCriterialSearch.setCriterialBuilder(files);
             directorCriterialSearch.buildCriterialSearch();
-            CriterialSearch criterialSearch = directorCriterialSearch.getCriterialSearch();
+            criterialSearch = directorCriterialSearch.getCriterialSearch();
             List<Asset> filesList = searchFile.searchCriterial(criterialSearch);
-            view.getPanelGeneral().getSearchPanel().getPanelDataBase().getSaveCriteriaButton().addActionListener(e -> saveDataBase(criterialSearch));
+            //view.getPanelGeneral().getSearchPanel().getPanelDataBase().getSaveCriteriaButton().addActionListener(e -> saveDataBase(criterialSearch));
             view.getPanelGeneral().getResultPanel().cleanTable();
             for(Asset asset: filesList){
                 AssetFile assetFile = (AssetFile) asset;
@@ -184,18 +186,27 @@ public class Controller {
         searchCriteriaMapOfDataBase = search.getAllDataCriteriaDataBase();
         int row =  view.getPanelGeneral().getSearchPanel().getPanelDataBase().getTable().getSelectedRow();
         String id=view.getPanelGeneral().getSearchPanel().getPanelDataBase().getTable().getValueAt(row, 0).toString();
-        System.out.println(id);
 
         int aux2 = Integer.parseInt(id);
-        System.out.println(searchCriteriaMapOfDataBase);
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getPath().setText(searchCriteriaMapOfDataBase.get(aux2).getDirectory());
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getOwner().setText(searchCriteriaMapOfDataBase.get(aux2).getOwner());
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getNameFile().setText(searchCriteriaMapOfDataBase.get(aux2).getNameFile());
 
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().setSelected(searchCriteriaMapOfDataBase.get(aux2).isSelectOnlyfolder());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().setSelected(searchCriteriaMapOfDataBase.get(aux2).isSelectOnlyfiles());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().setSelected(searchCriteriaMapOfDataBase.get(aux2).isSelectAll());
+
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getKeySensitive().setSelected(searchCriteriaMapOfDataBase.get(aux2).isKeySensitive());
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getHiddenFile().setSelected(searchCriteriaMapOfDataBase.get(aux2).isHidden());
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getReadOnly().setSelected(searchCriteriaMapOfDataBase.get(aux2).isReadOnly());
+
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getWriteExtension().setText(searchCriteriaMapOfDataBase.get(aux2).getOtherExtencion());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFileType().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getType());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getCount().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getDelimitSizeSearch());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSizeFile().setValue(searchCriteriaMapOfDataBase.get(aux2).getSize());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSizeType().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getUnitSize());
+
+
     }
 
     /**
