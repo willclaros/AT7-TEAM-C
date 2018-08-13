@@ -47,10 +47,10 @@ public class AssetMultimedia extends Asset {
      * @param endWord           end with this word.
      * @param otherExtencion    distint extension the common list.
      */
-    public AssetMultimedia(String path, String filename, long size, String extension, String owner, boolean hidden, String countSearch, boolean readOnly,
-                           boolean keySensitive, boolean selectAll, boolean selectfiles, boolean starWord, boolean contentWord,
-                           boolean endWord, String otherExtension, double duration, double frameRate, int heigth, int width,
-                           String aspectRatio, String codec) {
+    public AssetMultimedia(String path, String filename, long size, String extension, String owner, boolean hidden,
+                           String countSearch, boolean readOnly, boolean keySensitive, boolean selectAll, boolean selectfiles,
+                           boolean starWord, boolean contentWord, boolean endWord, String otherExtension, double duration,
+                           double frameRate, int heigth, int width, String aspectRatio, String codec) {
         super(path, filename, size, extension, owner, hidden, countSearch, readOnly, keySensitive, selectAll, selectfiles, starWord, contentWord,
                 endWord, otherExtension);
         this.duration = duration;

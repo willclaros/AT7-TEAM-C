@@ -114,12 +114,6 @@ public class Controller {
         if (!keySensiteve) {
             fileName = fileName.toLowerCase();
         }
-
-        /*criterialSearch = new CriterialSearch(pathName, fileName, fileHidden, fileType, owner, fileSize, countSearch, sizeType,
-                readOnly, keySensiteve, selectAll, selectFolder, selectfiles, starWord, contentWord, endWord, otherExtension,
-                containWordInFile);*/
-
-
         //SearchFile model = new SearchFile();
         SearchMultimedia modelMultimedia = new SearchMultimedia();
         DirectorCriterialSearch directorCriterialSearch = new DirectorCriterialSearch();
@@ -143,7 +137,7 @@ public class Controller {
                     AssetMultimedia assetMultimedia = (AssetMultimedia) asset;
                     view.getPanelGeneral().getResultPanel().addRowTable(asset.getPath(), asset.getFilename(),
                             asset.getExtension(), asset.getSize(), String.valueOf(asset.isHidden()), asset.getOwner(),
-                            null, null, null, asset.isReadOnly(), assetMultimedia.getDuration(),
+                            assetMultimedia.getDateCreate(), assetMultimedia.getDatAccessed(), assetMultimedia.getDateModify(), !asset.isReadOnly(), assetMultimedia.getDuration(),
                             assetMultimedia.getFrameRate(), assetMultimedia.getHeigth(), assetMultimedia.getWidth(),
                             assetMultimedia.getAspectRatio(), assetMultimedia.getCodec());
                 }
@@ -168,7 +162,7 @@ public class Controller {
                 view.getPanelGeneral().getResultPanel().addRowTable(assetFile.getPath(), assetFile.getFilename(),
                         assetFile.getExtension(), assetFile.getSize(), String.valueOf(assetFile.isHidden()),
                         assetFile.getOwner(), assetFile.getDateCreate(), assetFile.getDateModify(), assetFile.getDatAccessed(),
-                        assetFile.isReadOnly(), 0, 0, 0, 0, null, null);
+                        !assetFile.isReadOnly(), 0, 0, 0, 0, null, null);
             }
         }
         //LOGGER.info("Controller init: exit");
