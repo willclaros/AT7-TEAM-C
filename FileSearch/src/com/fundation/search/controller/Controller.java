@@ -58,6 +58,12 @@ public class Controller {
         });
         view.getPanelGeneral().getSearchPanel().getPanelDataBase().getLoadCriteriaButton().addActionListener(e -> listenLoadButton());
         //view.getPanelGeneral().getSearchPanel().getPanelDataBase().getSaveCriteriaButton().addActionListener(e -> saveDataBase());
+        view.getPanelGeneral().getSearchPanel().getPanelDataBase().cleanTable();
+        Map<Integer, CriterialSearch> searchCriteriaMapOfDataBase;
+        search = new SearchFile();
+        searchCriteriaMapOfDataBase = search.getAllDataCriteriaDataBase();
+        searchCriteriaMapOfDataBase.forEach((k,v) -> view.getPanelGeneral().getSearchPanel().getPanelDataBase().
+                addRowTable(this.getDataFromCriteriaMap(k,v)));
         LOGGER.info("Controller init: exit");
     }
 
@@ -178,12 +184,7 @@ public class Controller {
     }
 
     private void listenLoadButton() {
-        view.getPanelGeneral().getSearchPanel().getPanelDataBase().cleanTable();
-        Map<Integer, CriterialSearch> searchCriteriaMapOfDataBase;
-        search = new SearchFile();
-        searchCriteriaMapOfDataBase = search.getAllDataCriteriaDataBase();
-        searchCriteriaMapOfDataBase.forEach((k,v) -> view.getPanelGeneral().getSearchPanel().getPanelDataBase().
-                addRowTable(this.getDataFromCriteriaMap(k,v)));
+        
     }
 
     /**
