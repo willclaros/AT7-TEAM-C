@@ -11,6 +11,8 @@
  */
 package com.fundation.search.model;
 
+import java.util.Date;
+
 /**
  * Class that creates the basic search panel.
  *
@@ -51,6 +53,18 @@ public class AssetMultimedia extends Asset {
                            String aspectRatio, String codec) {
         super(path, filename, size, extension, owner, hidden, countSearch, readOnly, keySensitive, selectAll, selectfiles, starWord, contentWord,
                 endWord, otherExtension);
+        this.duration = duration;
+        this.frameRate = frameRate;
+        this.heigth = heigth;
+        this.width = width;
+        this.aspectRatio = aspectRatio;
+        this.codec = codec;
+    }
+
+    public AssetMultimedia(String path, String filename, long size, String extension, String owner, boolean hidden, boolean readOnly,
+                           String dateCreate, String dateModify, String dateAccessed, double duration, double frameRate, int heigth, int width,
+                           String aspectRatio, String codec){
+        super(path, filename, size, extension, owner, hidden, readOnly, dateCreate, dateModify, dateAccessed);
         this.duration = duration;
         this.frameRate = frameRate;
         this.heigth = heigth;

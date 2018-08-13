@@ -29,7 +29,7 @@ public class Asset {
      */
     private boolean hidden;
 
-    private String countSearch;
+    private String expresionSearch;
     /**
      * search if only read.
      */
@@ -68,6 +68,10 @@ public class Asset {
     private Date dateChoiserModifyEnd;
     private Date dateChoiserAccessedIni;
     private Date dateChoiserAccessedEnd;
+
+    private String dateCreate;
+    private String dateModify;
+    private String datAccessed;
     /**
      * Constructor of the class Asset.
      *
@@ -98,7 +102,7 @@ public class Asset {
         this.extension = extension;
         this.owner = owner;
         this.hidden = hidden;
-        this.countSearch = countSearch;
+        this.expresionSearch = countSearch;
         this.readOnly = readOnly;
         this.keySensitive = keySensitive;
         this.selectAll = selectAll;
@@ -107,6 +111,20 @@ public class Asset {
         this.contentWord = contentWord;
         this.endWord = endWord;
         this.otherExtension = otherExtension;
+    }
+
+    public Asset(String path, String filename, long size, String extension, String owner, boolean hidden, boolean readOnly,
+                 String dateCreate, String dateModify, String dateAccessed){
+        this.path = path;
+        this.filename = filename;
+        this.size = size;
+        this.extension = extension;
+        this.owner = owner;
+        this.hidden = hidden;
+        this.readOnly = readOnly;
+        this.dateCreate = dateCreate;
+        this.dateModify = dateModify;
+        this.datAccessed = dateAccessed;
     }
 
     public Asset(String path, String filename, long size, String extension, String owner, boolean hidden,
@@ -120,7 +138,7 @@ public class Asset {
         this.extension = extension;
         this.owner = owner;
         this.hidden = hidden;
-        this.countSearch = countSearch;
+        this.expresionSearch = countSearch;
         this.readOnly = readOnly;
         this.keySensitive = keySensitive;
         this.selectAll = selectAll;
@@ -355,63 +373,39 @@ public class Asset {
      * Method that contains the word in the document.
      * @return Word that contains the document.
      */
-    public String getCountSearch() {
-        return countSearch;
+    public String getExpresionSearch() {
+        return expresionSearch;
     }
 
     /**
      * Method that contains the word in the document.
-     * @param countSearch hat contains the document
+     * @param expresionSearch hat contains the document
      */
-    public void setCountSearch(String countSearch) {
-        this.countSearch = countSearch;
+    public void setExpresionSearch(String expresionSearch) {
+        this.expresionSearch = expresionSearch;
     }
 
-    public Date getDateChoserCreateIni() {
-        return dateChoserCreateIni;
+    public String getDateCreate() {
+        return dateCreate;
     }
 
-    public void setDateChoserCreateIni(Date dateChoserCreateIni) {
-        this.dateChoserCreateIni = dateChoserCreateIni;
+    public void setDateCreate(String dateCreate) {
+        this.dateCreate = dateCreate;
     }
 
-    public Date getDateChooserCreateEnd() {
-        return dateChooserCreateEnd;
+    public String getDateModify() {
+        return dateModify;
     }
 
-    public void setDateChooserCreateEnd(Date dateChooserCreateEnd) {
-        this.dateChooserCreateEnd = dateChooserCreateEnd;
+    public void setDateModify(String dateModify) {
+        this.dateModify = dateModify;
     }
 
-    public Date getDateChoiserModifyIni() {
-        return dateChoiserModifyIni;
+    public String getDatAccessed() {
+        return datAccessed;
     }
 
-    public void setDateChoiserModifyIni(Date dateChoiserModifyIni) {
-        this.dateChoiserModifyIni = dateChoiserModifyIni;
-    }
-
-    public Date getDateChoiserModifyEnd() {
-        return dateChoiserModifyEnd;
-    }
-
-    public void setDateChoiserModifyEnd(Date dateChoiserModifyEnd) {
-        this.dateChoiserModifyEnd = dateChoiserModifyEnd;
-    }
-
-    public Date getDateChoiserAccessedIni() {
-        return dateChoiserAccessedIni;
-    }
-
-    public void setDateChoiserAccessedIni(Date dateChoiserAccessedIni) {
-        this.dateChoiserAccessedIni = dateChoiserAccessedIni;
-    }
-
-    public Date getDateChoiserAccessedEnd() {
-        return dateChoiserAccessedEnd;
-    }
-
-    public void setDateChoiserAccessedEnd(Date dateChoiserAccessedEnd) {
-        this.dateChoiserAccessedEnd = dateChoiserAccessedEnd;
+    public void setDatAccessed(String datAccessed) {
+        this.datAccessed = datAccessed;
     }
 }
