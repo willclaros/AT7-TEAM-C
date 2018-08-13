@@ -11,6 +11,8 @@
  */
 package com.fundation.search.model;
 
+import java.util.Date;
+
 /**
  * This class AssetFile can be FileResult, MultimediaResult and maybe SearchFolder.
  *
@@ -25,6 +27,8 @@ public class AssetFile extends Asset {
      * Attribute to determine if it is folder.
      */
     private boolean selectFolder;
+
+    private boolean contentWord;
 
     /**
      * Builder of the Asset File class.
@@ -56,11 +60,24 @@ public class AssetFile extends Asset {
         this.selectFolder = selectFolder;
     }
 
+    public AssetFile(String path, String filename, long size, String extension, String owner, boolean hidden, boolean readOnly,
+                     String dateCreate, String dateModify, String dateAccessed, boolean contentWord){
+        super(path, filename, size, extension, owner, hidden, readOnly, dateCreate, dateModify, dateAccessed);
+        this.contentWord = contentWord;
+    }
     /**
      * Method that determines whether or not it is a folder.
      * @return returns a boolean that determines whether or not it is a folder.
      */
     public boolean isSelectFolder() {
         return selectFolder;
+    }
+
+    public boolean isContentWord() {
+        return contentWord;
+    }
+
+    public void setContentWord(boolean contentWord) {
+        this.contentWord = contentWord;
     }
 }

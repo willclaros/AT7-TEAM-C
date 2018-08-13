@@ -14,9 +14,6 @@
 
 package com.fundation.search.view;
 
-import com.fundation.search.model.ModelSearch;
-import javafx.scene.control.SpinnerValueFactory;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -71,7 +68,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
     private JSpinner sizeFile;
     private JButton searchButton;
     private PanelSearchResult panelResult;
-    private ModelSearch modelSearch;
+    //private ModelSearch modelSearch;
     private JCheckBox checkOtherExtention;
 
     private ImageIcon openBtn1;
@@ -89,7 +86,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         settingPanel();
         initComponent();
         this.panelResult = panelResult;
-        modelSearch = new ModelSearch();
+        //modelSearch = new ModelSearch();
     }
     public PanelSearchBasic() {
         settingPanel();
