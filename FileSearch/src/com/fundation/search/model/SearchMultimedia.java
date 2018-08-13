@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.LinkOption;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.UserPrincipal;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +37,7 @@ public class SearchMultimedia extends Search{
             } else {
                 try{
                     Path filePath = Paths.get(fileIterate.getPath());
+                    attr = Files.readAttributes(filePath, BasicFileAttributes.class);
                     String ffprobeBinaryPath = new File(".").getCanonicalFile() + SEPARATOR + "resources" + SEPARATOR + "ffprobe.exe";
                     String videoPath = fileIterate.getCanonicalPath();
                     fFprobe = new FFprobe(ffprobeBinaryPath);
@@ -78,13 +80,18 @@ public class SearchMultimedia extends Search{
                         continue;
                     }
                     System.out.println(fileIterate.canWrite());
-                    pathListMultimedia.add(new AssetMultimedia(fileIterate.getAbsolutePath(), fileIterate.getName(),
+                    /*pathListMultimedia.add(new AssetMultimedia(fileIterate.getAbsolutePath(), fileIterate.getName(),
                             fileIterate.length(), getFileExtension(fileIterate),
                             ownerFile.getName(), fileIterate.isHidden(), "",
                             fileIterate.canWrite(), criteria.isKeySensitive(),
                             false, false, criteria.isStarWord(),
-                            criteria.isContentWord(), criteria.isEndWord(), "", duration, frameRate,
-                            height, width, aspectRatio, codec));
+                            criteria.isContentWord(), criteria.isEndWord(), "", duration, duration,
+                            height, width, aspectRatio, codec));*/
+
+                    pathListMultimedia.add(new AssetMultimedia(fileIterate.getAbsolutePath(),fileIterate.getName(),fileIterate.length(),
+                            getFileExtension(fileIterate),ownerFile.getName(),fileIterate.isHidden(), fileIterate.canWrite(),
+                            formatDateString(attr.creationTime().toMillis()),formatDateString(attr.lastModifiedTime().toMillis()),
+                            formatDateString(attr.lastAccessTime().toMillis()), duration,duration,height,width, aspectRatio,codec));
 
                 }catch(IOException e) {
                 }

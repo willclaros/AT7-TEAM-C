@@ -181,17 +181,8 @@ public class Controller {
     }
 
     private void listenLoadButton() {
-/*view.getPanelGeneral().getSearchPanel().getPanelDataBase().cleanTable();
-        Map<Integer, CriterialSearch> searchCriteriaMapOfDataBase;
-        search = new SearchFile();
         searchCriteriaMapOfDataBase = search.getAllDataCriteriaDataBase();
-        searchCriteriaMapOfDataBase.forEach((k,v) -> view.getPanelGeneral().getSearchPanel().getPanelDataBase().
-                addRowTable(this.getDataFromCriteriaMap(k,v)));*/
-
-        searchCriteriaMapOfDataBase = search.getAllDataCriteriaDataBase();
-
         int row =  view.getPanelGeneral().getSearchPanel().getPanelDataBase().getTable().getSelectedRow();
-
         String id=view.getPanelGeneral().getSearchPanel().getPanelDataBase().getTable().getValueAt(row, 0).toString();
         System.out.println(id);
 
