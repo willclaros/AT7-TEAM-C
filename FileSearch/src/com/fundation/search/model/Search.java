@@ -26,14 +26,54 @@ public abstract class Search {
 
     protected abstract List<Asset> searchCriterial (CriterialSearch criterialSearch) throws IOException;
 
-    /*public boolean verifyRangeSizeFile(CriterialSearch criterialSearch, long size){
-        if(criterialSearch.getDelimitSizeSearch() == " = "){
-            if(criterialSearch.getUnitSize() == ){
-
-            }
+    public boolean verifyRangeSizeFile(String delimitSize,long criterialSize,String unitSize,long size) {
+        // Get length of file in bytes
+        long fileSizeInBytes = size;
+        // Convert the bytes to Kilobytes (1 KB = 1024 Bytes)
+        long fileSizeInKB = fileSizeInBytes / 1024;
+        // Convert the KB to MegaBytes (1 MB = 1024 KBytes)
+        long fileSizeInMB = fileSizeInKB / 1024;
+        // Convert the MB to GygaBytes (1 GB = 1024 MegaBytes)
+        long fileSizeInGB = fileSizeInMB / 1024;
+        if (delimitSize == " = " && unitSize == "Byte" && fileSizeInBytes == criterialSize) {
+            return true;
+        }
+        if (delimitSize == " > " && unitSize == "Byte" && fileSizeInBytes > criterialSize) {
+            return true;
+        }
+        if (delimitSize == " < " && unitSize == "Byte" && fileSizeInBytes < criterialSize) {
+            return true;
+        }
+        if (delimitSize == " = " && unitSize == "KByte" && fileSizeInKB == criterialSize) {
+            return true;
+        }
+        if (delimitSize == " > " && unitSize == "KByte" && fileSizeInKB > criterialSize) {
+            return true;
+        }
+        if (delimitSize == " < " && unitSize == "KByte" && fileSizeInKB < criterialSize) {
+            return true;
+        }
+        if (delimitSize == " = " && unitSize == "MByte" && fileSizeInMB == criterialSize) {
+            return true;
+        }
+        if (delimitSize == " > " && unitSize == "MByte" && fileSizeInMB > criterialSize) {
+            return true;
+        }
+        if (delimitSize == " < " && unitSize == "MByte" && fileSizeInMB < criterialSize) {
+            return true;
+        }
+        if (delimitSize == " = " && unitSize == "GByte" && fileSizeInGB == criterialSize) {
+            return true;
+        }
+        if (delimitSize == " > " && unitSize == "GByte" && fileSizeInGB > criterialSize) {
+            return true;
+        }
+        if (delimitSize == " < " && unitSize == "GByte" && fileSizeInGB == criterialSize) {
+            return true;
         }
         return false;
-    }*/
+
+    }
     /**
      * Method that returns a string with the extension of the document.
      * @param file receive a file.
@@ -110,9 +150,9 @@ public abstract class Search {
         if (fileIterate.isHidden() != criteria.isHidden()) {
             return false;
         }
-        if (criteria.getSize() > 0 && fileIterate.length() != criteria.getSize()) {
+        /*if (criteria.getSize() > 0 && fileIterate.length() != criteria.getSize()) {
             return false;
-        }
+        }*/
         if (criteria.getNameFile() != null && !fileIterate.getName().contains(criteria.getNameFile())) {
             return false;
         }
@@ -123,6 +163,9 @@ public abstract class Search {
             return false;
         }
         if (fileIterate.canWrite() == criteria.isReadOnly() && fileIterate.canRead() == criteria.isReadOnly()) {
+            return false;
+        }
+        if (criteria.getSize() > 0 && !verifyRangeSizeFile(criteria.getDelimitSizeSearch(), criteria.getSize(), criteria.getUnitSize(), fileIterate.length())){
             return false;
         }
         //BasicFileAttributes attr = Files.readAttributes(filePath, BasicFileAttributes.class);
