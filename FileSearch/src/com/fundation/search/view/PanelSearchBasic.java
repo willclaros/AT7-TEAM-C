@@ -116,6 +116,8 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
 
         path = new JTextField();
         path.setBounds(90, 50, 300, 30);
+        path.setEditable(false);
+        //path.setEnabled(false);
         add(path);
 
         JLabel labelNameFile = new JLabel("File Name: ");
@@ -123,18 +125,18 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         add(labelNameFile);
 
         nameFile = new JTextField();
-        nameFile.setBounds(90, 90, 70, 30);
+        nameFile.setBounds(90, 90, 90, 30);
         add(nameFile);
 
         JLabel labelOwner = new JLabel("Owner");
-        labelOwner.setBounds(170, 90, 80, 30);
+        labelOwner.setBounds(183, 90, 90, 30);
         add(labelOwner);
         owner = new JTextField();
-        owner.setBounds(220, 90, 70, 30);
+        owner.setBounds(225, 90, 90, 30);
         add(owner);
 
         JLabel labelContent = new JLabel("Contains");
-        labelContent.setBounds(310, 90, 100, 30);
+        labelContent.setBounds(317, 90, 100, 30);
         add(labelContent);
 
         content = new JTextField();

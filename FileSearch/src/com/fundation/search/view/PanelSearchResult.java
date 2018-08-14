@@ -127,7 +127,7 @@ public class PanelSearchResult extends JPanel {
     public void addRowTable(String path, String fileName, String fileType, long fileSize, String fileHidden,
                             String owner, String fecha1, String fecha2, String fecha3, boolean readOnly,
                             double duration, double frameRate, int heigth, int width, String aspedtRatio, String codec) {
-        modelTable.addRow(new String[]{fileName, fileType, String.valueOf(fileSize), path, fileHidden, owner
+        modelTable.addRow(new String[]{fileName.substring(0,fileName.lastIndexOf(".")), fileType, String.valueOf(fileSize), path, fileHidden, owner
                 ,fecha1,fecha2,fecha3,String.valueOf(readOnly),String.valueOf(duration),String.valueOf(frameRate),String.valueOf(heigth),
                  String.valueOf(width),aspedtRatio,codec});
     }
