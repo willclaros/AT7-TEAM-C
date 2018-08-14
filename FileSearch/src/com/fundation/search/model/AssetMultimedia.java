@@ -29,23 +29,13 @@ public class AssetMultimedia extends Asset {
     /**
      * Builder of the Asset Multimedia class.
      *
-     * @param directory         is a patch of file search.
-     * @param nameFile          name file search.
-     * @param type              extent of file.
+     * @param path              is a patch of file search.
+     * @param filename          name file search.
+     * @param extension         extent of file.
      * @param owner             of file.
-     * @param delimitSizeSearch this is a delimiter search for size minor to <, major to >, equal to =.
-     * @param unitSize          type size of file MB, GB, KB.
      * @param size              size of file.
      * @param hidden            true or false is hidden.
      * @param readOnly          is only file read.
-     * @param keySesitive       is equal to word tyoe search.
-     * @param selectAll         search for all files and folder.
-     * @param selectOnlyfolder  search for only folder.
-     * @param selectOnlyfiles   search for only files.
-     * @param starWord          title contain with this word.
-     * @param contentWord       contain with this word.
-     * @param endWord           end with this word.
-     * @param otherExtencion    distint extension the common list.
      */
     public AssetMultimedia(String path, String filename, long size, String extension, String owner, boolean hidden, boolean readOnly,
                            String dateCreate, String dateModify, String dateAccessed, double duration, double frameRate, int heigth, int width,

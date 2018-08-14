@@ -18,63 +18,33 @@ import java.util.Date;
  *
  * @author Erik Vargas - AT-[07].
  * @author William Claros Revollo - AT-[07].
+ * @@author Estalin Yerel Hurtado Arias - AT-[07].
  * @version 1.0.
  */
 public class AssetFile extends Asset {
 
 
     /**
-     * Attribute to determine if it is folder.
+     * Attribute to determine if it is content word in file.
      */
-    private boolean selectFolder;
-
     private boolean contentWord;
 
     /**
      * Builder of the Asset File class.
      *
-     * @param directory         is a patch of file search.
-     * @param nameFile          name file search.
-     * @param type              extent of file.
+     * @param path              is a patch of file search.
+     * @param filename          name file search.
+     * @param extension         extent of file.
      * @param owner             of file.
-     * @param delimitSizeSearch this is a delimiter search for size minor to <, major to >, equal to =.
-     * @param unitSize          type size of file MB, GB, KB.
      * @param size              size of file.
      * @param hidden            true or false is hidden.
      * @param readOnly          is only file read.
-     * @param keySesitive       is equal to word tyoe search.
-     * @param selectAll         search for all files and folder.
-     * @param selectOnlyfolder  search for only folder.
-     * @param selectOnlyfiles   search for only files.
-     * @param starWord          title contain with this word.
      * @param contentWord       contain with this word.
-     * @param endWord           end with this word.
-     * @param otherExtencion    distint extension the common list.
-     * @param selectFolder      boolean parameter that determines whether or not it is a folder.
      */
-    public AssetFile(String path, String filename, long size, String extension, String owner, boolean hidden, String countSearch, boolean readOnly,
-                     boolean keySensitive, boolean selectAll, boolean selectfiles, boolean starWord, boolean contentWord,
-                     boolean endWord, String otherExtension, boolean selectFolder) {
-        super(path, filename, size, extension, owner, hidden, countSearch, readOnly, keySensitive, selectAll, selectfiles, starWord, contentWord,
-                endWord, otherExtension);
-        this.selectFolder = selectFolder;
-    }
-
     public AssetFile(String path, String filename, long size, String extension, String owner, boolean hidden, boolean readOnly,
                      String dateCreate, String dateModify, String dateAccessed, boolean contentWord){
         super(path, filename, size, extension, owner, hidden, readOnly, dateCreate, dateModify, dateAccessed);
         this.contentWord = contentWord;
-    }
-    /**
-     * Method that determines whether or not it is a folder.
-     * @return returns a boolean that determines whether or not it is a folder.
-     */
-    public boolean isSelectFolder() {
-        return selectFolder;
-    }
-
-    public boolean isContentWord() {
-        return contentWord;
     }
 
     public void setContentWord(boolean contentWord) {

@@ -70,7 +70,7 @@ public class Controller {
      * with the Model.
      */
     private void getData() throws IOException {
-        //LOGGER.info("Controller getData: enter");
+        LOGGER.info("Controller getData: enter");
         String pathName = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getPath().getText();
         String fileName = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getNameFile().getText();
         boolean fileHidden = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getHiddenFile().isSelected();
@@ -119,7 +119,6 @@ public class Controller {
             fileName = fileName.toLowerCase();
         }
 
-        //SearchFile model = new SearchFile();
         SearchMultimedia modelMultimedia = new SearchMultimedia();
         DirectorCriterialSearch directorCriterialSearch = new DirectorCriterialSearch();
         boolean isCheckMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckMultimedia().isSelected();
@@ -171,10 +170,11 @@ public class Controller {
                         assetFile.isReadOnly(), 0, 0, 0, 0, null, null);
             }
         }
-        //LOGGER.info("Controller init: exit");
+        LOGGER.info("Controller init: exit");
     }
 
     private void saveDataBase(CriterialSearch criterialSearch){
+        LOGGER.info("Controller saveDataBase: enter");
         writeDescritionCritera =  view.getPanelGeneral().getSearchPanel().getPanelDataBase().getWriteDescritionCritera().getText();
         if (!writeDescritionCritera.isEmpty()){
             search = new SearchFile();
@@ -182,6 +182,7 @@ public class Controller {
             search.saveCriteriaDataBase(criterialSearch);
             updateDataBase();
         }
+        LOGGER.info("Controller saveDataBase: exit");
     }
 
     private void listenLoadButton() {
@@ -227,12 +228,13 @@ public class Controller {
         return dataFromAsset;
     }
     private void updateDataBase(){
-
+        LOGGER.info("Controller updateDataBase: enter");
         view.getPanelGeneral().getSearchPanel().getPanelDataBase().cleanTable();
         Map<Integer, CriterialSearch> searchCriteriaMapOfDataBase;
         search = new SearchFile();
         searchCriteriaMapOfDataBase = search.getAllDataCriteriaDataBase();
         searchCriteriaMapOfDataBase.forEach((k,v) -> view.getPanelGeneral().getSearchPanel().getPanelDataBase().
                 addRowTable(this.getDataFromCriteriaMap(k,v)));
+        LOGGER.info("Controller updateDataBase: exit");
     }
 }

@@ -1,8 +1,21 @@
+/**
+ * @(#)AssetMultimedia.java Copyright (c) 2018 Jala Foundation.
+ * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+ * All rights reserved.
+ * <p>
+ * This software is the confidential and proprietary information of
+ * Jala Foundation, ("Confidential Information").  You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Jala Foundation.
+ */
 package com.fundation.search.model;
 
 import com.fundation.search.controller.CriterialSearch;
+import com.fundation.search.utils.LoggerWrapper;
 import net.bramp.ffmpeg.FFprobe;
 import net.bramp.ffmpeg.probe.FFmpegStream;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,9 +38,11 @@ public class SearchMultimedia extends Search{
     private FFprobe fFprobe;
     private static final String SEPARATOR = System.getProperty("file.separator");
     private List<Asset> pathListMultimedia = new ArrayList<>();
+    private static final Logger LOGGER = LoggerWrapper.getInstance().getLogger();
 
     @Override
     public List<Asset> searchCriterial(CriterialSearch criteria) throws IOException {
+        LOGGER.info("SearchMultimedia searchCriterial: enter");
         File files = new File(criteria.getDirectory());
         File[] ficheros = files.listFiles();
         for (File fileIterate : ficheros) {
@@ -43,19 +58,12 @@ public class SearchMultimedia extends Search{
                     fFprobe = new FFprobe(ffprobeBinaryPath);
                     FFmpegStream multimediaFile = fFprobe.probe(videoPath).getStreams().get(0);
                     UserPrincipal ownerFile = Files.getOwner(filePath, LinkOption.NOFOLLOW_LINKS);
-
                     duration = Math.round(multimediaFile.duration);
                     frameRate = multimediaFile.r_frame_rate.doubleValue();
                     height = multimediaFile.height;
                     width = multimediaFile.width;
                     aspectRatio = multimediaFile.display_aspect_ratio;
                     codec = multimediaFile.codec_name;
-                    System.out.println("duration: " + duration);
-                    System.out.println("frame Rate: " + frameRate);
-                    System.out.println("Dimension : " + width + "X" + height);
-                    System.out.println("aspect Ratio: " + aspectRatio);
-                    System.out.println("codec: " + codec);
-
                     if (fileIterate.isHidden() != criteria.isHidden()) {
                         continue;
                     }
@@ -79,15 +87,6 @@ public class SearchMultimedia extends Search{
                     if (!criteria.getResolution().isEmpty() && !resolution(criteria.getResolution())) {
                         continue;
                     }
-                    System.out.println(fileIterate.canWrite());
-                    /*pathListMultimedia.add(new AssetMultimedia(fileIterate.getAbsolutePath(), fileIterate.getName(),
-                            fileIterate.length(), getFileExtension(fileIterate),
-                            ownerFile.getName(), fileIterate.isHidden(), "",
-                            fileIterate.canWrite(), criteria.isKeySensitive(),
-                            false, false, criteria.isStarWord(),
-                            criteria.isContentWord(), criteria.isEndWord(), "", duration, duration,
-                            height, width, aspectRatio, codec));*/
-
                     pathListMultimedia.add(new AssetMultimedia(fileIterate.getAbsolutePath(),fileIterate.getName(),fileIterate.length(),
                             getFileExtension(fileIterate),ownerFile.getName(),fileIterate.isHidden(), fileIterate.canWrite(),
                             formatDateString(attr.creationTime().toMillis()),formatDateString(attr.lastModifiedTime().toMillis()),
@@ -98,9 +97,11 @@ public class SearchMultimedia extends Search{
             }
 
         }
+        LOGGER.info("SearchMultimedia searchCriterial: exit");
         return pathListMultimedia;
     }
     public boolean durationMultimedia (String countMultimedia, String inputSizeMultimedia, String durationTypeMultimedia) throws IOException {
+        LOGGER.info("SearchMultimedia durationMultimedia: enter");
         if (durationTypeMultimedia.equalsIgnoreCase("minutes")){
             if (countMultimedia.equals(" = ")){
                 if(duration / 60 == Double.parseDouble(inputSizeMultimedia)){
@@ -153,13 +154,16 @@ public class SearchMultimedia extends Search{
                 }
             }
         }
+        LOGGER.info("SearchMultimedia durationMultimedia: exit");
         return false;
     }
     public boolean resolution(String resolutionVideo) throws IOException {
+        LOGGER.info("SearchMultimedia resolution: enter");
         String resolutionThisVideo = String.valueOf(width)+" x "+String.valueOf(height);
         if(resolutionVideo.equalsIgnoreCase(resolutionThisVideo)){
             return true;
         }
+        LOGGER.info("SearchMultimedia resolution: exit");
         return false;
     }
 }
