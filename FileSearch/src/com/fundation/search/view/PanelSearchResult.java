@@ -14,9 +14,6 @@
 
 package com.fundation.search.view;
 
-import com.fundation.search.model.Asset;
-import com.fundation.search.model.AssetMultimedia;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;

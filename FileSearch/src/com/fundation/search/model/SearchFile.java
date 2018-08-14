@@ -1,6 +1,20 @@
+/**
+ * @(#)AssetMultimedia.java Copyright (c) 2018 Jala Foundation.
+ * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+ * All rights reserved.
+ * <p>
+ * This software is the confidential and proprietary information of
+ * Jala Foundation, ("Confidential Information").  You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Jala Foundation.
+ */
 package com.fundation.search.model;
 
 import com.fundation.search.controller.CriterialSearch;
+import com.fundation.search.utils.LoggerWrapper;
+import org.apache.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -12,11 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchFile extends Search{
+    private static final Logger LOGGER = LoggerWrapper.getInstance().getLogger();
     private List<Asset> modelSearch = new ArrayList<>();
 
     @Override
     public List<Asset> searchCriterial(CriterialSearch criteria) throws IOException {
-
+        LOGGER.info("SearchFile searchCriterial: enter");
         File files = new File(criteria.getDirectory());
         File[] ficheros = files.listFiles();
         for(File fileIterate : ficheros){
@@ -79,6 +94,7 @@ public class SearchFile extends Search{
                 }
             }
         }
+        LOGGER.info("SearchFile searchCriterial: exit");
         return modelSearch;
     }
 
@@ -89,7 +105,7 @@ public class SearchFile extends Search{
      * @throws IOException to file error.
      */
     private boolean findContentFile(File patch, String contentFile) throws IOException {
-        //LOGGER.info("ModelSearch findContentFile: init");
+        LOGGER.info("SearchFile findContentFile: init");
         FileReader fr = new FileReader(patch.getAbsolutePath());
         BufferedReader br = new BufferedReader(fr);
         String s;
@@ -100,7 +116,7 @@ public class SearchFile extends Search{
             }
         }
         fr.close();
-        //LOGGER.info("ModelSearch findContentFile: exit");
+        LOGGER.info("SearchFile findContentFile: exit");
         return false;
     }
 

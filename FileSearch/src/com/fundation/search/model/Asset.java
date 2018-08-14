@@ -62,22 +62,15 @@ public class Asset {
      * other extension distint to common list.
      */
     private String otherExtension;
-    private Date dateChoserCreateIni;
-    private Date dateChooserCreateEnd;
-    private Date dateChoiserModifyIni;
-    private Date dateChoiserModifyEnd;
-    private Date dateChoiserAccessedIni;
-    private Date dateChoiserAccessedEnd;
-
     private String dateCreate;
     private String dateModify;
     private String datAccessed;
     /**
      * Constructor of the class Asset.
      *
-     * @param directory         is a patch of file search.
-     * @param nameFile          name file search.
-     * @param type              extent of file.
+     * @param path              is a patch of file search.
+     * @param filename          name file search.
+     * @param extension         extent of file.
      * @param owner             of file.
      * @param delimitSizeSearch this is a delimiter search for size minor to <, major to >, equal to =.
      * @param unitSize          type size of file MB, GB, KB.
@@ -93,26 +86,6 @@ public class Asset {
      * @param endWord           end with this word.
      * @param otherExtencion    distint extension the common list.
      */
-    public Asset(String path, String filename, long size, String extension, String owner,
-                 boolean hidden, String countSearch, boolean readOnly, boolean keySensitive, boolean selectAll,
-                 boolean selectfiles, boolean starWord, boolean contentWord, boolean endWord, String otherExtension) {
-        this.path = path;
-        this.filename = filename;
-        this.size = size;
-        this.extension = extension;
-        this.owner = owner;
-        this.hidden = hidden;
-        this.expresionSearch = countSearch;
-        this.readOnly = readOnly;
-        this.keySensitive = keySensitive;
-        this.selectAll = selectAll;
-        this.selectfiles = selectfiles;
-        this.starWord = starWord;
-        this.contentWord = contentWord;
-        this.endWord = endWord;
-        this.otherExtension = otherExtension;
-    }
-
     public Asset(String path, String filename, long size, String extension, String owner, boolean hidden, boolean readOnly,
                  String dateCreate, String dateModify, String dateAccessed){
         this.path = path;
@@ -125,34 +98,6 @@ public class Asset {
         this.dateCreate = dateCreate;
         this.dateModify = dateModify;
         this.datAccessed = dateAccessed;
-    }
-
-    public Asset(String path, String filename, long size, String extension, String owner, boolean hidden,
-                 String countSearch, boolean readOnly, boolean keySensitive, boolean selectAll, boolean selectfiles,
-                 boolean starWord, boolean contentWord, boolean endWord, String otherExtension, Date dateChoserCreateIni,
-                 Date dateChooserCreateEnd, Date dateChoiserModifyIni, Date dateChoiserModifyEnd,
-                 Date dateChoiserAccessedIni, Date dateChoiserAccessedEnd) {
-        this.path = path;
-        this.filename = filename;
-        this.size = size;
-        this.extension = extension;
-        this.owner = owner;
-        this.hidden = hidden;
-        this.expresionSearch = countSearch;
-        this.readOnly = readOnly;
-        this.keySensitive = keySensitive;
-        this.selectAll = selectAll;
-        this.selectfiles = selectfiles;
-        this.starWord = starWord;
-        this.contentWord = contentWord;
-        this.endWord = endWord;
-        this.otherExtension = otherExtension;
-        this.dateChoserCreateIni = dateChoserCreateIni;
-        this.dateChooserCreateEnd = dateChooserCreateEnd;
-        this.dateChoiserModifyIni = dateChoiserModifyIni;
-        this.dateChoiserModifyEnd = dateChoiserModifyEnd;
-        this.dateChoiserAccessedIni = dateChoiserAccessedIni;
-        this.dateChoiserAccessedEnd = dateChoiserAccessedEnd;
     }
 
     /**

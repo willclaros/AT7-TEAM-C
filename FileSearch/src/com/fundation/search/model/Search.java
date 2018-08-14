@@ -1,8 +1,21 @@
+/**
+ * @(#)AssetMultimedia.java Copyright (c) 2018 Jala Foundation.
+ * 2643 Av Melchor Perez de Olguin, Colquiri Sud, Cochabamba, Bolivia.
+ * All rights reserved.
+ * <p>
+ * This software is the confidential and proprietary information of
+ * Jala Foundation, ("Confidential Information").  You shall not
+ * disclose such Confidential Information and shall use it only in
+ * accordance with the terms of the license agreement you entered into
+ * with Jala Foundation.
+ */
 package com.fundation.search.model;
 
 import com.fundation.search.DataBase.SearchQuery;
 import com.fundation.search.controller.CriterialSearch;
+import com.fundation.search.utils.LoggerWrapper;
 import com.google.gson.Gson;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,10 +36,19 @@ public abstract class Search {
     protected UserPrincipal ownerFile;
     protected Path filePath;
     protected BasicFileAttributes attr;
+    private static final Logger LOGGER = LoggerWrapper.getInstance().getLogger();
 
     protected abstract List<Asset> searchCriterial (CriterialSearch criterialSearch) throws IOException;
 
+    /**
+     * @param delimitSize is a > < =.
+     * @param criterialSize is a input size search.
+     * @param unitSize is a unid to search MB, GB, Bytes.
+     * @param size is a size the file.
+     * @return true if file usseful criterial.
+     */
     public boolean verifyRangeSizeFile(String delimitSize,long criterialSize,String unitSize,long size) {
+        LOGGER.info("Search verifyRangeSizeFile: enter");
         // Get length of file in bytes
         long fileSizeInBytes = size;
         // Convert the bytes to Kilobytes (1 KB = 1024 Bytes)
@@ -71,8 +93,8 @@ public abstract class Search {
         if (delimitSize == " < " && unitSize == "GByte" && fileSizeInGB == criterialSize) {
             return true;
         }
+        LOGGER.info("Search verifyRangeSizeFile: exit");
         return false;
-
     }
     /**
      * Method that returns a string with the extension of the document.
@@ -80,18 +102,24 @@ public abstract class Search {
      * @return returns a string with the extension of the document.
      */
     protected static String getFileExtension(File file) {
+        LOGGER.info("Search getFileExtension: enter");
         String fileName = file.getName();
-        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0) {
             return fileName.substring(fileName.lastIndexOf(".")+1);
-        else return "";
+        }
+        LOGGER.info("Search getFileExtension: exit");
+        return "";
     }
 
     public String formatDateString(long date) throws IOException {
+        LOGGER.info("Search formatDateString: enter");
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        LOGGER.info("Search formatDateString: exit");
         return sdf.format(date);
     }
 
     public boolean isRangeDate(String dateInitial, String dateFinal, String dateFile){
+        LOGGER.info("Search isRangeDate: enter");
         String[] dateInittialArray = dateInitial.split("/");
         String[] dateFinalArray = dateFinal.split("/");
         String[] dateFileArray = dateFile.split("/");
@@ -105,22 +133,25 @@ public abstract class Search {
                 }
             }
         }
+        LOGGER.info("Search isRangeDate: exit");
         return false;
     }
 
     public void saveCriteriaDataBase(CriterialSearch criteriaSearch) {
+        LOGGER.info("Search saveCriteriaDataBase: enter");
         try {
             SearchQuery insertCriteriaDb = new SearchQuery();
             Gson jsonCriteria = new Gson();
             String saveCriteria = jsonCriteria.toJson(criteriaSearch);
-            //System.out.println(saveCriteria);
             insertCriteriaDb.insertCriteria(saveCriteria);
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        LOGGER.info("Search saveCriteriaDataBase: exit");
     }
 
     public Map<Integer, CriterialSearch> getAllDataCriteriaDataBase() {
+        LOGGER.info("Search getAllDataCriteriaDataBase: enter");
         ResultSet resultSet = null;
         CriterialSearch searchCriteria;
         int index;
@@ -140,19 +171,17 @@ public abstract class Search {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println(criteriaList);
+        LOGGER.info("Search getAllDataCriteriaDataBase: exit");
         return criteriaList;
     }
 
     protected boolean search (File fileIterate, CriterialSearch criteria) throws IOException {
+        LOGGER.info("Search search: enter");
         filePath = Paths.get(fileIterate.getPath());
         ownerFile = Files.getOwner(filePath, LinkOption.NOFOLLOW_LINKS);
         if (fileIterate.isHidden() != criteria.isHidden()) {
             return false;
         }
-        /*if (criteria.getSize() > 0 && fileIterate.length() != criteria.getSize()) {
-            return false;
-        }*/
         if (criteria.getNameFile() != null && !fileIterate.getName().contains(criteria.getNameFile())) {
             return false;
         }
@@ -168,7 +197,6 @@ public abstract class Search {
         if (criteria.getSize() > 0 && !verifyRangeSizeFile(criteria.getDelimitSizeSearch(), criteria.getSize(), criteria.getUnitSize(), fileIterate.length())){
             return false;
         }
-        //BasicFileAttributes attr = Files.readAttributes(filePath, BasicFileAttributes.class);
         if (criteria.getDateChoserCreateIni() != null && criteria.getDateChooserCreateEnd() != null && criteria.isDateCreatedSelected()) {
             String formatFileCreate =  formatDateString(attr.creationTime().toMillis());
             String formatCreateIni = formatDateString(criteria.getDateChoserCreateIni().toInstant().toEpochMilli());
@@ -194,6 +222,7 @@ public abstract class Search {
                 return false;
             }
         }
+        LOGGER.info("Search search: exit");
         return true;
     }
 }
