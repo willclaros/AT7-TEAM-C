@@ -14,6 +14,8 @@
 package com.fundation.search.view;
 
 import com.toedter.calendar.JDateChooser;
+import com.toedter.calendar.JTextFieldDateEditor;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.event.ChangeEvent;
@@ -241,11 +243,16 @@ public class PanelSearchAdvanced extends JPanel {
 
         dateChoserCreateIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
         dateChoserCreateIni.setBounds(30,284,90,30);
+        JTextFieldDateEditor editor = (JTextFieldDateEditor) dateChoserCreateIni.getDateEditor();
+        editor.setEditable(false);
         add(dateChoserCreateIni);
         dateChoserCreateIni.setEnabled(false);
 
+
         dateChooserCreateEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
         dateChooserCreateEnd.setBounds(30,310,90,30);
+        JTextFieldDateEditor editor2 = (JTextFieldDateEditor) dateChooserCreateEnd.getDateEditor();
+        editor2.setEditable(false);
         add(dateChooserCreateEnd);
         dateChooserCreateEnd.setEnabled(false);
 
@@ -259,11 +266,15 @@ public class PanelSearchAdvanced extends JPanel {
 
         dateChooserModifyIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
         dateChooserModifyIni.setBounds(170,284,90,30);
+        JTextFieldDateEditor editor3 = (JTextFieldDateEditor) dateChooserModifyIni.getDateEditor();
+        editor3.setEditable(false);
         add(dateChooserModifyIni);
         dateChooserModifyIni.setEnabled(false);
 
         dateChooserModifyEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
         dateChooserModifyEnd.setBounds(170,310,90,30);
+        JTextFieldDateEditor editor4 = (JTextFieldDateEditor) dateChooserModifyEnd.getDateEditor();
+        editor4.setEditable(false);
         add(dateChooserModifyEnd);
         dateChooserModifyEnd.setEnabled(false);
 
@@ -277,6 +288,8 @@ public class PanelSearchAdvanced extends JPanel {
         add(labelIntervalDate);
         dateChooserAccessedIni = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
         dateChooserAccessedIni.setBounds(330,284,90,30);
+        JTextFieldDateEditor editor5 = (JTextFieldDateEditor) dateChooserAccessedIni.getDateEditor();
+        editor5.setEditable(false);
         add(dateChooserAccessedIni);
         dateChooserAccessedIni.setEnabled(false);
 
@@ -286,6 +299,8 @@ public class PanelSearchAdvanced extends JPanel {
         add(labelIntervalSymbol);
         dateChooserAccessedEnd = new JDateChooser("MM/dd/yyyy","##/##/####",'_');
         dateChooserAccessedEnd.setBounds(330,310,90,30);
+        JTextFieldDateEditor editor6 = (JTextFieldDateEditor) dateChooserAccessedEnd.getDateEditor();
+        editor6.setEditable(false);
         add(dateChooserAccessedEnd);
         dateChooserAccessedEnd.setEnabled(false);
 

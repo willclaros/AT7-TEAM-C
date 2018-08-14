@@ -21,6 +21,8 @@ import com.fundation.search.utils.LoggerWrapper;
 import com.fundation.search.view.View;
 import org.apache.log4j.Logger;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -48,8 +50,6 @@ public class Controller {
     public void init() {
         LOGGER.info("Controller init: enter");
         this.view = new View();
-        /*view.setDefaultLookAndFeelDecorated(true); //que nos permite dejar a Substance la decoracion ( por asi decirlo)
-        SubstanceLookAndFeel.setSkin("org.jvnet.substance.skin.SaharaSkin");*/
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSearchButton().addActionListener(e -> {
             try {
                 getData();
@@ -116,11 +116,13 @@ public class Controller {
         if (!keySensiteve) {
             fileName = fileName.toLowerCase();
         }
+
         //SearchFile model = new SearchFile();
         SearchMultimedia modelMultimedia = new SearchMultimedia();
         DirectorCriterialSearch directorCriterialSearch = new DirectorCriterialSearch();
         boolean isCheckMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckMultimedia().isSelected();
-        if (checkOtherExtentionMult && !otherExtencionMultimedia.isEmpty()) extencionList = otherExtencionMultimedia;
+        if (checkOtherExtentionMult && !otherExtencionMultimedia.isEmpty())
+            extencionList = otherExtencionMultimedia;
         if (isCheckMultimedia) {
             ACriterialSearchBuilder multimedia = new CriterialMultimedia(pathName, fileName,fileHidden,owner, fileSize,
                     countSearch, sizeType,readOnly, keySensiteve, starWord,contentWord,endWord, otherExtension, dateChoserCreateIni,
