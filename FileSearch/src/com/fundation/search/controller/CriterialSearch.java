@@ -20,6 +20,7 @@ public class CriterialSearch {
     private boolean contentWord;
     private boolean endWord;
     private String otherExtencion;
+    private boolean checkOtherExtension;
     private String containWordInFile;
     private Date dateChoserCreateIni;
     private Date dateChooserCreateEnd;
@@ -36,6 +37,7 @@ public class CriterialSearch {
      * multimedia specific.
      */
     private boolean isSelectedMultimediaSearch;
+    private boolean checkOtherExtentionMult;
     private String extencionMultimedia;
     private String countMultimedia;
     private String inputSizeMultimedia;
@@ -179,6 +181,14 @@ public class CriterialSearch {
 
     public void setOtherExtencion(String otherExtencion) {
         this.otherExtencion = otherExtencion;
+    }
+
+    public boolean isCheckOtherExtension() {
+        return checkOtherExtension;
+    }
+
+    public void setCheckOtherExtension(boolean checkOtherExtension) {
+        this.checkOtherExtension = checkOtherExtension;
     }
 
     public String getContainWordInFile() {
@@ -339,5 +349,13 @@ public class CriterialSearch {
 
     public void setSelectedMultimediaSearch(boolean selectedMultimediaSearch) {
         isSelectedMultimediaSearch = selectedMultimediaSearch;
+    }
+
+    public boolean isCheckOtherExtentionMult() {
+        return checkOtherExtentionMult;
+    }
+
+    public void setCheckOtherExtentionMult(boolean checkOtherExtentionMult) {
+        this.checkOtherExtentionMult = checkOtherExtentionMult;
     }
 }

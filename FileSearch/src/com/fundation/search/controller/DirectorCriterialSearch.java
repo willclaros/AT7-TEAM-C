@@ -29,6 +29,7 @@ public class DirectorCriterialSearch {
         criterialSearchBuilder.buildContentWord();
         criterialSearchBuilder.buildEndWord();
         criterialSearchBuilder.buildOtherExtencion();
+        criterialSearchBuilder.buildCheckOtherExtension();
         criterialSearchBuilder.buildContainWordInFile();
         criterialSearchBuilder.buildDateChoserCreateIni();
         criterialSearchBuilder.buildDateChooserCreateEnd();

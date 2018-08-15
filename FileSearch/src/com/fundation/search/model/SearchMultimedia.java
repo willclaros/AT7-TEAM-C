@@ -47,7 +47,7 @@ public class SearchMultimedia extends Search{
         File[] ficheros = files.listFiles();
         for (File fileIterate : ficheros) {
             if (fileIterate.isDirectory()) {
-                criteria.setDirectory(fileIterate.getPath());
+               criteria.setDirectory(fileIterate.getPath());
                 searchCriterial(criteria);
             } else {
                 try{
@@ -64,9 +64,12 @@ public class SearchMultimedia extends Search{
                     width = multimediaFile.width;
                     aspectRatio = multimediaFile.display_aspect_ratio;
                     codec = multimediaFile.codec_name;
-                    if (fileIterate.isHidden() != criteria.isHidden()) {
+                    if (!search(fileIterate, criteria)){
                         continue;
                     }
+                    /*if (fileIterate.isHidden() != criteria.isHidden()) {
+                        continue;
+                    }*/
                     if (criteria.getExtencionMultimedia() != null && !fileIterate.getName().toLowerCase().endsWith(criteria.getExtencionMultimedia())) {
                         continue;
                     }
@@ -75,22 +78,22 @@ public class SearchMultimedia extends Search{
                                     criteria.getDurationTypeMultimedia())) {
                         continue;
                     }
-                    if (!criteria.getVideoCode().isEmpty() && !criteria.getVideoCode().equalsIgnoreCase(codec)) {
+                    if (!criteria.getVideoCode().equals(" ") && !criteria.getVideoCode().equalsIgnoreCase(codec)) {
                         continue;
                     }
-                    if (!criteria.getAudioCode().isEmpty() && !criteria.getAudioCode().equalsIgnoreCase(codec)) {
+                    if (!criteria.getAudioCode().equals(" ") && !criteria.getAudioCode().equalsIgnoreCase(codec)) {
                         continue;
                     }
-                    if (!criteria.getFrameRate().isEmpty() && !criteria.getFrameRate().equalsIgnoreCase(String.valueOf(frameRate))) {
+                    if (!criteria.getFrameRate().equals(" ") && !criteria.getFrameRate().equalsIgnoreCase(String.valueOf(frameRate))) {
                         continue;
                     }
-                    if (!criteria.getResolution().isEmpty() && !resolution(criteria.getResolution())) {
+                    if (!criteria.getResolution().equals(" ") && !resolution(criteria.getResolution())) {
                         continue;
                     }
                     pathListMultimedia.add(new AssetMultimedia(fileIterate.getAbsolutePath(),fileIterate.getName(),fileIterate.length(),
                             getFileExtension(fileIterate),ownerFile.getName(),fileIterate.isHidden(), fileIterate.canWrite(),
                             formatDateString(attr.creationTime().toMillis()),formatDateString(attr.lastModifiedTime().toMillis()),
-                            formatDateString(attr.lastAccessTime().toMillis()), duration,duration,height,width, aspectRatio,codec));
+                            formatDateString(attr.lastAccessTime().toMillis()), duration,frameRate,height,width, aspectRatio,codec));
 
                 }catch(IOException e) {
                 }

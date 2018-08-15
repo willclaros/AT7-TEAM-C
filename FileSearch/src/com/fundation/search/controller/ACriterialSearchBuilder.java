@@ -25,6 +25,7 @@ public abstract class ACriterialSearchBuilder {
     public abstract void buildContentWord();
     public abstract void buildEndWord();
     public abstract void buildOtherExtencion();
+    public abstract void buildCheckOtherExtension();
     public abstract void buildContainWordInFile();
     public abstract void buildDateChoserCreateIni();
     public abstract void buildDateChooserCreateEnd();
