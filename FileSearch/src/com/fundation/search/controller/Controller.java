@@ -42,7 +42,7 @@ public class Controller {
     private Search search;
     private String writeDescritionCritera;
     private Map <Integer,CriterialSearch> searchCriteriaMapOfDataBase;
-
+    private String pathAux;
     private CriterialSearch criterialSearch;
 
     /**
@@ -70,7 +70,7 @@ public class Controller {
      * with the Model.
      */
     private void getData() throws IOException {
-        LOGGER.info("Controller getData: enter");
+        //LOGGER.info("Controller getData: enter");
         String pathName = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getPath().getText();
         String fileName = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getNameFile().getText();
         boolean fileHidden = view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getHiddenFile().isSelected();
@@ -101,6 +101,8 @@ public class Controller {
         boolean dateModifySelected = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDatemodificate().isSelected();
         boolean dateAccessedSelected = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getAccessDate().isSelected();
 
+        boolean isCheckMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckMultimedia().isSelected();
+        boolean checkOtherExtentionMult = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckOtherExtentionMult().isSelected();
         String otherExtencionMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getWriteExtensionMult().getText();
         String extencionList = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getType().getSelectedItem().toString();
         String countMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCountMultimedia().getSelectedItem().toString();
@@ -110,8 +112,7 @@ public class Controller {
         String audioCode = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getAudio().getSelectedItem().toString();
         String frameRate = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getRate().getSelectedItem().toString();
         String resolution = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getResol().getSelectedItem().toString();
-        boolean checkOtherExtentionMult = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckOtherExtentionMult().isSelected();
-
+        pathAux = pathName;
         if (checkOtherExtension && !otherExtension.isEmpty()) {
             fileType = otherExtension;
         }
@@ -121,7 +122,6 @@ public class Controller {
 
         SearchMultimedia modelMultimedia = new SearchMultimedia();
         DirectorCriterialSearch directorCriterialSearch = new DirectorCriterialSearch();
-        boolean isCheckMultimedia = view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckMultimedia().isSelected();
         if (checkOtherExtentionMult && !otherExtencionMultimedia.isEmpty())
             extencionList = otherExtencionMultimedia;
         if (isCheckMultimedia) {
@@ -136,7 +136,6 @@ public class Controller {
             criterialSearch = directorCriterialSearch.getCriterialSearch();
             try {
                 List<Asset> multimediaList = modelMultimedia.searchCriterial(criterialSearch);
-                //view.getPanelGeneral().getSearchPanel().getPanelDataBase().getSaveCriteriaButton().addActionListener(e -> saveDataBase(criterialSearch));
                 view.getPanelGeneral().getResultPanel().cleanTable();
                 for (Asset asset : multimediaList) {
                     AssetMultimedia assetMultimedia = (AssetMultimedia) asset;
@@ -153,14 +152,13 @@ public class Controller {
             SearchFile searchFile = new SearchFile();
             ACriterialSearchBuilder files = new CriterialFile(pathName,fileName,fileHidden,fileType,owner,fileSize,
                     countSearch,sizeType,readOnly,keySensiteve, selectAll,selectFolder,selectfiles,starWord,
-                    contentWord,endWord,otherExtension,containWordInFile, dateChoserCreateIni,dateChooserCreateEnd,
+                    contentWord,endWord,otherExtension,checkOtherExtension,containWordInFile, dateChoserCreateIni,dateChooserCreateEnd,
                     dateChoiserModifyIni, dateChoiserModifyEnd, dateChoiserAccessedIni,dateChoiserAccessedEnd,
                     dateCreatedSelected, dateModifySelected, dateAccessedSelected, "");
             directorCriterialSearch.setCriterialBuilder(files);
             directorCriterialSearch.buildCriterialSearch();
             criterialSearch = directorCriterialSearch.getCriterialSearch();
             List<Asset> filesList = searchFile.searchCriterial(criterialSearch);
-            //view.getPanelGeneral().getSearchPanel().getPanelDataBase().getSaveCriteriaButton().addActionListener(e -> saveDataBase(criterialSearch));
             view.getPanelGeneral().getResultPanel().cleanTable();
             for(Asset asset: filesList){
                 AssetFile assetFile = (AssetFile) asset;
@@ -170,7 +168,7 @@ public class Controller {
                         assetFile.isReadOnly(), 0, 0, 0, 0, null, null);
             }
         }
-        LOGGER.info("Controller init: exit");
+        //LOGGER.info("Controller init: exit");
     }
 
     private void saveDataBase(CriterialSearch criterialSearch){
@@ -179,6 +177,7 @@ public class Controller {
         if (!writeDescritionCritera.isEmpty()){
             search = new SearchFile();
             criterialSearch.setNameCriterialDatabase(writeDescritionCritera);
+            criterialSearch.setDirectory(pathAux);
             search.saveCriteriaDataBase(criterialSearch);
             updateDataBase();
         }
@@ -189,27 +188,52 @@ public class Controller {
         searchCriteriaMapOfDataBase = search.getAllDataCriteriaDataBase();
         int row =  view.getPanelGeneral().getSearchPanel().getPanelDataBase().getTable().getSelectedRow();
         String id=view.getPanelGeneral().getSearchPanel().getPanelDataBase().getTable().getValueAt(row, 0).toString();
-
         int aux2 = Integer.parseInt(id);
+
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getPath().setText(searchCriteriaMapOfDataBase.get(aux2).getDirectory());
-        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getOwner().setText(searchCriteriaMapOfDataBase.get(aux2).getOwner());
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getNameFile().setText(searchCriteriaMapOfDataBase.get(aux2).getNameFile());
-
-        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().setSelected(searchCriteriaMapOfDataBase.get(aux2).isSelectOnlyfolder());
-        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().setSelected(searchCriteriaMapOfDataBase.get(aux2).isSelectOnlyfiles());
-        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().setSelected(searchCriteriaMapOfDataBase.get(aux2).isSelectAll());
-
-        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getKeySensitive().setSelected(searchCriteriaMapOfDataBase.get(aux2).isKeySensitive());
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getHiddenFile().setSelected(searchCriteriaMapOfDataBase.get(aux2).isHidden());
-        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getReadOnly().setSelected(searchCriteriaMapOfDataBase.get(aux2).isReadOnly());
-
-        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getWriteExtension().setText(searchCriteriaMapOfDataBase.get(aux2).getOtherExtencion());
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFileType().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getType());
-        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getCount().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getDelimitSizeSearch());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getOwner().setText(searchCriteriaMapOfDataBase.get(aux2).getOwner());
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSizeFile().setValue(searchCriteriaMapOfDataBase.get(aux2).getSize());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getCount().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getDelimitSizeSearch());
         view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getSizeType().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getUnitSize());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getReadOnly().setSelected(searchCriteriaMapOfDataBase.get(aux2).isReadOnly());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getKeySensitive().setSelected(searchCriteriaMapOfDataBase.get(aux2).isKeySensitive());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getAll().setSelected(searchCriteriaMapOfDataBase.get(aux2).isSelectAll());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFolder().setSelected(searchCriteriaMapOfDataBase.get(aux2).isSelectOnlyfolder());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFile().setSelected(searchCriteriaMapOfDataBase.get(aux2).isSelectOnlyfiles());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getStartWord().setSelected(searchCriteriaMapOfDataBase.get(aux2).isStarWord());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getContentWord().setSelected(searchCriteriaMapOfDataBase.get(aux2).isContentWord());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getEndWord().setSelected(searchCriteriaMapOfDataBase.get(aux2).isEndWord());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getWriteExtension().setText(searchCriteriaMapOfDataBase.get(aux2).getOtherExtencion());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getCheckOtherExtention().setSelected(searchCriteriaMapOfDataBase.get(aux2).isCheckOtherExtension());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getContent().setText(searchCriteriaMapOfDataBase.get(aux2).getContainWordInFile());
 
-
+        view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChoserCreateIni().setDate(searchCriteriaMapOfDataBase.get(aux2).getDateChoserCreateIni());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChooserCreateEnd().setDate(searchCriteriaMapOfDataBase.get(aux2).getDateChooserCreateEnd());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChooserModifyIni().setDate(searchCriteriaMapOfDataBase.get(aux2).getDateChoiserModifyIni());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChooserModifyEnd().setDate(searchCriteriaMapOfDataBase.get(aux2).getDateChoiserModifyEnd());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChooserAccessedIni().setDate(searchCriteriaMapOfDataBase.get(aux2).getDateChoiserAccessedIni());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDateChooserAccessedEnd().setDate(searchCriteriaMapOfDataBase.get(aux2).getDateChoiserAccessedEnd());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDatecreated().setSelected(searchCriteriaMapOfDataBase.get(aux2).isDateCreatedSelected());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getDatemodificate().setSelected(searchCriteriaMapOfDataBase.get(aux2).isDateModifySelected());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getAccessDate().setSelected(searchCriteriaMapOfDataBase.get(aux2).isDateAccessedSelected());
+        view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckMultimedia().setSelected(false);
+        boolean isSelect = searchCriteriaMapOfDataBase.get(aux2).isSelectedMultimediaSearch();
+        if (isSelect){
+            view.getPanelGeneral().getSearchPanel().getPanelSearchBasic().getFileType().setSelectedItem(" ");
+            view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckMultimedia().setSelected(searchCriteriaMapOfDataBase.get(aux2).isSelectedMultimediaSearch());
+            view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCheckOtherExtentionMult().setSelected(searchCriteriaMapOfDataBase.get(aux2).isCheckOtherExtentionMult());
+            view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getType().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getExtencionMultimedia());
+            view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getCountMultimedia().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getCountMultimedia());
+            view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getSizeMutimedia().setValue(Long.parseLong(searchCriteriaMapOfDataBase.get(aux2).getInputSizeMultimedia()));
+            view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getSizeTypeMultimedia().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getDurationTypeMultimedia());
+            view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getVideo().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getVideoCode());
+            view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getAudio().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getAudioCode());
+            view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getRate().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getFrameRate());
+            view.getPanelGeneral().getSearchPanel().getPanelSearchAdvanced().getResol().setSelectedItem(searchCriteriaMapOfDataBase.get(aux2).getResolution());
+        }
     }
 
     /**

@@ -168,7 +168,7 @@ public class PanelSearchAdvanced extends JPanel {
         labelVideoCodec.setEnabled(false);
 
         videoCodec = new Vector();
-        videoCodec.add("");
+        videoCodec.add(" ");
         videoCodec.add("H264");
         videoCodec.add("H263");
         videoCodec.add("MPEG4");
@@ -185,7 +185,7 @@ public class PanelSearchAdvanced extends JPanel {
         labelAudioCodec.setEnabled(false);
 
         audioCodec = new Vector();
-        audioCodec.add("");
+        audioCodec.add(" ");
         audioCodec.add("mp3");
         audioCodec.add("acc");
         audioCodec.add("wma");
@@ -202,7 +202,7 @@ public class PanelSearchAdvanced extends JPanel {
         labelFrameRate.setEnabled(false);
 
         frameRate = new Vector();
-        frameRate.add("");
+        frameRate.add(" ");
         frameRate.add("24.0");
         frameRate.add("25.0");
         frameRate.add("27.0");
@@ -219,7 +219,7 @@ public class PanelSearchAdvanced extends JPanel {
         labelResolution.setEnabled(false);
 
         resolution = new Vector();
-        resolution.add("");
+        resolution.add(" ");
         resolution.add("320 x 240");
         resolution.add("512 x 384");
         resolution.add("640 x 480");

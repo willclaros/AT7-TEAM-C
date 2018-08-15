@@ -20,6 +20,7 @@ public class CriterialFile extends ACriterialSearchBuilder{
     private boolean contentWord;
     private boolean endWord;
     private String otherExtencion;
+    private boolean checkOtherExtension;
     private String containWordInFile;
     private Date dateChoserCreateIni;
     private Date dateChooserCreateEnd;
@@ -35,7 +36,7 @@ public class CriterialFile extends ACriterialSearchBuilder{
     public CriterialFile(String directory, String nameFile, boolean hidden, String type, String owner, long size,
                          String delimitSizeSearch, String unitSize, boolean readOnly, boolean keySensitive,
                          boolean selectAll, boolean selectOnlyfolder, boolean selectOnlyfiles, boolean starWord,
-                         boolean contentWord, boolean endWord, String otherExtencion, String containWordInFile,
+                         boolean contentWord, boolean endWord, String otherExtencion, boolean checkOtherExtension,String containWordInFile,
                          Date dateChoserCreateIni, Date dateChooserCreateEnd, Date dateChoiserModifyIni,
                          Date dateChoiserModifyEnd, Date dateChoiserAccessedIni, Date dateChoiserAccessedEnd,
                          boolean dateCreatedSelected, boolean dateModifySelected, boolean dateAccessedSelected,
@@ -57,6 +58,7 @@ public class CriterialFile extends ACriterialSearchBuilder{
         this.contentWord = contentWord;
         this.endWord = endWord;
         this.otherExtencion = otherExtencion;
+        this.checkOtherExtension = checkOtherExtension;
         this.containWordInFile = containWordInFile;
         this.dateChoserCreateIni = dateChoserCreateIni;
         this.dateChooserCreateEnd = dateChooserCreateEnd;
@@ -154,6 +156,9 @@ public class CriterialFile extends ACriterialSearchBuilder{
     public void buildOtherExtencion() {
         criterialSearch.setOtherExtencion(otherExtencion);
     }
+
+    @Override
+    public void buildCheckOtherExtension() { criterialSearch.setCheckOtherExtension(checkOtherExtension); }
 
     @Override
     public void buildContainWordInFile() {

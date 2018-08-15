@@ -207,7 +207,7 @@ public class PanelSearchBasic extends JPanel implements ActionListener {
         add(labelExtension);
 
         typeFile = new Vector();
-        typeFile.add("");
+        typeFile.add(" ");
         typeFile.add("txt");
         typeFile.add("doc");
         typeFile.add("pdf");

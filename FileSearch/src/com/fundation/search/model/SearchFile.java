@@ -81,7 +81,7 @@ public class SearchFile extends Search{
                     if (!search(fileIterate, criteria)){
                         continue;
                     }
-                    if (criteria.getType() != null && !fileIterate.getName().toLowerCase().endsWith(criteria.getType())) {
+                    if (!criteria.getType().equals(" ")  && !fileIterate.getName().toLowerCase().endsWith(criteria.getType())) {
                         continue;
                     }
                     if (criteria.getContainWordInFile() != null && !findContentFile(fileIterate, criteria.getContainWordInFile())) {

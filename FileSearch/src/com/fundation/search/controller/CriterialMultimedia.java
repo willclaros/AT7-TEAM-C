@@ -157,6 +157,9 @@ public class CriterialMultimedia extends ACriterialSearchBuilder{
     }
 
     @Override
+    public void buildCheckOtherExtension() { }
+
+    @Override
     public void buildContainWordInFile() { }
 
     @Override
