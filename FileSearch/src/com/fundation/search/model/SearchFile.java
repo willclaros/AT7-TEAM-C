@@ -40,7 +40,7 @@ public class SearchFile extends Search{
                 attr = Files.readAttributes(filePath, BasicFileAttributes.class);
                 if (fileIterate.isDirectory()) {
                     if (search(fileIterate, criteria)){
-                        modelSearch.add(new AssetFile(fileIterate.getPath(),  fileIterate.getName(), fileIterate.length(),
+                        modelSearch.add(new AssetFile(fileIterate.getPath(),  fileIterate.getName(), 0,
                                 getFileExtension(fileIterate), ownerFile.getName(), fileIterate.isHidden(), !fileIterate.canWrite(),
                                 formatDateString(attr.creationTime().toMillis()),formatDateString(attr.lastModifiedTime().toMillis()),
                                 formatDateString(attr.lastAccessTime().toMillis()), true));
@@ -49,7 +49,7 @@ public class SearchFile extends Search{
                     }
                 } else {
                     if (search(fileIterate, criteria)) {
-                        modelSearch.add(new AssetFile(fileIterate.getPath(), fileIterate.getName(), fileIterate.length(),
+                        modelSearch.add(new AssetFile(fileIterate.getPath(), returnFile(fileIterate), fileIterate.length(),
                                 getFileExtension(fileIterate), ownerFile.getName(), fileIterate.isHidden(), !fileIterate.canWrite(),
                                 formatDateString(attr.creationTime().toMillis()), formatDateString(attr.lastModifiedTime().toMillis()),
                                 formatDateString(attr.lastAccessTime().toMillis()), false));
@@ -61,7 +61,7 @@ public class SearchFile extends Search{
                 attr = Files.readAttributes(filePath, BasicFileAttributes.class);
                 if (fileIterate.isDirectory()) {
                     if (search(fileIterate, criteria)){
-                        modelSearch.add(new AssetFile(fileIterate.getPath(),  fileIterate.getName(), fileIterate.length(),
+                        modelSearch.add(new AssetFile(fileIterate.getPath(),  fileIterate.getName(), 0,
                                 getFileExtension(fileIterate), ownerFile.getName(), fileIterate.isHidden(), !fileIterate.canWrite(),
                                 formatDateString(attr.creationTime().toMillis()),formatDateString(attr.lastModifiedTime().toMillis()),
                                 formatDateString(attr.lastAccessTime().toMillis()), true));
@@ -87,7 +87,7 @@ public class SearchFile extends Search{
                     if (criteria.getContainWordInFile() != null && !findContentFile(fileIterate, criteria.getContainWordInFile())) {
                         continue;
                     }
-                    modelSearch.add(new AssetFile(fileIterate.getPath(),  fileIterate.getName(), fileIterate.length(),
+                    modelSearch.add(new AssetFile(fileIterate.getPath(),  returnFile(fileIterate), fileIterate.length(),
                             getFileExtension(fileIterate), ownerFile.getName(), fileIterate.isHidden(), !fileIterate.canWrite(),
                             formatDateString(attr.creationTime().toMillis()),formatDateString(attr.lastModifiedTime().toMillis()),
                             formatDateString(attr.lastAccessTime().toMillis()), false));

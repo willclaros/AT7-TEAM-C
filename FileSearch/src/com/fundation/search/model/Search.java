@@ -101,7 +101,7 @@ public abstract class Search {
      * @param file receive a file.
      * @return returns a string with the extension of the document.
      */
-    protected static String getFileExtension(File file) {
+    public String getFileExtension(File file) {
         LOGGER.info("Search getFileExtension: enter");
         String fileName = file.getName();
         if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0) {
@@ -111,13 +111,20 @@ public abstract class Search {
         return "";
     }
 
-    public String formatDateString(long date) throws IOException {
+
+    public String formatDateString(long date) {
         LOGGER.info("Search formatDateString: enter");
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
         LOGGER.info("Search formatDateString: exit");
         return sdf.format(date);
     }
 
+    /**
+     * @param dateInitial is a date initial to search.
+     * @param dateFinal is a date final to search.
+     * @param dateFile is a date file.
+     * @return true if date between this dateInitial and dateFinal.
+     */
     public boolean isRangeDate(String dateInitial, String dateFinal, String dateFile){
         LOGGER.info("Search isRangeDate: enter");
         String[] dateInittialArray = dateInitial.split("/");
@@ -224,5 +231,14 @@ public abstract class Search {
         }
         LOGGER.info("Search search: exit");
         return true;
+    }
+
+    protected String returnFile(File fileIterator){
+        int extensionIndex = fileIterator.getName().lastIndexOf(".");
+        if (extensionIndex == -1)
+            return fileIterator.getName();
+
+        return fileIterator.getName().substring(0, extensionIndex);
+
     }
 }

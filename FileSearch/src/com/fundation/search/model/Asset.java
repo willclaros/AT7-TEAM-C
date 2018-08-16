@@ -72,19 +72,9 @@ public class Asset {
      * @param filename          name file search.
      * @param extension         extent of file.
      * @param owner             of file.
-     * @param delimitSizeSearch this is a delimiter search for size minor to <, major to >, equal to =.
-     * @param unitSize          type size of file MB, GB, KB.
      * @param size              size of file.
      * @param hidden            true or false is hidden.
      * @param readOnly          is only file read.
-     * @param keySesitive       is equal to word tyoe search.
-     * @param selectAll         search for all files and folder.
-     * @param selectOnlyfolder  search for only folder.
-     * @param selectOnlyfiles   search for only files.
-     * @param starWord          title contain with this word.
-     * @param contentWord       contain with this word.
-     * @param endWord           end with this word.
-     * @param otherExtencion    distint extension the common list.
      */
     public Asset(String path, String filename, long size, String extension, String owner, boolean hidden, boolean readOnly,
                  String dateCreate, String dateModify, String dateAccessed){
