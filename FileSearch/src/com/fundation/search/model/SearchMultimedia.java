@@ -90,7 +90,7 @@ public class SearchMultimedia extends Search{
                     if (!criteria.getResolution().equals(" ") && !resolution(criteria.getResolution())) {
                         continue;
                     }
-                    pathListMultimedia.add(new AssetMultimedia(fileIterate.getAbsolutePath(),fileIterate.getName(),fileIterate.length(),
+                    pathListMultimedia.add(new AssetMultimedia(fileIterate.getAbsolutePath(),returnFile(fileIterate),fileIterate.length(),
                             getFileExtension(fileIterate),ownerFile.getName(),fileIterate.isHidden(), fileIterate.canWrite(),
                             formatDateString(attr.creationTime().toMillis()),formatDateString(attr.lastModifiedTime().toMillis()),
                             formatDateString(attr.lastAccessTime().toMillis()), duration,frameRate,height,width, aspectRatio,codec));
